@@ -8,5 +8,10 @@
             "email": "letoullec.martial@gmail.com"
         }
     ],
+		"autoload": {
+			"psr-4": {
+				"Mkk\\": "src"
+			}
+		},
     "require": {}
 }
