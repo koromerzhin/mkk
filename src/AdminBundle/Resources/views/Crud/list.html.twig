@@ -1,0 +1,64 @@
+{% extends "MkkSiteBundle:Templates:admin.html.twig" %}
+{% block body_content %}
+	<div class="box box-solid">
+		<div class="box-body">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>
+							<input data-rel="allselect" type="checkbox"/>
+						</th>
+						{% for a in sortList %}
+							<th{% if paginator.isSorted("li."~a.col) %} class="sorted" {% endif %}>
+								{% if a.sort %}
+									{{ knp_pagination_sortable(paginator, a.label|capitalize, "li."~a.col) }}
+								{% else %}
+									{{ a.label|capitalize }}
+								{% endif %}
+							</th>
+						{% endfor %}
+					</tr>
+				</thead>
+				<tbody>
+					{% for row in paginator %}
+						{% set debut = sortList | first %}
+						<tr>
+							<th scope="row">
+								<input type="checkbox" value="{{ row.id }}" name="selection[]"/>
+							</th>
+							{% for a in sortList %}
+								{% set val = row | get(a.col) %}
+								<td>
+									{% set tmpl = "" %}
+									{% if a.html is defined %}
+										{% set tmpl = a.html %}
+									{% elseif a.id %}
+										{% set tmpl = "MkkAdminBundle:Crud:tmpl/id.html.twig" %}
+									{% elseif val | isBool %}
+										{% set tmpl = "MkkAdminBundle:Crud:tmpl/boolean.html.twig" %}
+									{% elseif val | isObject and a.html is defined %}
+										{% set tmpl = a.html %}
+									{% elseif val | isObject %}
+										{% set tmpl = "MkkAdminBundle:Crud:tmpl/object.html.twig" %}
+									{% elseif val | isArray %}
+										{% set tmpl = "MkkAdminBundle:Crud:tmpl/array.html.twig" %}
+									{% elseif val | isFile %}
+										{% set tmpl = "MkkAdminBundle:Crud:tmpl/file.html.twig" %}
+									{% endif %}
+									{% if tmpl != "" %}
+										{% include tmpl %}
+									{% else %}
+										{{ val|raw }}
+									{% endif %}
+								</td>
+							{% endfor %}
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<div class="navigation">
+				{{ knp_pagination_render(paginator) }}
+			</div>
+		</div>
+	</div>
+{% endblock %}

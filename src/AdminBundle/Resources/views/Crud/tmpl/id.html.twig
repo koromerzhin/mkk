@@ -1,0 +1,15 @@
+{% set url = app.request.attributes.get('_route') | replace({"index": "form", "page": "form"}) %}
+{% if a.url is defined %}
+	{% set url = a.url %}
+{% endif %}
+<a href="{{ path(url,{'id': row.id}) }}">
+	{% if val | isBool %}
+		{% if a.url is defined %}
+			{boolean}{{ val }}|{{ path(a.url) }}|{{ row.id }}{/boolean}
+		{% else %}
+			{boolean}{{ val }}{/boolean}
+		{% endif %}
+	{% else %}
+		{{ val }}
+	{% endif %}
+</a>

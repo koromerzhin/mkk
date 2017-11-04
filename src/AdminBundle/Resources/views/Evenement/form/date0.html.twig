@@ -1,0 +1,94 @@
+<fieldset>
+	<legend>
+		{% if entity.type == 0 %}
+			Préciser dans chaque lieu où l’événement se déroule les dates et horaires ainsi que le nombre de places proposées pour chaque créneau horaire
+		{% else %}
+			Préciser les dates et horaires où le Pass est valable
+		{% endif %}
+	</legend>
+	<div class="row">
+		<div class="col-md-9 col-sm-9">
+			<div
+				id='calendar'
+				data-url="{{ path('beevenement_json-date', { 'id': id }) }}"
+				data-urldelete="{{ path('beevenement_json-datedelete') }}"
+				data-urladd="{{ path('beevenement_json-dateadd') }}"
+				data-urlupdate="{{ path('beevenement_json-dateupdate') }}"
+				data-urlinfo="{{ path('beevenement_json-dateinfo') }}"></div>
+		</div>
+		<div class="col-md-3 col-sm-3">
+			<div id="ListeDateEmplacement">
+				{% set totalnbemplacement = entity.totalnbemplacement %}
+				{% set emplacements = entity.emplacements %}
+				{% if totalnbemplacement >= 2 %}
+					{% for i, emplacement in emplacements %}
+						{% if i == 0 %}
+							<input type="hidden" name="emplist" value="{{ emplacement.id }}" id="InputEmplacement"/>
+						{% endif %}
+						{% if emplacement.adresses | length != 0 %}
+							{% for adresse in emplacement.adresses %}
+								{{ adresse.info }}
+								{{ adresse.cp }}
+								-
+								{{ adresse.ville }}
+							{% endfor %}
+						{% elseif emplacement.refetablissement != null %}
+							{{ emplacement.refetablissement.nom }}
+						{% endif %}
+						<ul>
+							{% for date in emplacement.dates %}
+								<li>
+									<a href="#" onclick="Evenement.Date.Modif({{ date.id }});">
+										{% set temps = date.debut | day %}
+										le
+										{{ temps }}
+										-
+										{{ date.debut|heure }}
+										à
+										{{ date.fin|heure }}
+										{% if param['evenement_place']is defined and param['evenement_place'] == 1 %}
+											({% if date.placeillimite == 0 %}
+												{{ date.place }}
+												place(s)
+											{% else %}
+												places illimités
+											{% endif %})
+										{% endif %}
+									</a>
+								</li>
+							{% endfor %}
+						</ul>
+						<br/>
+					{% endfor %}
+				{% else %}
+					<input type="hidden" name="emplist" value="{{ emplacements.first.id }}" id="InputEmplacement"/>
+					<ul>
+						{% for date in emplacements.first.dates %}
+							<li>
+								<a href="#" onclick="Evenement.Date.Modif({{ date.id }});">
+									{% set temps = date.debut | day %}
+									le
+									{{ temps }}
+									-
+									{{ date.debut|heure }}
+									à
+									{{ date.fin|heure }}
+									{% if entity.type == 0 %}
+										{% if param['evenement_place']is defined and param['evenement_place'] == 1 %}
+											({% if date.placeillimite == 0 %}
+												{{ date.place }}
+												place(s)
+											{% else %}
+												places illimités
+											{% endif %})
+										{% endif %}
+									{% endif %}
+								</a>
+							</li>
+						{% endfor %}
+					</ul>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</fieldset>

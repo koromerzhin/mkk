@@ -1,0 +1,10 @@
+{% if val | length != 0 %}
+	{% for i in val %}
+		{% if loop.index != 1 %}
+			<br/>
+		{% endif %}
+		{{ i }}
+	{% endfor %}
+{% else %}
+	VIDE
+{% endif %}

@@ -1,0 +1,161 @@
+{% from "MkkSiteBundle:Templates:admin/macro.html.twig" import navbarform %}
+{% extends "MkkAdminBundle:Evenement:layout.html.twig" %}
+{% from "MkkSiteBundle:Templates:macro.html.twig" import modaltmpl,
+modalEnregistrertmpl %}
+{% block bodyPopupValidation %}
+	Êtes-vous sur de vouloir valider cet événement ?
+{% endblock %}
+{% block footerPopupValidationCorrection %}
+	<a data-dismiss="modal" class="btn btn-default" href="#">
+		<i class="glyphicon glyphicon-remove"></i>
+		Non
+	</a>
+	<a href="" class="btn btn-default" data-rel="save">
+		<i class="glyphicon glyphicon-save"></i>
+		Oui
+	</a>
+{% endblock %}
+{% block bodyPopupCorrection %}
+	Êtes-vous sur de vouloir corriger et publier cet événement ?
+{% endblock %}
+
+{% block bodyPopupAjoutEmplacementChoix %}
+	L'évènement à lieu dans toute la ville ou dans un lieu pré-enregistré ?
+{% endblock %}
+
+{% block bodyPopupModifDate %}{% endblock %}
+
+{% block bodyPopupAjoutLieu %}
+	<form id="FormulaireEtablissementAdd" onsubmit="return false;" action="">
+		<input type="submit"/>
+		<input type="text" name="lieu[id]" data-url="{{ path('admin.evenement.search.lieu') }}" id="LieuListing" placeholder="Nouveau lieu"/>
+	</form>
+{% endblock %}
+
+{% block footerPopupAjoutEmplacementChoix %}
+	<a href="" class="btn btn-default" data-rel="ville">
+		<i class="glyphicon glyphicon-save"></i>
+		Toute une ville
+	</a>
+	<a href="" class="btn btn-default" data-rel="etablissement">
+		<i class="glyphicon glyphicon-save"></i>
+		Dans un lieu pré-enregistré
+	</a>
+	<a data-dismiss="modal" class="btn btn-default" href="#">
+		<i class="glyphicon glyphicon-remove"></i>
+		Annuler
+	</a>
+{% endblock %}
+
+{% block footerPopupAjoutEmplacement %}
+	<a data-dismiss="modal" class="btn btn-default" href="#">
+		<i class="glyphicon glyphicon-remove"></i>
+		Annuler
+	</a>
+	<a href="" class="btn btn-default" data-rel="save">
+		<i class="glyphicon glyphicon-save"></i>
+		Ajouter
+	</a>
+{% endblock %}
+{% block bodyPopupSuppressionDate %}
+	Êtes-vous sur de vouloir supprimer cette date ?
+{% endblock %}
+{% block footerPopupSuppressionDate %}
+	<a data-dismiss="modal" class="btn btn-default" href="#">
+		<i class="glyphicon glyphicon-remove"></i>
+		Annuler
+	</a>
+	<a data-rel="suppr" class="btn btn-default" href="#">
+		<i class="glyphicon glyphicon-ok"></i>
+		Oui
+	</a>
+{% endblock %}
+{% block bodyenregistrermodifadresse %}{% endblock %}
+{% block footerPopupDate %}
+	<a data-dismiss="modal" class="btn btn-default" href="#">
+		<i class="glyphicon glyphicon-remove"></i>
+		Annuler
+	</a>
+	<a data-rel="suppr" class="btn btn-default" href="#">
+		<i class="glyphicon glyphicon-ok"></i>
+		Supprimer
+	</a>
+	<a href="" class="btn btn-default" data-rel="save">
+		<i class="glyphicon glyphicon-save"></i>
+		Enregistrer
+	</a>
+{% endblock %}
+{% block modal %}
+	{{ parent() }}
+	{{ modalEnregistrertmpl(
+        "PopupModifAdresse",
+        block('bodyenregistrermodifadresse')
+    ) }}
+	{{ modaltmpl(
+        "PopupModifDate",
+        "Date",
+        block('bodyPopupModifDate'),
+        block('footerPopupDate')
+    ) }}
+	{{ modaltmpl(
+        "PopupValidation",
+        "Validation événement",
+        block('bodyPopupValidation'),
+        block('footerPopupValidationCorrection')
+    ) }}
+	{{ modaltmpl(
+        "PopupCorrection",
+        "Correction événement",
+        block('bodyPopupCorrection'),
+        block('footerPopupValidationCorrection')
+    ) }}
+	{{ modaltmpl(
+        "PopupAjoutEmplacementChoix",
+        "Choisir le type d'emplacement",
+        block('bodyPopupAjoutEmplacementChoix'),
+        block('footerPopupAjoutEmplacementChoix')
+    ) }}
+	{{ modaltmpl(
+        "PopupAjoutEmplacementEtablissement",
+        "Etablissement",
+        block('bodyPopupAjoutLieu'),
+         block('footerPopupAjoutEmplacement')
+    ) }}
+	{{ modaltmpl(
+        "PopupSuppressionDate",
+        "Suppression de date",
+        block('bodyPopupSuppressionDate'),
+        block('footerPopupSuppressionDate')
+    ) }}
+{% endblock %}
+{% block body_content %}
+	<blockquote>
+		L'ajout d'événement s'effectue en 3 étapes. Tout d'abord, vous enregistrez le titre et la description ainsi que les médias liés, puis ensuite les informations sur le lieu et enfin les différentes dates et horaires de l’événement dans ce lieu.
+	</blockquote>
+	{% set tabnav = [] %}
+	{% set tabnav = tabnav | merge([
+		{
+			'titre': 'Etape 1 - Informations',
+			'html': 'MkkAdminBundle:Evenement:form/informations.html.twig'
+		}
+	]) %}
+	{% if etat != "ajouter" %}
+		{% set tabnav = tabnav | merge([
+			{
+				'titre': 'Etape 2 - Lieu(x)',
+				'html': 'MkkAdminBundle:Evenement:form/emplacements.html.twig'
+			}
+		]) %}
+		{% if entity.emplacements | length != 0 %}
+			{% set tabnav = tabnav | merge([
+				{
+					'titre': 'Etape 3 - Date et horaires',
+					'html': 'MkkAdminBundle:Evenement:form/date.html.twig'
+				}
+			]) %}
+		{% endif %}
+	{% endif %}
+	{{ form_start(form['standard']) }}
+	{{ navbarform(tabnav, form, param) }}
+	{{ form_end(form['standard'] )}}
+{% endblock %}

@@ -1,0 +1,19 @@
+{% macro logo(param) %}
+	{% if param["image_logo"]is defined and param["image_logo"] != "" and param['image_logo'] | isFile %}
+		<div class="logo-login">
+			<span>
+				<img src="{{ asset(param['image_logo']) }}" alt="logo"/>
+			</span>
+		</div>
+	{% endif %}
+{% endmacro %}
+{% macro flashbag(app) %}
+	{% for label, messages in app.flashes %}
+		{% for message in messages %}
+			<div class="alert alert-{{ label }}">
+				<button class="close" data-dismiss="alert">×</button>
+				{{ message|trans }}
+			</div>
+		{% endfor %}
+	{% endfor %}
+{% endmacro %}

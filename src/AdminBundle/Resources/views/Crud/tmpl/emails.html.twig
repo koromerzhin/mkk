@@ -1,0 +1,6 @@
+{% for email in row.emails %}
+	{% if loop.index != 1 %}
+		<br/>
+	{% endif %}
+	{lienemail}{{ email.adresse }}{/lienemail}
+{% endfor %}

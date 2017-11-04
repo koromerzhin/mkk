@@ -1,0 +1,21 @@
+<div class="row">
+	<div class="col-md-6">
+		<fieldset>
+			<legend>Coordonnées</legend>
+			{{ form_row(form.civilite) }}
+			{{ form_row(form.nom) }}
+			{{ form_row(form.prenom) }}
+			{{ form_row(form.naissance) }}
+		</fieldset>
+		{{ form_row(form.fileavatar) }}
+	</div>
+	<div class="col-md-6">
+		<fieldset>
+			<legend>Compte</legend>
+			{{ form_row(form.username) }}
+			{{ form_row(form.plainPassword) }}
+			{{ form_row(form.pays) }}
+			{{ form_row(form.langue) }}
+		</fieldset>
+	</div>
+</div>

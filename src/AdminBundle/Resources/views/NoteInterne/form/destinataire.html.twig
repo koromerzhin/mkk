@@ -1,0 +1,17 @@
+{% if app.request.get('id') == 0 %}
+	<p>Vous pouvez choisir d'envoyer votre message à tous les utilisateurs ou choisir individuellement les groupes, entreprises et personnes gr&acirc;ce aux champs correspondants.</p><br/>
+	{{ form_row(form['standard'].tous) }}
+	{{ form_row(form['standard'].groupes) }}
+	{{ form_row(form['standard'].entreprises) }}
+	{{ form_row(form['standard'].users) }}
+{% else %}
+	<table class="table table-striped table-condensed table-hover NOCache">
+		<thead>
+			<tr>
+				<th>Personne</th>
+				<th>Date de lecture</th>
+			</tr>
+		</thead>
+		<tbody></tbody>
+	</table>
+{% endif %}

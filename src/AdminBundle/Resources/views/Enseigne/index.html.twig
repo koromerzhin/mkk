@@ -1,0 +1,112 @@
+{% from "MkkSiteBundle:Templates:admin/macro.html.twig" import navbarform %}
+{% extends "MkkSiteBundle:Templates:admin.html.twig" %}
+{% from "MkkSiteBundle:Templates:macro.html.twig" import modalOuiNontmpl,
+modalFermertmpl %}
+{% block modal %}
+	{{ parent() }}
+	{{ modalOuiNontmpl(
+        "PopupLiaisonSupprimer",
+        "Supprimer la liaison utilisateur / établissements",
+        "Êtes-vous sûr de vouloir supprimer la liaison utilisateur ?"
+    ) }}
+	{% if entity.id > 0 %}
+		{{ modalFermertmpl(
+            "EtablissementNbsalarie",
+            "Avertissement",
+            'Le nombre de salarié est invalide.'
+        ) }}
+	{% endif %}
+{% endblock %}
+{% block body_content %}
+	{% set afffactures = 0 %}
+	{% if param['etablissement_factures']is defined %}
+		{% set afffactures = param['etablissement_factures'] %}
+	{% endif %}
+	{% set affmedia = 0 %}
+	{% if param['etablissement_medialogo']is defined %}
+		{% set affmedia = affmedia + param['etablissement_medialogo'] %}
+	{% endif %}
+	{% if param['etablissement_mediaimages']is defined %}
+		{% set affmedia = affmedia + param['etablissement_mediaimages'] %}
+	{% endif %}
+	{% if param['etablissement_mediaphotoeninterieur']is defined %}
+		{% set affmedia = affmedia + param['etablissement_mediaphotoeninterieur'] %}
+	{% endif %}
+	{% if param['etablissement_mediaphotoenexterieur']is defined %}
+		{% set affmedia = affmedia + param['etablissement_mediaphotoenexterieur'] %}
+	{% endif %}
+	{% if param['etablissement_mediaphotoequipe']is defined %}
+		{% set affmedia = affmedia + param['etablissement_mediaphotoequipe'] %}
+	{% endif %}
+	{% if app.request.query.all['evenement']is defined %}
+		{% set data = data | merge({'evenement': app.request.query.all['evenement']}) %}
+	{% endif %}
+
+	{% if app.request.query.all['etat']is defined %}
+		{% set data = data | merge({'etat': app.request.query.all['etat']}) %}
+	{% endif %}
+	{{ form_start(form['standard']) }}
+	{% set tabnav = [] %}
+	{% set tabnav = tabnav | merge([
+		{
+			'titre': 'Informations',
+			'html': 'MkkAdminBundle:Enseigne:form/informations.html.twig'
+		}
+	]) %}
+	{% set tabnav = tabnav | merge([
+		{
+			'titre': 'Coordonnées',
+			'html': 'MkkAdminBundle:Enseigne:form/coordonnees.html.twig'
+		}
+	]) %}
+	{% if param['etablissement_horaire']is defined and param['etablissement_horaire'] == 1 %}
+		{% set tabnav = tabnav | merge([
+			{
+				'titre': 'Horaires',
+				'html': 'MkkAdminBundle:Enseigne:form/horaires.html.twig'
+			}
+		]) %}
+	{% endif %}
+	{% if affmedia != 0 %}
+		{% set tabnav = tabnav | merge([
+			{
+				'type': 'media',
+				'html': 'MkkAdminBundle:Enseigne:form/medias.html.twig'
+			}
+		]) %}
+	{% endif %}
+	{% if afffactures != 0 %}
+		{% set tabnav = tabnav | merge([
+			{
+				'titre': 'Factures',
+				'html': 'MkkAdminBundle:Enseigne:form/factures.html.twig'
+			}
+		]) %}
+	{% endif %}
+	{% set tabnav = tabnav | merge([
+		{
+			'type': 'seo',
+			'html': 'MkkAdminBundle:Enseigne:form/seo.html.twig'
+		}
+	]) %}
+	{% if entity.id != 0 %}
+		{% set tabnav = tabnav | merge([
+			{
+				'titre': 'Utilisateurs (' ~ entity.users | length ~ ')',
+				'html': 'MkkAdminBundle:Enseigne:form/utilisateurs.html.twig'
+			}
+		]) %}
+	{% endif %}
+	{% if pagesform is defined %}
+		{% for data in pagesform %}
+			{% set tabnav = tabnav | merge([
+				{
+					'titre': data['nom'],
+					'html': data['tmpl']
+				}
+			]) %}
+		{% endfor %}
+	{% endif %}
+	{{ navbarform(tabnav, form, param) }}
+</form>
+{% endblock %}

@@ -1,0 +1,133 @@
+{% extends "MkkSiteBundle:Templates:admin/langue.html.twig" %}
+{% macro navbarformDebug(tabnav, phpcpd, phpmd, phpcs, param) %}
+	{% set navtab = [] %}
+	{% for tab in tabnav %}
+		{% set tab = tab | merge({'id': random()}) %}
+		{% set navtab = navtab | merge([tab]) %}
+	{% endfor %}
+	<div>
+		<ul class="nav nav-tabs">
+			{% for tab in navtab %}
+				<li{% if loop.first %} class="active" {% endif %}>
+					{% if tab['type']is defined %}
+						{% if tab['type'] == "seo" %}
+							{% set tab = tab | merge({'titre': 'SEO (Référencement)'}) %}
+						{% elseif tab['type'] == "media" %}
+							{% set tab = tab | merge({'titre': 'Médias'}) %}
+						{% endif %}
+					{% endif %}
+					<a data-toggle="tab" href="#tab{{ tab['id'] }}">{{ tab['titre'] }}</a>
+				</li>
+			{% endfor %}
+		</ul>
+		<div class="tab-content">
+			{% for tab in navtab %}
+				<div class="tab-pane fade{% if loop.first %} in active{% endif %}" id="tab{{ tab['id'] }}">
+					{% include tab['html'] %}
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endmacro %}
+{% macro navbarform(tabnav, form, param) %}
+	{% set navtab = [] %}
+	{% for tab in tabnav %}
+		{% set tab = tab | merge({'id': random()}) %}
+		{% set navtab = navtab | merge([tab]) %}
+	{% endfor %}
+	<div>
+		<ul class="nav nav-tabs">
+			<li class="NavPrev">
+				<a href="#">Précédent</a>
+			</li>
+			{% for tab in navtab %}
+				<li{% if loop.first %} class="active" {% endif %}>
+					{% if tab['type']is defined %}
+						{% if tab['type'] == "seo" %}
+							{% set tab = tab | merge({'titre': 'SEO (Référencement)'}) %}
+						{% elseif tab['type'] == "media" %}
+							{% set tab = tab | merge({'titre': 'Médias'}) %}
+						{% endif %}
+					{% endif %}
+					<a data-toggle="tab" href="#tab-{{ tab['id'] }}">{{ tab['titre'] }}</a>
+				</li>
+			{% endfor %}
+			<li class="NavNext">
+				<a href="#">Suivant</a>
+			</li>
+		</ul>
+		<div class="tab-content">
+			{% for tab in navtab %}
+				<div class="tab-pane fade{% if loop.first %} in active{% endif %}" id="tab-{{ tab['id'] }}">
+					{% include tab['html'] %}
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endmacro %}
+{% macro uploadFileNotUrl(title, idupload) %}
+	<fieldset>
+		<legend>{{ title }}</legend>
+		<div class="well EmplacementUpload" id="{{ random() }}" data-url="" data-visible=0></div>
+	</fieldset>
+{% endmacro %}
+{% macro uploadFile(md5, title, urlupload, md5id) %}
+	ATTENTION, vous utilisez l'ancien système d'upload, veuillez regarder avec moncompte avatar pour voir la nouvelle version.
+{% endmacro %}
+{% macro navbarformSystemParam(type, md5, form, tmpl, param) %}
+	{% set tabnav = [] %}
+	{% for code, configform in form %}
+		{% set transcode = type ~ ".module." ~ code %}
+		{% set tabnav = tabnav | merge([
+			{
+				'titre': transcode | trans | capitalize,
+				'html': tmpl[code],
+				'form': form[code]
+			}
+		]) %}
+	{% endfor %}
+	{% set navtab = [] %}
+	{% for tab in tabnav %}
+		{% set tab = tab | merge({'id': random()}) %}
+		{% set navtab = navtab | merge([tab]) %}
+	{% endfor %}
+	<div>
+		<ul class="nav nav-tabs">
+			{% if navtab | length <= 3 %}
+				<li role="presentation" class="disabled">
+					<a href="#">
+						<span class="NavSelect">{{ navtab[0]['titre'] }}</span>
+					</a>
+				</li>
+				{% for tab in navtab %}
+					<li{% if loop.first %} class="active" {% endif %}>
+						<a class="NavLang" data-toggle="tab" href="#tab-{{ tab['id'] }}">{{ tab['titre'] }}</a>
+					</li>
+				{% endfor %}
+			{% else %}
+				<li role="presentation" class="dropdown active">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+						<span class="NavSelect">{{ navtab[0]['titre'] }}</span>
+						<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						{% for tab in navtab %}
+							<li{% if loop.first %} class="active" {% endif %}>
+								<a class="NavLang" data-toggle="tab" href="#tab-{{ tab['id'] }}">{{ tab['titre'] }}</a>
+							</li>
+						{% endfor %}
+					</ul>
+				</li>
+			{% endif %}
+		</ul>
+		<div class="tab-content">
+			{% for tab in navtab %}
+				<div class="tab-pane fade{% if loop.first %} in active{% endif %}" id="tab-{{ tab['id'] }}">
+					{% set
+					form = tab['form'] %}
+					{% include tab['html'] %}
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endmacro %}

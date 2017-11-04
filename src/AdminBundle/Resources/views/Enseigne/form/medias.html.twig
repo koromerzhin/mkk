@@ -1,0 +1,57 @@
+{% if form['standard'].video is defined %}
+	{{ form_row(form['standard'].video) }}
+{% endif %}
+{% set images = 0 %}
+{% if param['etablissement_medialogo']is defined %}
+	{% set images = images + param['etablissement_medialogo'] %}
+{% endif %}
+{% if param['etablissement_mediaimages']is defined %}
+	{% set images = images + param['etablissement_mediaimages'] %}
+{% endif %}
+{% if images != 0 %}
+	<div class="row">
+		{% if param['etablissement_medialogo']is defined and param['etablissement_medialogo'] == 1 %}
+			<div class="col-lg-6">
+				{{ form_row(form['standard'].filevignette) }}
+			</div>
+		{% endif %}
+		{% if param['etablissement_mediaimages']is defined and param['etablissement_mediaimages'] == 1 %}
+			<div class="col-lg-6">
+				{{ form_row(form['standard'].filegalerie) }}
+				{{ form_row(form['standard'].copyright) }}
+			</div>
+		{% endif %}
+	</div>
+{% endif %}
+{% set photos = 0 %}
+{% if param['etablissement_mediaphotoeninterieur']is defined %}
+	{% set photos = photos + param['etablissement_mediaphotoeninterieur'] %}
+{% endif %}
+{% if param['etablissement_mediaphotoenexterieur']is defined %}
+	{% set photos = photos + param['etablissement_mediaphotoenexterieur'] %}
+{% endif %}
+{% if param['etablissement_mediaphotoequipe']is defined %}
+	{% set photos = photos + param['etablissement_mediaphotoequipe'] %}
+{% endif %}
+{% if photos != 0 %}
+	<fieldset>
+		<legend>Photos</legend>
+		<div class="row">
+			{% if param['etablissement_mediaphotoeninterieur']is defined and param['etablissement_mediaphotoeninterieur'] == 1 %}
+				<div class="col-lg-4">
+					{{ form_row(form['standard'].filevuesinterne) }}
+				</div>
+			{% endif %}
+			{% if param['etablissement_mediaphotoenexterieur']is defined and param['etablissement_mediaphotoenexterieur'] == 1 %}
+				<div class="col-lg-4">
+					{{ form_row(form['standard'].filevuesexterne) }}
+				</div>
+			{% endif %}
+			{% if param['etablissement_mediaphotoequipe']is defined and param['etablissement_mediaphotoequipe'] == 1 %}
+				<div class="col-lg-4">
+					{{ form_row(form['standard'].filevuesequipe) }}
+				</div>
+			{% endif %}
+		</div>
+	</fieldset>
+{% endif %}

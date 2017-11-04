@@ -1,0 +1,6 @@
+<span class="LienTel" style="no-wrap:no-wrap" data-tel="{{ data.international }}">
+	{% if data.icontypetel is defined and data.icontypetel != "" %}
+		<i class="glyphicon {{ data.icontypetel }}"></i>
+	{% endif %}
+	{{ data.num }}
+</span>

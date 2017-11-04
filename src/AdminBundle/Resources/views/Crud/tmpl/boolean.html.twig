@@ -1,0 +1,5 @@
+{% if a.url is defined %}
+	{boolean}{{ val }}|{{ path(a.url) }}|{{ row.id }}{/boolean}
+{% else %}
+	{boolean}{{ val }}{/boolean}
+{% endif %}

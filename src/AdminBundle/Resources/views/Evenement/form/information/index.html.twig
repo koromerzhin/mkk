@@ -1,0 +1,8 @@
+{% from "MkkAdminBundle:Evenement:macro.html.twig" import forminfo %}
+{{ form_row(form['standard'].categorie) }}
+{% if form['standard'].type is defined %}
+	{{ form_row(form['standard'].type) }}
+	{{ form_row(form['standard'].placeillimite) }}
+	{{ form_row(form['standard'].totalnbplace) }}
+{% endif %}
+{{ forminfo(form, param) }}

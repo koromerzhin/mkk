@@ -1,0 +1,14 @@
+<div class="row">
+	<div class="col-md-6">
+		{{ form_widget(form.adresses,{'attr':{'data-tags': param['tags_adresse']|json_encode}}) }}
+	</div>
+	<div class="col-md-6">
+		{{ form_widget(form.telephones,{'attr':{'data-tags': param['tags_telephone']|json_encode}}) }}
+	</div>
+	<div class="col-md-6">
+		{{ form_widget(form.emails,{'attr':{'data-tags': param['tags_email']|json_encode}}) }}
+	</div>
+	<div class="col-md-6">
+		{{ form_widget(form.liens) }}
+	</div>
+</div>

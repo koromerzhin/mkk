@@ -1,0 +1,16 @@
+{% extends "MkkAdminBundle:Param:layout.html.twig" %}
+{% block body_content %}
+	{{ form_start(form) }}
+	<div class="row">
+		<div class="col-sm-6">
+			{{ form_row(form.login_titre) }}
+			{{ form_row(form.login_soustitre) }}
+			{{ form_row(form.login_videobackground) }}
+			{{ form_row(form.login_videomute) }}
+		</div>
+		<div class="col-sm-6">
+			{{ form_row(form.filelogin) }}
+		</div>
+	</div>
+	{{ form_end(form) }}
+{% endblock %}

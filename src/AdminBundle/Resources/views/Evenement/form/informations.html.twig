@@ -1,0 +1,21 @@
+{% from "MkkSiteBundle:Templates:admin/macro.html.twig" import navbarform %}
+{% set tabnav = [] %}
+{% set tabnav = tabnav | merge([
+	{
+		'titre': 'Informations',
+		'html': 'MkkAdminBundle:Evenement:form/information/index.html.twig'
+	}
+]) %}
+{% set tabnav = tabnav | merge([
+	{
+		'titre': 'Supplémentaire',
+		'html': 'MkkAdminBundle:Evenement:form/information/supp.html.twig'
+	}
+]) %}
+{% set tabnav = tabnav | merge([
+	{
+		'type': 'media',
+		'html': 'MkkAdminBundle:Evenement:form/information/media.html.twig'
+	}
+]) %}
+{{ navbarform(tabnav, form, param) }}

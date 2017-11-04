@@ -1,0 +1,37 @@
+{% extends "MkkAdminBundle:Param:layout.html.twig" %}
+{% block body_content %}
+	{{ form_start(form) }}
+	{% if form.groupcontactdefault is defined %}
+		<fieldset>
+			<legend>Contact</legend>
+			{{ form_row(form.groupcontactdefault) }}
+		</fieldset>
+	{% endif %}
+
+	<fieldset>
+		<legend>Groupes utilisateurs</legend>
+		<div class="row">
+			<div class="col-sm-6">
+				<p>Groupes utilisateurs qui seront liés à un établissement</p>
+				{{ form_row(form.group_utilisateurs) }}
+			</div>
+			<div class="col-sm-6">
+				<p>Groupes d'utilisateurs responsables de l'établissement</p>
+				{{ form_row(form.group_responsables) }}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<p>Groupes utilisateurs qui se connectent au site</p>
+				{{ form_row(form.group_connect) }}
+			</div>
+			<div class="col-sm-6">
+				<fieldset>
+					<legend>contacts / clients</legend>
+					{{ form_row(form.group_contacts) }}
+				</fieldset>
+			</div>
+		</div>	
+	</fieldset>
+	{{ form_end(form) }}
+{% endblock %}

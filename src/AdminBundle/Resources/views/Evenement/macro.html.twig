@@ -1,0 +1,16 @@
+{% extends "MkkSiteBundle:Templates:admin/langue.html.twig" %}
+{% block forminfolangueEvenement %}
+	<div class="row">
+		<div class="col-md-6">
+			{{ form_row(newform.titre) }}
+		</div>
+		<div class="col-md-6">
+			{{ form_row(newform.alias) }}
+		</div>
+	</div>
+	{{ form_row(newform.description) }}
+{% endblock %}
+{% macro forminfo(setform, param) %}
+	{% set fonction = 'forminfolangueEvenement' %}
+	{{- block('langueform') -}}
+{% endmacro %}

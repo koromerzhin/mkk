@@ -1,0 +1,7 @@
+{% for adresse in row.adresses %}
+	{% if loop.index != 1 %}
+		<br/>
+	{% endif %}
+	{{ adresse.info }}<br/>
+	{{ adresse.cp~" "~adresse.ville }}
+{% endfor %}

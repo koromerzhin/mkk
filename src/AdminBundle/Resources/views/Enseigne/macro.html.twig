@@ -1,0 +1,32 @@
+{% extends "MkkSiteBundle:Templates:admin/langue.html.twig" %}
+{% block formmetataglangueMetatags %}
+	{{ form_row(newform.meta_description) }}
+	{{ form_row(newform.meta_keywords) }}
+{% endblock %}
+{% macro formmetatag(setform, param) %}
+	{% set fonction = 'formmetataglangueMetatags' %}
+	{{- block('langueform') -}}
+{% endmacro %}
+{% block forminfoDescriptionlangueEtablissement %}
+	{{ form_widget(newform.descriptionactivite) }}
+{% endblock %}
+{% macro forminfoDescription(setform, param) %}
+	{% set fonction = 'forminfoDescriptionlangueEtablissement' %}
+	{{- block('langueform') -}}
+{% endmacro %}
+{% macro fieldPosition(type, etablissements) %}
+	<div class="col-md-4 col-sm-4">
+		<fieldset>
+			{% set tabs = etablissements[type.code] %}
+			<legend>{{ type.code }}
+				({{ tabs|length }})</legend>
+			<ul class="sortable" data-rel="{{ type.code }}">
+				{% for etablissement in tabs %}
+					<li class="ui-state-default" data-rel="{{ etablissement.id }}">
+						<span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
+						{{ etablissement.nom }}</li>
+				{% endfor %}
+			</ul>
+		</fieldset>
+	</div>
+{% endmacro %}

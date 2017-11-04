@@ -1,0 +1,70 @@
+{% if langue is not defined %}
+	{% set langue = "fr" %}
+{% endif %}
+{% if langue == "fr" %}
+	{% set text = "Champs obligatoires" %}
+{% elseif langue == "en" %}
+	{% set text = "Required fields" %}
+{% elseif langue == "de" %}
+	{% set text = "Erforderliche Felder" %}
+{% endif %}
+{% if modal_backdrop is not defined %}
+	{% set modal_backdrop = 0 %}
+{% endif %}
+{% if modal_keyboard is not defined %}
+	{% set modal_keyboard = 0 %}
+{% endif %}
+{% set attr = {
+	'class': 'modal fade',
+	'id': id,
+	'tabindex': '-1',
+	'role': 'dialog',
+	'aria-labelledby': "myModalLabel" ~ id,
+	'aria-hidden': 'true',
+	'data-autoclose': 'true',
+	'data-autofocus': 'true'
+} %}
+{% set attr = attr | merge(datatmpl) %}
+{% if autofocus is defined %}
+	{% set attr = attr | merge({'data-autofocus': 'false'}) %}
+{% endif %}
+{% if modal_backdrop == 1 %}
+	{% set attr = attr | merge({'data-backdrop': 'static'}) %}
+	{% if modal_keyboard == 1 %}
+		{% set attr = attr | merge({'data-keyboard': 'false'}) %}
+	{% endif %}
+{% endif %}
+{% set textdiv = "" %}
+{% for b, a in attr %}
+	{% if b != "size" %}
+		{% if loop.index != 0 %}
+			{% set textdiv = textdiv ~ ' ' %}
+		{% endif %}
+		{% set textdiv = textdiv ~ b ~ '="' ~ a ~ '"' %}
+	{% endif %}
+{% endfor %}
+<div {{ textdiv|raw }}>
+	<div class="modal-dialog{% if size is defined and size!=" "  %} {{ size }}{% endif %}">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				{% if header is defined and header | raw != "" %}
+					<strong id="myModalLabel{{ id }}">{{ header|raw }}</strong>
+				{% endif %}
+			</div>
+			<div class="modal-body">{{ body|trim|raw }}</div>
+			<div class="modal-footer">
+				<div class="row">
+					<div class="col-sm-4 col-xs-12">
+						<span class="ModalRequired pull-left">
+							{{ text }}
+						</span>
+					</div>
+					{% if footer is defined and footer | raw != "" %}
+						<div class="col-sm-8 col-xs-12">{{ footer|raw }}</div>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

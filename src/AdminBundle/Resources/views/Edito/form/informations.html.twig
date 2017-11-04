@@ -1,0 +1,12 @@
+{% import "MkkAdminBundle:Edito:macro.html.twig" as macroEdito %}
+{% from "MkkAdminBundle:Edito:macro.html.twig" import forminfo %}
+<div class="row">
+	<div class="col-md-6">
+		{{ form_row(form['standard'].datedebut) }}
+		{{ form_row(form['standard'].datefin) }}
+	</div>
+	<div class="col-md-6">
+		{{ form_row(form['standard'].user) }}
+	</div>
+</div>
+{{ forminfo(form,param) }}

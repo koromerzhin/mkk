@@ -1,0 +1,11 @@
+{% if code == 1 %}
+	{% set btn = "success" %}
+	{% set glyphicon = 'ok' %}
+{% else %}
+	{% set btn = "danger" %}
+	{% set glyphicon = 'remove' %}
+{% endif %}
+<span class="btn btn-xs BtnBool btn-{{ btn }}" {% if url!="" %} data-url="{{ url }}" data-id="{{ id }}" {% endif %}>
+	{{ ("bool"~code)|trans }}&nbsp;
+	<i class="glyphicon glyphicon-{{ glyphicon }}"></i>
+</span>

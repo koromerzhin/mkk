@@ -1,0 +1,17 @@
+{% extends "MkkSiteBundle:Templates:admin/langue.html.twig" %}
+{% block modalBodyEnregistrerInformationLanguageCategorie %}
+	{{ form_row(newform.nom) }}
+	{{ form_row(newform.alias) }}
+{% endblock %}
+{% macro forminfo(setform, param) %}
+	{% set fonction = 'modalBodyEnregistrerInformationLanguageCategorie' %}
+	{{- block('langueform') -}}
+{% endmacro %}
+{% block modalBodyEnregistrerMetatagsLanguageCategorie %}
+	{{ form_row(newform.meta_description) }}
+	{{ form_row(newform.meta_keywords) }}
+{% endblock %}
+{% macro formseo(setform, param) %}
+	{% set fonction = 'modalBodyEnregistrerMetatagsLanguageCategorie' %}
+	{{- block('langueform') -}}
+{% endmacro %}

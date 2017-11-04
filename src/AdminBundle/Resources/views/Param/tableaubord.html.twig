@@ -1,0 +1,43 @@
+{% extends "MkkAdminBundle:Param:layout.html.twig" %}
+{% block body_content %}
+	{{ form_start(form) }}
+	<div class="row">
+		<div class="col-md-6 col-sm-6">
+			{{ form_row(form.messageaccueil) }}
+		</div>
+		<div class="col-md-6 col-sm-6">
+			<div id="PasDauteurBDD" data-toggle="collapse" class="alert alert-info" role="alert" style="cursor:pointer;">
+				<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+				Vous pouvez utiliser les codes suivant :
+				<ul>
+					<li>
+						<b>%date%</b>
+						: Date au format dd/mm/YYYY</li>
+					<li>
+						<b>%appel%</b>
+						: Affiche le nom de l'utilisateur actuel</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<fieldset>
+		<legend>Page d'accueil quand on arrive sur le tableau de bord</legend>
+		{% set groupsconnect = "" %}
+		{% if param.group_connect is defined %}
+			{% set groupsconnect = param.group_connect %}'
+		{% endif %}
+		{% if groupsconnect != "" %}
+			<div class="row">
+				{% for idgroup in groupsconnect %}
+					{% set codeform = "groupbord_" ~ idgroup ~ "_accueil" %}
+					{% if form[codeform]is defined %}
+						<div class="col-md-6 col-sm-6">
+							{{ form_row(form[codeform]) }}
+						</div>
+					{% endif %}
+				{% endfor %}
+			</div>
+		{% endif %}
+	</fieldset>
+	{{ form_end(form) }}
+{% endblock %}

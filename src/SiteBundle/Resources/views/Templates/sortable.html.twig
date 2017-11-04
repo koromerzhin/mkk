@@ -1,0 +1,12 @@
+<a{% for attr, value in options %} {{ attr }}="{{ value }}" {% endfor %}>
+	{{ title }}
+	{% if options['class']is defined %}
+		{% if options['class'] == "asc" %}
+			<span class="glyphicon glyphicon-sort-by-attributes" title="ASC"></span>
+		{% elseif options['class'] == "desc" %}
+			<span class="glyphicon glyphicon-sort-by-attributes-alt" title="DESC"></span>
+		{% else %}
+			<span class="glyphicon glyphicon-sort" title="Trie"></span>
+		{% endif %}
+	{% endif %}
+</a>

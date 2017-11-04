@@ -1,0 +1,30 @@
+<div class="row">
+	<div class="col-md-6">
+		<fieldset>
+			<legend>Coordonnées</legend>
+			{{ form_row(form.civilite) }}
+			{{ form_row(form.nom) }}
+			{{ form_row(form.prenom) }}
+		</fieldset>
+	</div>
+	<div class="col-md-6">
+		{{ form_row(form.group) }}
+		{{ form_row(form.type) }}
+		{{ form_row(form.tags) }}
+		{{ form_row(form.douanier) }}
+	</div>
+</div>
+<div class="row">
+	{% if noobservation is not defined %}
+		<div{% if personne.liens is defined and noliens is not defined %} class="col-md-6 col-sm-6" {% else %} class="col-xs-12" {% endif %}>
+			<fieldset>
+				<legend>Observations
+					<a class="panel-hideshow panel-hideshow-active pull-right" href="#"></a>
+				</legend>
+				<div class="panel-hideshow-content panel-hideshow-content-active">
+					{{ form_widget(form.observations) }}
+				</div>
+			</fieldset>
+		</div>
+	{% endif %}
+</div>

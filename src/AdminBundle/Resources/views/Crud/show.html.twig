@@ -1,0 +1,28 @@
+{% extends "MkkSiteBundle:Templates:admin.html.twig" %}
+{% block body_content %}
+	<div class="row">
+		{% for method, val in methods %}
+			<div class="col-md-3 col-md-offset-2">
+				{{ "show."~name~"."~method|trans }}
+			</div>
+			<div class="col-md-7">
+				&nbsp;
+				{% set tmpl = "" %}
+				{% if val | isBool %}
+					{% set tmpl = "MkkAdminBundle:Crud:tmpl/boolean.html.twig" %}
+				{% elseif val | isObject %}
+					{% set tmpl = "MkkAdminBundle:Crud:tmpl/object.html.twig" %}
+				{% elseif val | isArray %}
+					{% set tmpl = "MkkAdminBundle:Crud:tmpl/array.html.twig" %}
+				{% elseif val | isFile %}
+					{% set tmpl = "MkkAdminBundle:Crud:tmpl/file.html.twig" %}
+				{% endif %}
+				{% if tmpl != "" %}
+					{% include tmpl %}
+				{% else %}
+					{{ val|raw }}
+				{% endif %}
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% from "MkkSiteBundle:Templates:admin/macro.html.twig" import navbarform %}
+{% set route = app.request.attributes.get('_route') %}
+{% extends "MkkAdminBundle:User:layout.html.twig" %}
+{% block body_content %}
+	{{ form_start(form) }}
+	{% set tabnav = [] %}
+	{% set tabnav = tabnav | merge([
+		{
+			'titre': 'Informations',
+			'html': 'MkkAdminBundle:User:form/informations.html.twig'
+		}
+	]) %}
+	{% set tabnav = tabnav | merge([
+		{
+			'titre': 'Coordonnées',
+			'html': 'MkkAdminBundle:User:form/coordonnees.html.twig'
+		}
+	]) %}
+	{{ navbarform(tabnav, form, param) }}
+	{{ form_end(form) }}
+{% endblock %}

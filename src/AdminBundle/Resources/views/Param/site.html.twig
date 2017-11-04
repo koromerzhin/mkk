@@ -1,0 +1,41 @@
+{% extends "MkkAdminBundle:Param:layout.html.twig" %}
+{% block body_content %}
+	{{ form_start(form) }}
+	<div class="row">
+		<div class="col-sm-6">
+			<fieldset>
+				<legend>Désactivation du site Internet</legend>
+				{{ form_row(form.desactivation_etat) }}
+				{{ form_row(form.desactivation_raison) }}
+			</fieldset>
+			<fieldset>
+				<legend>Gestion</legend>
+				{{ form_row(form.meta_theme_color) }}
+				{{ form_row(form.payssite) }}
+				{{ form_row(form.emailsite) }}
+				{{ form_row(form.emailreply) }}
+				{{ form_row(form.signature) }}
+				{{ form_row(form.langueprincipal) }}
+				{{ form_row(form.languesite) }}
+				{{ form_row(form.droitlegaux) }}
+			</fieldset>
+		</div>
+		<div class="col-sm-6">
+			{{ form_widget(form.alternate) }}
+			<fieldset>
+				<legend>Paramètres SEO</legend>
+				{{ form_row(form.url) }}
+				{{ form_row(form.meta_titre) }}
+				{{ form_row(form.meta_description) }}
+				{{ form_row(form.meta_keywords) }}
+				{{ form_row(form.seo_titre) }}
+				<br/>Ajouter le nom du site devant le titre des pages affiché dans la barre de titre du navigateur. Exemple : Mon Site - Nom de l'article.
+			</fieldset>
+			<fieldset>
+				<legend>crontab.sh</legend>
+				{{ form_row(form.crontab) }}
+			</fieldset>
+		</div>
+	</div>
+	{{ form_end(form) }}
+{% endblock %}

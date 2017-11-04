@@ -1,0 +1,26 @@
+{% from "MkkSiteBundle:Templates:admin/macro.html.twig" import navbarform %}
+{% extends "MkkAdminBundle:Blog:layout.html.twig" %}
+{% block body_content %}
+	{{ form_start(form) }}
+	{% set tabnav = [] %}
+	{% set tabnav = tabnav | merge([
+		{
+			'titre': 'Informations',
+			'html': 'MkkAdminBundle:Blog:form/informations.html.twig'
+		}
+	]) %}
+	{% set tabnav = tabnav | merge([
+		{
+			'type': 'media',
+			'html': 'MkkAdminBundle:Blog:form/media.html.twig'
+		}
+	]) %}
+	{% set tabnav = tabnav | merge([
+		{
+			'type': 'seo',
+			'html': 'MkkAdminBundle:Blog:form/metatags.html.twig'
+		}
+	]) %}
+	{{ navbarform(tabnav, form, param) }}
+	{{ form_end(form) }}
+{% endblock %}

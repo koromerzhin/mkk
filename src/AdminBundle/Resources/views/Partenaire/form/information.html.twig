@@ -1,0 +1,11 @@
+{% from "MkkAdminBundle:Partenaire:macro.html.twig" import formdescription %}
+<div class="row">
+	<div class="col-md-6 col-sm-6">
+		{{ form_row(form['standard'].nom) }}
+		{{ form_row(form['standard'].url) }}
+	</div>
+	<div class="col-md-6 col-sm-6">
+		{{ form_row(form['standard'].categorie) }}
+	</div>
+</div>
+{{ formdescription(form, param) }}

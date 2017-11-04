@@ -1,0 +1,20 @@
+{% from "MkkSiteBundle:Templates:admin/macro.html.twig" import navbarform %}
+{% extends "MkkAdminBundle:Partenaire:layout.html.twig" %}
+{% block body_content %}
+	{{ form_start(form['standard']) }}
+	{% set tabnav = [] %}
+	{% set tabnav = tabnav | merge([
+		{
+			'titre': 'Informations',
+			'html': 'MkkAdminBundle:Partenaire:form/information.html.twig'
+		}
+	]) %}
+	{% set tabnav = tabnav | merge([
+		{
+			'type': 'media',
+			'html': 'MkkAdminBundle:Partenaire:form/media.html.twig'
+		}
+	]) %}
+	{{ navbarform(tabnav, form, param) }}
+	{{ form_end(form['standard']) }}
+{% endblock %}

@@ -1,0 +1,12 @@
+{% from "MkkAdminBundle:Bookmark:macro.html.twig" import forminfo %}
+<div class="row">
+	<div class="col-md-6">
+		{{ form_row(form['standard'].url) }}
+		{{ form_row(form['standard'].tag) }}
+	</div>
+	<div class="col-md-6">
+		{{ form_row(form['standard'].titre) }}
+		{{ form_row(form['standard'].alias) }}
+	</div>
+</div>
+{{ forminfo(form,param) }}

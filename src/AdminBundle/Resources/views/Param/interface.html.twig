@@ -1,0 +1,33 @@
+{% extends "MkkAdminBundle:Param:layout.html.twig" %}
+{% block body_content %}
+	{{ form_start(form) }}
+	<fieldset>
+		<legend>Cookie banner</legend>
+		<a href="https://github.com/nephila/cookie-banner" target="_blank">Documentation</a>
+		<div class="row">
+			<div class="col-md-6">
+				{{ form_row(form.cookiebanner_actif) }}
+				{{ form_row(form['cookiebanner_position']) }}
+				{{ form_row(form['cookiebanner_close-text']) }}
+			</div>
+			<div class="col-md-6">
+				{{ form_row(form['cookiebanner_effect']) }}
+				{{ form_row(form['cookiebanner_mask-opacity']) }}
+				{{ form_row(form['cookiebanner_mask-background']) }}
+			</div>
+		</div>
+	</fieldset>
+
+	<fieldset>
+		<legend>Ne pas fermer la modal</legend>
+		<div class="row">
+			<div class="col-md-6">
+				{{ form_row(form.modal_keyboard) }}
+			</div>
+			<div class="col-md-6">
+				{{ form_row(form.modal_backdrop) }}
+			</div>
+		</div>
+	</fieldset>
+	{{ form_end(form) }}
+{% endblock %}

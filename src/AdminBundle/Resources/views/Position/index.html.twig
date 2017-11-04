@@ -1,0 +1,17 @@
+{% extends "ToullecAdminBundle:Realisation:layout.html.twig" %}
+{% block body_content %}
+	<div class="row">
+		<div class="col-md-4 col-sm-4">
+			<fieldset>
+				<ul class="sortable" data-rel="0">
+					{% for result in results %}
+						<li class="ui-state-default" data-rel="{{ result.id }}">
+							<span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
+							{{ result.titre }}
+						</li>
+					{% endfor %}
+				</ul>
+			</fieldset>
+		</div>
+	</div>
+{% endblock %}

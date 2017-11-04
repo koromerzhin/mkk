@@ -1,0 +1,96 @@
+{% if tmplwebpack != "screen" %}
+	{% set imgaccueil = '' %}
+{% endif %}
+<!DOCTYPE html>
+{% set attr = {
+	'lang': app.request.getLocale(),
+	'prefix': 'og: http://ogp.me/ns#'
+} %}
+{% if tmplwebpack!="admin" %}
+	{% set attr = attr | merge({
+		'xmlns:fb': "http://www.facebook.com/2008/fbml"
+	}) %}
+{% endif %}
+<html {{ attr | attributeHtml|raw }}>
+	<head>
+		<meta charset="utf-8">
+		<title>{{ meta_titre }}</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		{% if metatags is defined %}
+			{% for key, val in metatags %}
+				{% if key != "canonical" and val != "" and key != "titre" %}
+					{% if key |split("og:")|length-1 %}
+						<meta property="{{ key }}" content="{{ val }}"/>
+					{% else %}
+						<meta name="{{ key }}" content="{{ val }}"/>
+					{% endif %}
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+		{% if favicon is defined %}
+			<link rel="shortcut icon" href="{{ asset(favicon['url']) }}" type="{{ favicon['mime'] }}"/>
+		{% endif %}
+		{% if paginator is defined %}
+			{% if paginator.getPageCount >= 2 %}
+				{% set prev = paginator.getPage - 1 %}
+				{% set next = paginator.getPage + 1 %}
+				{% if prev >= 1 %}
+					<link rel="prev" href="{{ path(paginator.getRoute, paginator.getParams|merge({'page': prev})) }}"/>
+				{% endif %}
+				{% if next <= paginator.getPageCount %}
+					<link rel="next" href="{{ path(paginator.getRoute, paginator.getParams|merge({'page': next})) }}"/>
+				{% endif %}
+			{% endif %}
+		{% endif %}
+		{% if enseigne.liens | length %}
+			{% for lien in enseigne.liens %}
+				{% if lien.type == "google +" %}
+					<link href="{{ lien.adresse }}" rel="publisher"/>
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+		{% if (tmplwebpack!="admin" or tmplwebpack!="screen") and param['alternate'] is defined %}
+			{% for alternate in param['alternate'] %}
+				{% if alternate['hreflang']!=app.request.getLocale() %}
+					<link rel="alternate" href="{{ alternate['href'] }}" hreflang="{{ alternate['hreflang'] }}">
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+		{% if manifest[tmplwebpack ~ '.css']is defined %}
+			<link type="text/css" rel="stylesheet" href="{{ asset('assets/'~manifest[tmplwebpack~'.css']) }}" media="all" />
+		{% endif %}
+		{% set tmplJs = [] %}
+		{% if tmplwebpack!="admin" and param['google_analytic'] is defined and param['google_analytic'] !="" and app.getEnvironment != "dev" %}
+			<script type="application/javascript" async src="https://www.googletagmanager.com/gtag/js?id={{ param['google_analytic'] }}"></script>
+			{% set tmplJs = tmplJs|merge(["MkkSiteBundle:Templates:javascripts/google_analytics.js.twig"]) %}
+		{% endif %}
+		{% if tmplJs|length!=0 %}
+			<script>
+				{% for fileJs in tmplJs %}
+					{% include fileJs %}
+				{% endfor %}
+			</script>
+		{% endif %}
+		{% if param['url'] is defined %}
+			<link rel="canonical" href="{{ param['url']~(path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params'))) }}"/>
+		{% endif %}
+	</head>
+	{% set attr = {} %}
+	{% if imgaccueil != "" %}
+		{% set attr = attr | merge({
+			'style': "background-image: url('" ~ imgaccueil ~ "');"
+		}) %}
+	{% endif %}
+	<body {{ attr | attributeHtml|raw }}>
+		{% block body %}{% endblock %}
+		<modal>
+			{% block modal %}{% endblock %}
+		</modal>
+		{% if manifest['common.js']is defined %}
+			<script type="application/javascript" src="{{ asset('assets/'~manifest['common.js']) }}"></script>
+		{% endif %}
+		{% if manifest[tmplwebpack ~ '.js']is defined %}
+			<script type="application/javascript" src="{{ asset('assets/'~manifest[tmplwebpack~'.js']) }}"></script>
+		{% endif %}
+	</body>
+</html>

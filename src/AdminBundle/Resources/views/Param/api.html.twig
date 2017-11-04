@@ -1,0 +1,96 @@
+{% extends "MkkAdminBundle:Param:layout.html.twig" %}
+{% block body_content %}
+	{{ form_start(form) }}
+	<fieldset>
+		<legend>Geonames</legend>
+		<p>
+			Identifiant
+			<a href="http://www.geonames.org" target="_blank">Géonames</a>
+			permettant de faire des recherches sur les codes postaux du monde entier
+		</p>
+		<div class="row">
+			<div class="col-md-6 col-sm-6">
+				{{ form_row(form.geonames) }}
+			</div>
+		</div>
+	</fieldset>
+	<fieldset>
+		<legend>Delicious</legend>
+		<div class="row">
+			<div class="col-md-6 col-sm-6">
+				<fieldset>
+					<legend>Récupérateur de liens délicious</legend>
+					{{ form_row(form.delicious_pseudo) }}
+				</fieldset>
+			</div>
+			<div class="col-md-6 col-sm-6">
+				{{ form_row(form.filedelicious) }}
+			</div>
+		</div>
+	</fieldset>
+	<div class="row">
+		<div class="col-md-6 col-sm-6">
+			<fieldset>
+				<legend>Piwik</legend>
+				{{ form_row(form.piwik_url) }}
+				{{ form_row(form.piwik_id) }}
+			</fieldset>
+		</div>
+		<div class="col-md-6 col-sm-6">
+			<fieldset>
+				<legend>Recaptcha</legend>
+				{{ form_row(form.recaptcha_clef) }}
+				{{ form_row(form.recaptcha_secret) }}
+			</fieldset>
+		</div>
+		<div class="col-md-6 col-sm-6">
+			<fieldset>
+				<legend>Redmine</legend>
+				{{ form_row(form.bug_url) }}
+				{{ form_row(form.bug_project) }}
+				{{ form_row(form.bug_code) }}
+			</fieldset>
+		</div>
+		<div class="col-md-6 col-sm-6">
+			<fieldset>
+				<legend>Google</legend>
+				{{ form_row(form.google_analytic) }}
+				{{ form_row(form.google_keyapi) }}
+				{{ form_row(form.google_webmastertool) }}
+			</fieldset>
+		</div>
+	</div>
+	<fieldset>
+		<legend>Réseaux sociaux</legend>
+		<div class="row">
+			<div class="col-sm-6">
+				<fieldset>
+					<legend>Twitter</legend>
+					{{ form_row(form.twitter_key) }}
+					{{ form_row(form.twitter_secret) }}
+				</fieldset>
+			</div>
+			<div class="col-sm-6">
+				<fieldset>
+					<legend>Google</legend>
+					{{ form_row(form.google_id) }}
+					{{ form_row(form.google_secret) }}
+				</fieldset>
+			</div>
+			<div class="col-sm-6">
+				<fieldset>
+					<legend>Facebook</legend>
+					{{ form_row(form.facebook_key) }}
+					{{ form_row(form.facebook_secret) }}
+				</fieldset>
+			</div>
+			<div class="col-sm-6">
+				<fieldset>
+					<legend>disqus</legend>
+					{{ form_row(form.disqus_url) }}
+				</fieldset>
+			</div>
+		</div>
+	</fieldset>
+	{{ form_end(form) }}
+{% endblock %}

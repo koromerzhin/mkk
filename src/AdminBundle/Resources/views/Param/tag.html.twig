@@ -1,0 +1,55 @@
+{% extends "MkkAdminBundle:Param:layout.html.twig" %}
+{% block body_content %}
+	{{ form_start(form) }}
+	<fieldset>
+		<legend>Tags téléphone</legend>
+		<div class="row">
+			<div class="col-sm-4">
+				{{ form_widget(form.tags_telephone) }}
+			</div>
+			<div class="col-sm-4">
+				{{ form_widget(form.tags_telephone_etablissement) }}
+			</div>
+			<div class="col-sm-4">
+				{{ form_widget(form.tags_telephone_evenement) }}
+			</div>
+		</div>
+	</fieldset>
+	<fieldset>
+		<legend>Tags email</legend>
+		<div class="row">
+			<div class="col-sm-4">
+				{{ form_widget(form.tags_email) }}
+			</div>
+			<div class="col-sm-4">
+				{{ form_widget(form.tags_email_etablissement) }}
+			</div>
+			<div class="col-sm-4">
+				{{ form_widget(form.tags_email_evenement) }}
+			</div>
+		</div>
+	</fieldset>
+	<fieldset>
+		<legend>Tags adresse</legend>
+		<div class="row">
+			<div class="col-sm-6">
+				{{ form_widget(form.tags_adresse) }}
+			</div>
+			<div class="col-sm-6">
+				{{ form_widget(form.tags_adresse_etablissement) }}
+			</div>
+			<div class="col-sm-6">
+				{{ form_widget(form.tags_adresse_evenement) }}
+			</div>
+		</div>
+	</fieldset>
+	<div class="row">
+		<div class="col-sm-6">
+			{{ form_widget(form.tags_client) }}
+		</div>
+		<div class="col-sm-6">
+			{{ form_widget(form.civilite) }}
+		</div>
+	</div>
+	{{ form_end(form) }}
+{% endblock %}

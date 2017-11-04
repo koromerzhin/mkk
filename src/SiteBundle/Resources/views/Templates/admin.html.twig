@@ -1,0 +1,233 @@
+{% set tmplwebpack = "admin" %}
+{% extends "MkkSiteBundle:Templates:site.html.twig" %}
+{% block meta %}
+	{{ parent() }}
+	<meta name="robots" content="noindex">
+{% endblock %}
+
+{% block body %}
+	{% set avatar = 'bundles/mkksite/img/avatar.png' %}
+	{% if app.user.avatar|isFile %}
+		{% set avatar = app.user.avatar %}
+	{% endif %}
+	<div class="wrapper">
+		<header class="main-header">
+			<a href="{{ path('admin.index') }}" class="logo">{{ (param['meta_titre'] is defined)?param['meta_titre']:"" }}</a>
+			<nav class="navbar navbar-static-top">
+				<!-- Sidebar toggle button-->
+				<a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</a>
+				<div class="navbar-custom-menu">
+					<ul class="nav navbar-nav">
+						{#
+						{% include "MkkSiteBundle:Templates:admin/menu/messages.html.twig" %}
+						{% include "MkkSiteBundle:Templates:admin/menu/notifications.html.twig" %}
+						{% include "MkkSiteBundle:Templates:admin/menu/tasks.html.twig" %}
+						#}
+						<li class="dropdown user user-menu">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+								<img src="{{ asset(avatar) }}" class="user-image img-circle" alt="User Image">
+								<span class="hidden-xs">{{ app.user }}</span>
+							</a>
+							<ul class="dropdown-menu">
+								<li class="user-header">
+									<img src="{{ asset(avatar) }}" class="img-circle" alt="User Image">
+									<p>{{ app.user }}</p>
+								</li>
+								<!-- Menu Body -->
+								{# <li class="user-body"> <div class="row"> <div class="col-xs-4 text-center"> <a href="#">Followers</a> </div> <div class="col-xs-4 text-center"> <a href="#">Sales</a> </div> <div class="col-xs-4 text-center"> <a href="#">Friends</a> </div> </div>
+								<!-- /.row --> </li> #}
+								<!-- Menu Footer-->
+								<li class="user-footer">
+									<div class="pull-left">
+										<a href="{{ path('admin.profil') }}" class="btn btn-default btn-flat">Mon profil</a>
+									</div>
+									<div class="pull-right">
+										<a href="{{ path('fos_user_security_logout') }}" class="btn btn-default btn-flat">Déconnexion</a>
+									</div>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</header>
+		<aside class="main-sidebar">
+			<div class="sidebar">
+				<div class="user-panel">
+					<div class="pull-left image">
+						<img src="{{ asset(avatar) }}" class="img-circle" alt="User Image">
+					</div>
+					<div class="pull-left info">
+						<p>{{ app.user }}</p>
+						{#
+						<a href="#">
+							<i class="fa fa-circle text-success"></i>
+							Online</a>
+						#}
+					</div>
+				</div>
+				<ul class="sidebar-menu">
+					<li class="header">NAVIGATION</li>
+					{% for menu in menusAdmin %}
+						{% set total = 0 %}
+						{% if menu.sousmenu is defined %}
+							{% set total = menu.sousmenu | length %}
+						{% endif %}
+						{% if total == 0 %}
+							{% set active = menu | isCurrentRoute %}
+							<li{% if active %} class="active" {% endif %}>
+								{% set url = "#" %}
+								{% if menu.url is defined %}
+									{% set url = path(menu.url) %}
+								{% endif %}
+								<a href="{{ url }}" {% if menu.target is defined %} target="{{ menu.target }}" {% endif %}>
+									{#
+										<i class="fa fa-th"></i>
+									#}
+									<span>{{ menu.libelle }}</span>
+								</a>
+							</li>
+						{% else %}
+							{% set active = menu | isCurrentRoute %}
+							<li class="treeview{% if active %} active{% endif %}">
+								<a href="#">
+									{#
+										<i class="fa fa-pie-chart"></i>
+									#}
+									<span>{{ menu.libelle }}</span>
+									<span class="pull-right-container">
+										<i class="fa fa-angle-left pull-right"></i>
+									</span>
+								</a>
+								<ul class="treeview-menu">
+									{% for sousmenu in menu.sousmenu %}
+										{% set active = sousmenu | isCurrentRoute %}
+										<li{% if active %} class="active" {% endif %}>
+											{% set url = "#" %}
+											{% if sousmenu.url is defined %}
+												{% set url = path(sousmenu.url) %}
+												<a href="{{ url }}" {% if sousmenu.id is defined %} id="{{ sousmenu.id }}" {% endif %}>
+													<i class="fa fa-circle-o"></i>
+													{{ sousmenu.libelle }}
+												</a>
+											{% else %}
+												<a href="#">
+													<i class="fa fa-circle-o"></i>
+													{{ sousmenu.libelle }}
+													<span class="pull-right-container">
+														<i class="fa fa-angle-left pull-right"></i>
+													</span>
+												</a>
+												<ul class="treeview-menu">
+													{% for newsousmenu in sousmenu.sousmenu %}
+														{% set active = newsousmenu | isCurrentRoute %}
+														<li{% if active %} class="active" {% endif %}>
+															{% set url = "#" %}
+															{% if newsousmenu.url is defined %}
+																{% set url = path(newsousmenu.url) %}
+															{% endif %}
+															<a href="{{ url }}" {% if newsousmenu.id is defined %} id="{{ newsousmenu.id }}" {% endif %}>
+																<i class="fa fa-circle-o"></i>
+																{{ newsousmenu.libelle }}
+															</a>
+														</li>
+													{% endfor %}
+												</ul>
+											{% endif %}
+										</li>
+									{% endfor %}
+								</ul>
+							</li>
+						{% endif %}
+					{% endfor %}
+				</ul>
+			</div>
+		</aside>
+		<main class="content-wrapper">
+			<header>
+				{% for type, flash_messages in app.session.flashBag.all %}
+					{% for flash_message in flash_messages %}
+						<div class="alert alert-{{ type }}">
+							<button class="close" data-dismiss="alert">×</button>
+							{{ flash_message|trans }}
+						</div>
+					{% endfor %}
+				{% endfor %}
+				<div class="section">
+					{% if adminHeader is defined %}
+						<h1>{{ adminHeader['titre'] }}
+							<small>&nbsp;{{ adminHeader['stitre'] }}</small>
+						</h1>
+					{% endif %}
+					{% if breadcrumb is defined %}
+						<ol class="breadcrumb">
+							{% for row in breadcrumb %}
+								{% set url = "#" %}
+								{% if row.url is defined %}
+									{% if row.params is defined %}
+										{% set url = path(row.url, row.params) %}
+									{% else %}
+										{% set url = path(row.url) %}
+									{% endif %}
+								{% endif %}
+								{% if loop.last != false %}
+									{% set url = "#" %}
+								{% endif %}
+								<li{% if loop.last %} class="active" {% endif %}>
+									<a href="{{ url }}">
+										{% if row.icon is defined and row.icon != "" %}
+											<i class="{{ row.icon }}"></i>
+										{% endif %}
+										{{ row.libelle }}
+									</a>
+								</li>
+							{% endfor %}
+						</ol>
+					{% endif %}
+				</div>
+				{% if actions is defined and actions | length != 0 %}
+					<div class="section">
+						<div class="btn-group">
+							<button type="button" class="btn btn-tool">Action</button>
+							{% if actions | length != 0 %}
+								<button type="button" class="btn btn-tool dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<span class="caret"></span>
+									<span class="sr-only">Toggle Dropdown</span>
+								</button>
+								<ul class="dropdown-menu">
+									{% for action in actions %}
+										<li>
+											{% set url = "#" %}
+											{% if action.url is defined %}
+												{% if action.params is defined %}
+													{% set url = path(action.url, action.params) %}
+												{% else %}
+													{% set url = path(action.url) %}
+												{% endif %}
+											{% endif %}
+											{% set attr = '' %}
+											{% if action.attr is defined %}
+												{% for code, value in action.attr %}
+													{% set attr = attr ~ code ~ '=' ~ value %}
+												{% endfor %}
+											{% endif %}
+											<a href="{{ url }}" id="{{ action.id }}" {{ attr }}>
+												{{ action.text }}
+											</a>
+										</li>
+									{% endfor %}
+								</ul>
+							{% endif %}
+						</div>
+					</div>
+				{% endif %}
+			</header>
+			{% block body_content %}{% endblock %}
+		</main>
+	</div>
+{% endblock %}

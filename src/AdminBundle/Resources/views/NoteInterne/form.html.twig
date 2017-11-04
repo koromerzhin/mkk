@@ -1,0 +1,26 @@
+{% extends "MkkAdminBundle:NoteInterne:layout.html.twig" %}
+{% from "MkkSiteBundle:Templates:admin/macro.html.twig" import navbarform %}
+{% block body_content %}
+	{{ form_start(form['standard']) }}
+	{% set tabnav = [] %}
+	{% set tabnav = tabnav | merge([
+		{
+			'titre': 'Message',
+			'html': 'MkkAdminBundle:NoteInterne:form/message.html.twig'
+		}
+	]) %}
+	{% set tabnav = tabnav | merge([
+		{
+			'titre': 'Quand',
+			'html': 'MkkAdminBundle:NoteInterne:form/quand.html.twig'
+		}
+	]) %}
+	{% set tabnav = tabnav | merge([
+		{
+			'titre': 'Destinataire(s)',
+			'html': 'MkkAdminBundle:NoteInterne:form/destinataire.html.twig'
+		}
+	]) %}
+	{{ navbarform(tabnav, form, param) }}
+	{{ form_end(form['standard']) }}
+{% endblock %}

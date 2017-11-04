@@ -1,0 +1,18 @@
+{% from "MkkAdminBundle:Enseigne:macro.html.twig" import formmetatag %}
+<div class="row">
+	<div class="col-sm-6">
+		<fieldset>
+			<legend>Metatags</legend>
+			{{ formmetatag(form, param) }}
+		</fieldset>
+	</div>
+	<div class="col-sm-6">
+		<fieldset>
+			<legend>Autres</legend>
+			{{ form_row(form['standard'].alias) }}
+			{% if form['standard'].actif is defined %}
+				{{ form_row(form['standard'].actif) }}
+			{% endif %}
+		</fieldset>
+	</div>
+</div>

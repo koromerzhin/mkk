@@ -1,0 +1,20 @@
+{% extends "MkkSiteBundle:Templates:screen.html.twig" %}
+{% from "MkkSiteBundle:Blocks:screen.html.twig" import flashbag, logo %}
+{% block body %}
+	{{ parent() }}
+	{% if param['login_videobackground']is defined and param['login_videobackground'] != "" %}
+		{% set mute = "true" %}
+		{% if param['login_ideobackgroundmute']is defined %}
+			{% set mute = param['login_ideobackgroundmute'] %}
+		{% endif %}
+		<a class="player" data-property="{videoURL: '{{ param['login_videobackground'] }}', containment:'body', autoPlay:true, mute:{{ mute }}, startAt:0, opacity:1, ratio:'4/3', addRaster:true, showControls:true}">My video</a>
+	{% endif %}
+	<section>
+		{{ logo(param) }}
+		{{ flashbag(app) }}
+		<div id="DivFormulaireLogin" class="page-login{% if param[" image_logo"] is defined and param[" image_logo"] != " " %} page-login-logo{% endif %}">
+			JavaScript doit &ecirc;tre activé pour utiliser ce site Internet. Il semble que ce langage soit désactivé ou qu'il ne soit pas pris en charge dans votre navigateur. Activez JavaScript en modifiant les options de votre navigateur et essayez de
+			nouveau.
+		</div>
+	</section>
+{% endblock %}

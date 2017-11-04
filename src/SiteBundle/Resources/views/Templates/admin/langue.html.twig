@@ -1,0 +1,62 @@
+{% block languepartie %}
+	<div class="tab-content">
+		{% for langue in param['languesite'] %}
+			<div role="tabpannel" class="tab-pane fade{% if langue==langueprincipal %} in active{% endif %}" id="{{ id }}-langue{{ langue }}">
+				{% set newform = setform['langue' ~ langue] %}
+				{{- block(fonction) -}}
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}
+{% block langueli %}
+	<li class="NavPrev">
+		<a href="#">Précédent</a>
+	</li>
+	{% if param['languesite'] | length <= 6 %}
+		<li role="presentation" class="disabled">
+			<a href="#">
+				Langues :&nbsp;
+				<span class="NavSelect">{{ langueprincipal|language }}</span>
+			</a>
+		</li>
+		{% for langue in param['languesite'] %}
+			<li{% if langue==langueprincipal %} class="active" {% endif %}>
+				<a class="NavLang" href="#{{ id }}-langue{{ langue }}" aria-controls="{{ id }}-langue{{ langue }}" role="tab" data-toggle="tab">{{ langue|language }}</a>
+			</li>
+		{% endfor %}
+	{% else %}
+		<li role="presentation" class="dropdown active">
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+				Langues :
+				<span class="NavSelect">{{ param['languesite'][0]|language }}</span>
+				<span class="caret"></span>
+			</a>
+			<ul class="dropdown-menu">
+				{% for langue in param['languesite'] %}
+					<li>
+						<a class="NavLang" href="#{{ id }}-langue{{ langue }}" role="tab" data-toggle="tab">{{ langue|language }}</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</li>
+	{% endif %}
+	<li class="NavNext">
+		<a href="#">Suivant</a>
+	</li>
+{% endblock %}
+{% block langueform %}
+	{% set id = random() %}
+	{% set langueprincipal = param['langueprincipal'] %}
+	{% set total = param['languesite'] | length %}
+	{% if total >= 2 %}
+		<div>
+			<ul class="nav nav-tabs">
+				{{- block('langueli') -}}
+			</ul>
+			{{- block('languepartie') -}}
+		</div>
+	{% else %}
+		{% set newform = setform['langue' ~ langueprincipal] %}
+		{{- block(fonction) -}}
+	{% endif %}
+{% endblock %}

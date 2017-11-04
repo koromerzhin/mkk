@@ -1,0 +1,26 @@
+{% from "MkkSiteBundle:Templates:admin/macro.html.twig" import navbarform %}
+<fieldset>
+	<legend>
+		Lieu(x)
+		<a id="AjouterEmplacement" class="btn btn-default">
+			<i class="glyphicon glyphicon-plus"></i>
+			<span class="HiddenPhone">
+				Ajouter</span>
+		</a>
+	</legend>
+	{% set tabnav = [] %}
+	{% set tabnav = tabnav | merge([
+		{
+			'titre': 'Adresses',
+			'html': 'MkkAdminBundle:Evenement:form/emplacements/adresses.html.twig'
+		}
+	]) %}
+	{% set tabnav = tabnav | merge([
+		{
+			'titre': 'Établissements',
+			'html': 'MkkAdminBundle:Evenement:form/emplacements/etablissements.html.twig'
+		}
+	]) %}
+	{{ navbarform(tabnav, form, param) }}
+
+</fieldset>

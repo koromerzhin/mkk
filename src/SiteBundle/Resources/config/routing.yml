@@ -1,0 +1,5 @@
+fos_user_login:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+fos_user_resetting_send_email:
+    path: /send-email
+    defaults:  { _controller: FOSUserBundle:Resetting:sendEmail }

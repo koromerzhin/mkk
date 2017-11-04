@@ -1,0 +1,19 @@
+{% macro tbody(entity, routes) %}
+    <tr>
+        <td>
+            <input type="checkbox" name="selection[]" value="{{ entity.id }}" />
+        </td>
+        <td>
+            <a href="{{ path('bepage_form',{'id': entity.id }) }}" title="Modifier">
+            {% if entity.titre == "" %}
+                Titre inconnu
+            {% else %}
+                {{ entity.titre }}
+            {% endif %}
+            </a>
+        </td>
+        <td>
+            {{ entity.url }}{% if routes[entity.url] is defined %}&nbsp; (<a href="{{ url(entity.url) }}" title="Modifier" target="_blank">{{ url(entity.url) }}</a>){% endif %}
+        </td>
+    </tr>
+{% endmacro %}

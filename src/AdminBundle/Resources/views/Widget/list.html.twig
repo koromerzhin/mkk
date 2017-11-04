@@ -1,0 +1,58 @@
+<div class="col-md-6">
+	<div class="box box-solid">
+		<div class="box-header with-border">
+			<i class="fa fa-text-width"></i>
+			<h3 class="box-title">
+				{{ titre }}&nbsp;({{ total[0].total }})
+			</h3>
+			<p>
+				<ul class="list-inline row">
+					{% if url['list']is defined %}
+						<li class="col-md-6 text-center">
+							<a href="{{ path(url['list']) }}" class="btn btn-tool">
+								Liste
+							</a>
+						</li>
+					{% endif %}
+					{% if url['new']is defined %}
+						<li class="col-md-6 text-center">
+							<a href="{{ path(url['new']) }}" class="btn btn-tool">
+								Ajouter
+							</a>
+						</li>
+					{% endif %}
+				</ul>
+			</p>
+		</div>
+		<div class="box-body">
+			<h4>Dernière enregistrement :</h4>
+			<table class="table table-striped">
+				<tbody>
+					{% for row in search %}
+						<tr>
+							<td>
+								{% set href = "#" %}
+								{% if url['show']is defined %}
+									{% set href = path(url['show'], {'id': row.id}) %}
+								{% endif %}
+								<a href="{{ href }}">
+									{{ row.libelle }}
+								</a>
+							</td>
+						</tr>
+					{% endfor %}
+					{% if 5 - search | length %}
+						{% set reste = 5 - search | length %}
+						{% for i in 1..reste %}
+							<tr>
+								<td>
+									&nbsp;
+								</td>
+							</tr>
+						{% endfor %}
+					{% endif %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

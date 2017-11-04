@@ -1,0 +1,26 @@
+{% extends "MkkAdminBundle:Param:layout.html.twig" %}
+{% block body_content %}
+	{{ form_start(form) }}
+	<div class="row">
+		<div class="col-sm-6">
+			{{ form_row(form.filelogo) }}
+		</div>
+		<div class="col-sm-6">
+			{{ form_row(form.filelogobackend) }}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-6">
+			{{ form_row(form.filefavicon) }}
+		</div>
+		<div class="col-sm-6">
+			{{ form_row(form.filegooglemaps) }}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-6">
+			{{ form_row(form.fileavatar) }}
+		</div>
+	</div>
+	{{ form_end(form) }}
+{% endblock %}

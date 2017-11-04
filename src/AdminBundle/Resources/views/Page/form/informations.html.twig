@@ -1,0 +1,17 @@
+<div class="row">
+	<div class="col-sm-6">
+		<fieldset>
+			<legend>Principal</legend>
+			{{ form_row(form.titre) }}
+			{{ form_row(form.url) }}
+		</fieldset>
+	</div>
+	<div class="col-sm-6">
+		<fieldset>
+			<legend>Metatags</legend>
+			{{ form_row(form.meta_description) }}
+			{{ form_row(form.meta_keywords) }}
+		</fieldset>
+	</div>
+</div>
+{{ form_row(form.contenu) }}

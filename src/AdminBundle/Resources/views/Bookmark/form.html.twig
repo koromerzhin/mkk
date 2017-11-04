@@ -1,0 +1,26 @@
+{% from "MkkSiteBundle:Templates:admin/macro.html.twig" import navbarform %}
+{% extends "MkkAdminBundle:Bookmark:layout.html.twig" %}
+{% block body_content %}
+	{{ form_start(form['standard']) }}
+	{% set tabnav = [] %}
+	{% set tabnav = tabnav | merge([
+		{
+			'titre': 'Informations',
+			'html': 'MkkAdminBundle:Bookmark:form/informations.html.twig'
+		}
+	]) %}
+	{% set tabnav = tabnav | merge([
+		{
+			'type': 'media',
+			'html': 'MkkAdminBundle:Bookmark:form/medias.html.twig'
+		}
+	]) %}
+	{% set tabnav = tabnav | merge([
+		{
+			'titre': 'Metatags',
+			'html': 'MkkAdminBundle:Bookmark:form/metatags.html.twig'
+		}
+	]) %}
+	{{ navbarform(tabnav, form, param) }}
+	{{ form_end(form['standard']) }}
+{% endblock %}

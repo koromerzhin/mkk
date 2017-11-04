@@ -1,0 +1,696 @@
+{% use "bootstrap_3_horizontal_layout.html.twig" %}
+{%- block form_start -%}
+	<div class="box box-solid">
+		<div class="box-body">
+			{%- do form.setMethodRendered() -%}
+			{% set method = method | upper %}
+			{%- if method in ["GET", "POST"] -%}
+				{% set form_method = method %}
+			{%- else -%}
+				{% set form_method = "POST" %}
+			{%- endif -%}
+			<form
+				name="{{ name }}"
+				method="{{ form_method|lower }}"
+				{% if action != '' %}
+				action="{{ action }}"
+				{% endif %}
+				{% for attrname, attrvalue in attr %}
+				{{ attrname }}="{{ attrvalue }}"
+				{% endfor %}
+				{% if multipart %}
+				enctype="multipart/form-data"
+				{% endif %}>
+				{%- if form_method != method -%}
+					<input type="hidden" name="_method" value="{{ method }}"/>
+				{%- endif -%}
+				<input type="hidden" name="_view" value=""/>
+			{%- endblock form_start -%}
+
+			{%- block form_end -%}
+				{%- if not render_rest is defined or render_rest -%}
+					{{ form_rest(form) }}
+				{%- endif -%}
+			</form>
+		</div>
+	</div>
+{%- endblock form_end -%}
+
+{%- block form_widget -%}
+	{%- if compound -%}
+		{{- block('form_widget_compound') -}}
+	{%- else -%}
+		{%- if attr['data-upload'] is defined -%}
+			{{- block('form_widget_upload') -}}
+		{%- else -%}
+			{{- block('form_widget_simple') -}}
+		{%- endif -%}
+	{%- endif -%}
+{%- endblock form_widget -%}
+
+{% block textarea_widget -%}
+	{%- if attr['data-url'] is defined -%}
+		{%- set attr = attr | merge({
+			'data-url': path(attr['data-url'])
+		}) -%}
+	{%- endif -%}
+	{% set attr = attr | merge({
+		class: (attr.class | default('') ~ ' form-control') | trim
+	}) %}
+	{{- parent() -}}
+{%- endblock textarea_widget %}
+
+{% block form_widget_upload -%}
+	{%- set tabtype = ['file','hidden'] -%}
+	<input type="hidden" {{ block('widget_attributes') }} {% if value is not empty %} value="{{ value }}" {% endif %}/>
+{%- endblock form_widget_upload %}
+
+{% block form_widget_simple -%}
+	{%- set tabtype = ['file','hidden'] -%}
+	{%- if type is not defined or type not in tabtype -%}
+		{%- set attr = attr|merge({class: (attr.class|default('') ~ ' form-control')|trim}) -%}
+	{%- endif -%}
+	{%- if attr['data-url'] is defined -%}
+		{%- set attr = attr | merge({
+			'data-url': path(attr['data-url'])
+		}) -%}
+	{%- endif -%}
+	{%- set type = type|default('text') -%}
+	<input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %} value="{{ value }}" {% endif %}/>
+{%- endblock form_widget_simple %}
+
+{% block form_group_class -%}
+	{%- set prefixe2 = form.vars.block_prefixes.2 -%}
+	{%- if prefixe2 == "textarea" -%}
+		col-sm-12
+	{%- else -%}
+		col-sm-9
+	{%- endif -%}
+{%- endblock form_group_class %}
+
+{% block form_label_class -%}
+	{%- set prefixe2 = form.vars.block_prefixes.2 -%}
+	{%- if prefixe2 == "textarea" -%}
+		col-sm-12
+	{%- else -%}
+		col-sm-3
+	{%- endif -%}
+{%- endblock form_label_class %}
+
+{% block form_rowlogin %}
+	<div class="input-group">
+		{{- form_label(form) -}}
+		{{- form_widget(form) -}}
+		{{- form_errors(form) -}}
+	</div>
+{% endblock form_rowlogin %}
+
+{% block form_rowchoice %}
+	{{- form_label(form) -}}
+	<div class="{{ block('form_group_class') }}">
+		<div class="row">
+			{%- for input in form -%}
+				<div class="col-xs-6 col-sm-6">
+					{{- form_widget(input) -}}
+				</div>
+			{%- endfor -%}
+		</div>
+		{{- form_errors(form) -}}
+	</div>
+{% endblock form_rowchoice %}
+
+{% block form_rowupload %}
+	{% if value == "" %}
+		{% set value = random() %}
+	{% endif %}
+	{{- form_widget(form,{'value': value }) -}}
+	{{- form_errors(form) -}}
+	{% set title = "" %}
+	{% set urlupload = path(attr['data-upload'], {"md5": value}) %}
+	<fieldset class="EmplacementUpload" id="{{ random() }}" data-url="{{ urlupload }}" data-visible="0" data-cors="{{ path('scripts.upload') }}">
+		<legend>{{ label }}</legend>
+		<div class="row fileupload-buttonbar">
+			<div class="col-lg-7">
+				<!-- The fileinput-button span is used to style the file input field as button -->
+				<span class="btn btn-success fileinput-button">
+					<i class="glyphicon glyphicon-plus"></i>
+					<span>Ajouter...</span>
+					<input type="file" name="files[]" multiple>
+				</span>
+				<!-- The global file processing state -->
+				<span class="fileupload-process"></span>
+			</div>
+			<!-- The global progress state -->
+			<div class="col-lg-5 fileupload-progress fade">
+				<!-- The global progress bar -->
+				<div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+					<div class="progress-bar progress-bar-success" style="width:0%;"></div>
+				</div>
+				<!-- The extended global progress state -->
+				<div class="progress-extended">&nbsp;</div>
+			</div>
+		</div>
+		<div class="well well-sm">
+			<table role="presentation" class="table table-striped NOCache">
+				<tbody class="files"></tbody>
+			</table>
+		</div>
+	</fieldset>
+{% endblock form_rowupload %}
+
+{% block form_rownormal %}
+	{{- form_label(form) -}}
+	<div class="{{ block('form_group_class') }}">
+		{{- form_widget(form) -}}
+		{{- form_errors(form) -}}
+	</div>
+{% endblock form_rownormal %}
+
+{% block collection_widgetuser %}
+	{% set prefixe2 = form.vars.block_prefixes.2 %}
+	{% set type = prefixe2 | split('_') | last %}
+	<div class="TabCollection TabCollection{{ type }}">
+		{%- for i, row in form -%}
+			<div class="CollectionRow">
+				{% if allow_delete %}
+					<div class="btn btn-danger btn-xs BtnCollectionDelete" title="Supprimer">
+						<i class="glyphicon glyphicon-white glyphicon-remove"></i>
+					</div>
+				{% endif %}
+				<div class="row">
+					<div class="col-md-6">
+						{{ form_row(row.civilite) }}
+						{{ form_row(row.nom) }}
+						{{ form_row(row.prenom) }}
+						{{ form_row(row.username) }}
+						{{ form_row(row.plainPassword) }}
+					</div>
+					<div class="col-md-6">
+						{{ form_widget(row.telephones) }}
+						{{ form_widget(row.emails) }}
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						{{ form_widget(row.adresses) }}
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+{% endblock collection_widgetuser %}
+
+{% block collection_widgetemplacementadresse %}
+	{% set prefixe2 = form.vars.block_prefixes.2 %}
+	{% set type = prefixe2 | split('_') | last %}
+	<div class="row">
+		<div class="col-md-3">
+			<ul class="nav nav-tabs nav-stacked">
+				{% for id, row in form %}
+					<li{% if loop.first %} class="active" {% endif %}>
+						<a class="NavLang" href="#adresseemplacement{{ id }}" role="tab" data-toggle="tab">
+							Adresse
+							{{ id+1 }}
+						</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+		<div class="col-md-9">
+			<div class="tab-content">
+				{% for id, row in form %}
+					<div role="tabpannel" class="tab-pane fade{% if loop.first %} in active{% endif %}" id="adresseemplacement{{ id }}">
+						<table class="table table-striped table-bordered table-condensed CollectionRow">
+							<tbody>
+								<tr>
+									<td colspan=2>
+										{{ form_row(row.type) }}
+									</td>
+								</tr>
+								<tr>
+									<td colspan=2>
+										{{ form_row(row.info) }}
+									</td>
+								</tr>
+								<tr>
+									<td colspan=2>
+										{{ form_row(row.pays) }}
+									</td>
+								</tr>
+								<tr>
+									<td>
+										{{ form_row(row.cp) }}
+									</td>
+									<td>
+										{{ form_row(row.ville) }}
+									</td>
+								</tr>
+								<tr>
+									<td>
+										{{ form_row(row.gps) }}
+									</td>
+									<td class="text-center">
+										{%- if allow_delete -%}
+											<div class="btn btn-danger btn-xs BtnCollectionDelete" title="Supprimer">
+												<i class="glyphicon glyphicon-white glyphicon-remove"></i>
+											</div>
+										{%- endif -%}
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+{% endblock collection_widgetemplacementadresse %}
+
+{% block collection_widgetadresse %}
+	{% set prefixe2 = form.vars.block_prefixes.2 %}
+	{% set type = prefixe2 | split('_') | last %}
+	<div class="TabCollection TabCollection{{ type }}">
+		{%- for i, row in form -%}
+			<table class="table table-striped table-bordered table-condensed CollectionRow">
+				<tbody>
+					<tr>
+						<td colspan=2>
+							{{ form_row(row.type) }}
+						</td>
+					</tr>
+					<tr>
+						<td colspan=2>
+							{{ form_row(row.info) }}
+						</td>
+					</tr>
+					<tr>
+						<td colspan=2>
+							{{ form_row(row.pays) }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							{{ form_row(row.cp) }}
+						</td>
+						<td>
+							{{ form_row(row.ville) }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							{{ form_row(row.gps) }}
+						</td>
+						<td class="text-center">
+							{%- if allow_delete -%}
+								<div class="btn btn-danger btn-xs BtnCollectionDelete" title="Supprimer">
+									<i class="glyphicon glyphicon-white glyphicon-remove"></i>
+								</div>
+							{%- endif -%}
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		{% endfor %}
+	</div>
+{% endblock collection_widgetadresse %}
+
+{% block collection_widgethoraire %}
+	{% set prefixe2 = form.vars.block_prefixes.2 %}
+	{% set jour = {
+		1: "Lundi",
+		2: "Mardi",
+		3: "Mercredi",
+		4: "Jeudi",
+		5: "Vendredi",
+		6: "Samedi",
+		7: "Dimanche"
+	} %}
+	{% set type = prefixe2 | split('_') | last %}
+	<table class="table table-striped table-bordered table-condensed NOCache">
+		<tbody class="TabCollection TabCollection{{ type }}">
+			{%- for i, row in form -%}
+				<tr class="CollectionRow">
+					{%- for input in row -%}
+						<td>
+							{%- if loop.first -%}
+								{{ jour[i+1] }}
+							{%- endif -%}
+							{{ form_widget(input) }}
+						</td>
+					{%- endfor -%}
+					<td class="text-center">
+						<a data-id="{{ i }}" class="HoraireDupliquer btn btn-info" title="Copier sur les autres jours">
+							<i class="glyphicon glyphicon-resize-vertical glyphicon-white"></i>
+						</a>
+						<a data-id="{{ i }}" class="HoraireDesactiver btn btn-info">
+							<i class="glyphicon glyphicon-remove glyphicon-white"></i>
+						</a>
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock collection_widgethoraire %}
+
+{% block collection_widgettelephone %}
+	{% set prefixe2 = form.vars.block_prefixes.2 %}
+	{% set type = prefixe2 | split('_') | last %}
+	<table class="table table-striped table-bordered table-condensed NOCache">
+		<tbody class="TabCollection TabCollection{{ type }}">
+			{%- for i, row in form -%}
+				<tr class="CollectionRow">
+					<td class="InputGroupTel text-center">
+						<span class="typetel glyphicon"></span>
+						&nbsp;
+						<img class="drapeaupays glyphicon glyphicon-black" data-src="{{ asset('bundles/mkksite/img/country/') }}">
+						{{ form_widget(row.type) }}
+						{{ form_widget(row.pays) }}
+					</td>
+					{%- for name,input in row -%}
+						{% if name != "type" and name != "pays" %}
+							<td>
+								{{ form_widget(input) }}
+							</td>
+						{% endif %}
+					{%- endfor -%}
+					{%- if allow_delete -%}
+						<td class="text-center">
+							<div class="btn btn-danger btn-xs BtnCollectionDelete" title="Supprimer">
+								<i class="glyphicon glyphicon-white glyphicon-remove"></i>
+							</div>
+						</td>
+					{%- endif -%}
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock collection_widgettelephone %}
+
+{% block collection_widgetupload %}
+	{% set prefixe2 = form.vars.block_prefixes.2 %}
+	{% set type = prefixe2 | split('_') | last %}
+	{% if form | length != 0 %}
+		<div class="row">
+			<div class="col-md-3">
+				<ul class="nav nav-tabs nav-stacked">
+					<li role="presentation" class="dropdown active">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+							URL :
+							<span class="NavSelect">{{ form[0].url.vars.value }}</span>
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							{% for i, row in form %}
+								<li{% if loop.first %} class="active" {% endif %}>
+									<a class="NavLang" href="#upload{{ i }}" role="tab" data-toggle="tab">
+										{{ row.url.vars.value }}
+									</a>
+								</li>
+							{% endfor %}
+						</ul>
+					</li>
+				</ul>
+			</div>
+			<div class="col-md-9">
+				<div class="tab-content">
+					{% for i, row in form %}
+						<div class="tab-pane fade{% if loop.first %} in active{% endif %}" id="upload{{ i }}">
+							{{ form_row(row.url) }}
+							<div class="row">
+								<div class="col-md-4">
+									{{ form_row(row.min_height) }}
+									{{ form_row(row.max_height) }}
+								</div>
+								<div class="col-md-4">
+									{{ form_row(row.min_width) }}
+									{{ form_row(row.max_width) }}
+								</div>
+								<div class="col-md-4">
+									{{ form_row(row['image-max_width']) }}
+									{{ form_row(row['image-max_height']) }}
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	{% endif %}
+{% endblock collection_widgetupload %}
+
+{% block collection_widgetnormal %}
+	{% set prefixe2 = form.vars.block_prefixes.2 %}
+	{% set type = prefixe2 | split('_') | last %}
+	<table class="table table-striped table-bordered table-condensed NOCache">
+		<tbody class="TabCollection TabCollection{{ type }}">
+			{%- for i, row in form -%}
+				<tr class="CollectionRow">
+					{%- for input in row -%}
+						<td>
+							{{ form_widget(input) }}
+						</td>
+					{%- endfor -%}
+					{%- if prefixe2|split("_horaires")|length!=2 -%}
+						{%- if allow_delete -%}
+							<td class="text-center">
+								<div class="btn btn-danger btn-xs BtnCollectionDelete" title="Supprimer">
+									<i class="glyphicon glyphicon-white glyphicon-remove"></i>
+								</div>
+							</td>
+						{%- endif -%}
+					{%- else -%}
+						<td class="text-center">
+							<a data-id="{{ i }}" data-rel="horairedupliquer" class="btn btn-info" title="Copier sur les autres jours">
+								<i class="glyphicon glyphicon-resize-vertical glyphicon-white"></i>
+							</a>
+							<a data-id="{{ i }}" data-rel="horairedesactiver" class="btn btn-info">
+								<i class="glyphicon glyphicon-remove glyphicon-white"></i>
+							</a>
+						</td>
+					{%- endif -%}
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock collection_widgetnormal %}
+
+{% block collection_widget %}
+	{% set prefixe1 = form.vars.block_prefixes.1 %}
+	{% set prefixe2 = form.vars.block_prefixes.2 %}
+	{%- if prototype is defined and allow_add and prefixe2|split("_horaires")|length!=2 -%}
+		{% set attr = attr | merge({
+			'data-prototype': block('collection_item_widget') | replace({'"': "'", "\n": "", "\t": ""})
+		}) %}
+	{%- endif -%}
+	{% set type = prefixe2 | split('_') | last %}
+	{% set attr = attr | merge({'data-type': type}) %}
+	{% if type == "telephones" %}
+		{% set attr = attr | merge({'data-route': path('scripts.telephone')}) %}
+	{% endif %}
+	{% set tags = [] %}
+	{% if attr['data-tags']is defined %}
+		{% set tags = attr['data-tags'] | jsonDecode %}
+		{% set attr = attr | merge({'data-tags': ''}) %}
+	{% endif %}
+	<fieldset class="FieldCollection" {{ block('widget_container_attributes') }}>
+		<legend>
+			{{ label }}&nbsp;
+			{%- if allow_add and prefixe2|split("_horaires")|length!=2 -%}
+				<div class="btn btn-default btn-xs BtnCollectionAdd" data-type="{{ type }}">
+					<i class="glyphicon glyphicon-plus"></i>
+					<span>Ajouter</span>
+				</div>
+			{%- endif -%}
+		</legend>
+		{% if tags is defined %}
+			<ul style="display:none;" class="TagsCollection">
+				{% for row in tags %}
+					<li>{{ row.code }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+		{%- if prefixe2|split("_emplacementadresses")|length==2 -%}
+			{{- block('collection_widgetemplacementadresse') -}}
+		{%- elseif prefixe2|split("_adresses")|length==2 -%}
+			{{- block('collection_widgetadresse') -}}
+		{%- elseif prefixe2|split("_horaires")|length==2 -%}
+			{{- block('collection_widgethoraire') -}}
+		{%- elseif prefixe2|split("_telephones")|length==2 -%}
+			{{- block('collection_widgettelephone') -}}
+		{%- elseif prefixe2|split("_upload")|length==2 -%}
+			{{- block('collection_widgetupload') -}}
+		{%- elseif prefixe2|split("_users")|length==2 and prefixe2|split("_users_")|length!=2-%}
+			{{- block('collection_widgetuser') -}}
+		{%- else -%}
+			{{- block('collection_widgetnormal') -}}
+		{%- endif -%}
+	</fieldset>
+{% endblock collection_widget %}
+
+{% block collection_item_widgetuser %}
+	<div class="CollectionRow">
+		{% if allow_delete %}
+			<div class="btn btn-danger btn-xs BtnCollectionDelete" title="Supprimer">
+				<i class="glyphicon glyphicon-white glyphicon-remove"></i>
+			</div>
+		{% endif %}
+		<div class="row">
+			<div class="col-md-6">
+				{{ form_row(prototype.civilite) }}
+				{{ form_row(prototype.nom) }}
+				{{ form_row(prototype.prenom) }}
+				{{ form_row(prototype.username) }}
+				{{ form_row(prototype.plainPassword) }}
+			</div>
+			<div class="col-md-6">
+				{{ form_widget(prototype.telephones) }}
+				{{ form_widget(prototype.emails) }}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				{{ form_widget(prototype.adresses) }}
+			</div>
+		</div>
+	</div>
+{% endblock collection_item_widgetuser %}
+
+{% block collection_item_widgetadresses %}
+	<table class="table table-striped table-bordered table-condensed CollectionRow">
+		<tbody>
+			<tr>
+				<td colspan=2>
+					{{ form_row(prototype.type) }}
+				</td>
+			</tr>
+			<tr>
+				<td colspan=2>
+					{{ form_row(prototype.info) }}
+				</td>
+			</tr>
+			<tr>
+				<td colspan=2>
+					{{ form_row(prototype.pays) }}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					{{ form_row(prototype.cp) }}
+				</td>
+				<td>
+					{{ form_row(prototype.ville) }}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					{{ form_row(prototype.gps) }}
+				</td>
+				<td class="text-center">
+					{%- if allow_delete -%}
+						<div class="btn btn-danger btn-xs BtnCollectionDelete" title="Supprimer">
+							<i class="glyphicon glyphicon-white glyphicon-remove"></i>
+						</div>
+					{%- endif -%}
+				</td>
+			</tr>
+		</tbody>
+	</table>
+{% endblock collection_item_widgetadresses %}
+
+{% block collection_item_widgettelephone %}
+	{% set prefixe2 = form.vars.block_prefixes.2 %}
+	<tr class="CollectionRow">
+		<td class="InputGroupTel text-center">
+			<span class="typetel glyphicon"></span>
+			&nbsp;
+			<img class="drapeaupays glyphicon glyphicon-black">
+			{{ form_widget(prototype.type) }}
+			{{ form_widget(prototype.pays) }}
+		</td>
+		{%- for name,input in prototype -%}
+			{% if name != "type" and name != "pays" %}
+				<td>
+					{{ form_widget(input) }}
+				</td>
+			{% endif %}
+		{%- endfor -%}
+		{%- if allow_delete -%}
+			<td class="text-center">
+				<div class="btn btn-danger btn-xs BtnCollectionDelete" title="Supprimer">
+					<i class="glyphicon glyphicon-white glyphicon-remove"></i>
+				</div>
+			</td>
+		{%- endif -%}
+	</tr>
+{% endblock collection_item_widgettelephone %}
+
+{% block collection_item_widgetnormal %}
+	{% set prefixe2 = form.vars.block_prefixes.2 %}
+	<tr class="CollectionRow">
+		{% for input in prototype %}
+			<td>
+				{{ form_widget(input) }}
+			</td>
+		{% endfor %}
+		{%- if allow_delete -%}
+			<td class="text-center">
+				<div class="btn btn-danger btn-xs BtnCollectionDelete" title="Supprimer">
+					<i class="glyphicon glyphicon-white glyphicon-remove"></i>
+				</div>
+			</td>
+		{%- endif -%}
+	</tr>
+{% endblock collection_item_widgetnormal %}
+
+{% block collection_item_widget %}
+	{% set prefixe2 = form.vars.block_prefixes.2 %}
+	{%- if prefixe2|split("_adresses")|length==2 -%}
+		{{- block('collection_item_widgetadresses') -}}
+	{%- elseif prefixe2|split("_telephone")|length==2 and prefixe2|split("tags_telephone")|length!=2 -%}
+		{{- block('collection_item_widgettelephone') -}}
+	{%- elseif prefixe2|split("_users")|length==2 and prefixe2|split("_users_")|length!=2 -%}
+		{{- block('collection_item_widgetuser') -}}
+	{%- else -%}
+		{{- block('collection_item_widgetnormal') -}}
+	{%- endif -%}
+{% endblock collection_item_widget %}
+
+{% block form_row -%}
+	{% set prefixe1 = form.vars.block_prefixes.1 %}
+	{% if attr['data-upload'] is defined -%}
+		{{- block('form_rowupload') -}}
+	{%- else %}
+		<div class="form-group{% if (not compound or force_error|default(false)) and not valid %} has-error{% endif %}{% if form.vars.attr['data-labelactive']is defined %} active{% endif %}">
+			{%- if full_name == "_username" or full_name == "_password" or full_name == "username" -%}
+				{{- block('form_rowlogin') -}}
+			{%- elseif prefixe1 == "choice" and expanded -%}
+				{{- block('form_rowchoice') -}}
+			{%- else -%}
+				{{- block('form_rownormal') -}}
+			{%- endif -%}
+		</div>
+	{% endif %}
+{%- endblock form_row %}
+
+{% block form_label -%}
+	{% spaceless %}
+		{% if full_name == "_username" or full_name == "username" %}
+			<span class="input-group-addon">
+				<i class="glyphicon glyphicon-user"></i>
+			</span>
+		{% elseif full_name == "_password" %}
+			<span class="input-group-addon">
+				<i class="glyphicon glyphicon-lock" style="cursor:pointer"></i>
+			</span>
+		{% else %}
+			{% if label is same as(false) %}
+				<div class="{{ block('form_label_class') }}"></div>
+			{% else %}
+				{% set label_attr = label_attr | merge({
+					class: (label_attr.class | default('') ~ ' ' ~ block('form_label_class')) | trim
+				}) %}
+				{{- parent() -}}
+			{% endif %}
+		{% endif %}
+	{% endspaceless %}
+{%- endblock form_label %}

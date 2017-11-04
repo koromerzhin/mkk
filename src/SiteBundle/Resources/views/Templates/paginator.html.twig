@@ -1,0 +1,72 @@
+{% if pageCount > 1 %}
+	<ul class="pagination">
+		{% if previous is defined %}
+			<li>
+				{% set url = path(route, query | merge({(pageParameterName): previous})) %}
+				<a rel="prev" href="{{ url }}">&laquo;&nbsp;{{ 'Previous'|trans }}</a>
+			</li>
+		{% else %}
+			<li class="disabled">
+				<span>&laquo;&nbsp;{{ 'Previous'|trans }}</span>
+			</li>
+		{% endif %}
+		{% if startPage > 1 %}
+			<li>
+				{% set url = path(route, query | merge({(pageParameterName): 0})) %}
+				<a href="{{ url }}">1</a>
+			</li>
+			{% if startPage == 3 %}
+				<li>
+					{% set url = path(route, query | merge({(pageParameterName): 2})) %}
+					<a href="{{ url }}">2</a>
+				</li>
+			{% elseif startPage != 2 %}
+				<li class="disabled">
+					<span>&hellip;</span>
+				</li>
+			{% endif %}
+		{% endif %}
+		{% for page in pagesInRange %}
+			{% if page != current %}
+				<li>
+					{% set url = path(route, query | merge({(pageParameterName): page})) %}
+					<a href="{{ url }}">{{ page }}</a>
+				</li>
+			{% else %}
+				<li class="active">
+					<span>{{ page }}</span>
+				</li>
+			{% endif %}
+		{% endfor %}
+		{% if pageCount > endPage %}
+			{% if pageCount > (endPage + 1) %}
+				{% if pageCount > (endPage + 2) %}
+					<li class="disabled">
+						<span>&hellip;</span>
+					</li>
+				{% else %}
+					<li>
+						{% set url = path(route, query | merge({
+							(pageParameterName): (pageCount - 1)
+						})) %}
+						<a href="{{ url }}">{{ pageCount -1 }}</a>
+					</li>
+				{% endif %}
+			{% endif %}
+			<li>
+				{% set url = path(route, query | merge({(pageParameterName): pageCount})) %}
+				<a href="{{ url }}">{{ pageCount }}</a>
+			</li>
+		{% endif %}
+		{% if next is defined %}
+			<li>
+				{% set url = path(route, query | merge({(pageParameterName): next})) %}
+				<a rel="next" href="{{ url }}">{{ 'Next'|trans }}&nbsp;&raquo;</a>
+			</li>
+		{% else %}
+			<li class="disabled">
+				<span>{{ 'Next'|trans }}&nbsp;&raquo;</span>
+			</li>
+		{% endif %}
+	</ul>
+{% endif %}

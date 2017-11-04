@@ -1,0 +1,6 @@
+{% for telephone in row.telephones %}
+	{% if loop.index != 1 %}
+		<br/>
+	{% endif %}
+	{lientel}{{ telephone.chiffre }}{/lientel}
+{% endfor %}

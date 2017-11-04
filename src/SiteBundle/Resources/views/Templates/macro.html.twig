@@ -1,0 +1,118 @@
+{% block footerboutonFermer %}
+	<a href="#" class="btn btn-default" data-dismiss="modal">
+		<i class="glyphicon glyphicon-remove"></i>
+		<span>Fermer</span>
+	</a>
+{% endblock %}
+{% block footerboutonOk %}
+	<a href="#" class="btn btn-default" data-dismiss="modal">
+		<i class="glyphicon glyphicon-remove"></i>
+		<span>Ok</span>
+	</a>
+{% endblock %}
+{% block footerboutonOuiNon %}
+	<a href="#" class="btn btn-default" data-dismiss="modal">
+		<i class="glyphicon glyphicon-remove-circle"></i>
+		<span>Non</span>
+	</a>
+	<a href="#" class="btn btn-default BtnSaveConfirm">
+		<i class="glyphicon glyphicon-ok-circle"></i>
+		<span>Oui</span>
+	</a>
+{% endblock %}
+{% block headerenregistrer %}
+	Enregistrer
+{% endblock %}
+{% block footerboutonEnregistrer %}
+	<a href="#" class="btn btn-default" data-dismiss="modal">
+		<i class="glyphicon glyphicon-remove"></i>
+		<span>Annuler</span>
+	</a>
+	<a href="#" class="btn btn-default BtnSaveConfirm">
+		<i class="glyphicon glyphicon-floppy-saved"></i>
+		<span>Enregistrer</span>
+	</a>
+{% endblock %}
+{% macro modalOktmpl(id, header, body, data = {}) %}
+	{% set datatmpl = {
+		'id': id,
+		'size': 'modal-lg',
+		'data-autoclose': false
+	} %}
+	{% set datatmpl = datatmpl | merge(data) %}
+	{% set footer = block('footerboutonOk') %}
+	{% include "MkkSiteBundle:Templates:modal.html.twig" with datatmpl %}
+{% endmacro %}
+{% macro modalEnregistrertmpl(id, body, data = {}) %}
+	{% set datatmpl = {
+		'id': id,
+		'size': 'modal-lg',
+		'data-autoclose': false
+	} %}
+	{% set datatmpl = datatmpl | merge(data) %}
+	{% set header = block('headerenregistrer') %}
+	{% set footer = block('footerboutonEnregistrer') %}
+	{% include "MkkSiteBundle:Templates:modal.html.twig" with datatmpl %}
+{% endmacro %}
+{% macro modalOuiNontmpl(id, header, body, data = {}) %}
+	{% set datatmpl = {
+		'id': id,
+		'data-autoclose': false
+	} %}
+	{% set datatmpl = datatmpl | merge(data) %}
+	{% set footer = block('footerboutonOuiNon') %}
+	{% include "MkkSiteBundle:Templates:modal.html.twig" with datatmpl %}
+{% endmacro %}
+{% macro modaltmpl(id, header, body, footer, data = {}) %}
+	{% set datatmpl = {
+		'id': id,
+		'size': 'modal-lg',
+		'data-autoclose': false
+	} %}
+	{% set datatmpl = datatmpl | merge(data) %}
+	{% include "MkkSiteBundle:Templates:modal.html.twig" with datatmpl %}
+{% endmacro %}
+{% macro modalFermertmpl(id, header, body, data = {}) %}
+	{% set datatmpl = {
+		'id': id,
+		'size': 'modal-lg',
+		'data-autoclose': false
+	} %}
+	{% set datatmpl = datatmpl | merge(data) %}
+	{% set footer = block('footerboutonFermer') %}
+	{% include "MkkSiteBundle:Templates:modal.html.twig" with datatmpl %}
+{% endmacro %}
+{% block headermodalenregistrement %}
+	{% trans %}popup.enregistrement.titre{% endtrans %}
+{% endblock %}
+{% block bodymodalenregistrement %}
+	{% trans %}enregistrer.true{% endtrans %}
+{% endblock %}
+{% block headermodalerreur %}
+	{% trans %}popup.erreur.titre{% endtrans %}
+{% endblock %}
+{% block bodymodalerreur %}
+	L'enregistrement n'a pas pu être effectué, veuillez contacter l'administrateur du site en cas d'autres problèmes.
+	<br/>
+	<div id="PopupErreurListing"></div>
+{% endblock %}
+{% block footerPopupFinEnregistrement %}
+	<a data-dismiss="modal" class="btn btn-default" href="#">
+		<i class="glyphicon glyphicon-remove"></i>
+		<span>
+			Fermer
+		</span>
+	</a>
+	<a href="#" class="btn btn-default" data-rel="fiche">
+		<i class="glyphicon glyphicon-eye-open"></i>
+		<span>
+			Aller sur la fiche
+		</span>
+	</a>
+{% endblock %}
+{% block bodyPopupFinEnregistrement %}
+	Enregistrement effectué.
+{% endblock %}
+{% block PopupCaptchaErrorBody %}
+	{% trans %}popup.captcha.erreur{% endtrans %}
+{% endblock %}

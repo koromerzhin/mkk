@@ -1,0 +1,8 @@
+{% extends "MkkSiteBundle:Templates:admin/langue.html.twig" %}
+{% block forminfoLangue %}
+	{{ form_row(newform.nom) }}
+{% endblock %}
+{% macro forminfo(setform, param) %}
+	{% set fonction = 'forminfoLangue' %}
+	{{- block('langueform') -}}
+{% endmacro %}

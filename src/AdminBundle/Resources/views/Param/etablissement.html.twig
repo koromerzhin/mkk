@@ -1,0 +1,37 @@
+{% extends "MkkAdminBundle:Param:layout.html.twig" %}
+{% block body_content %}
+	{{ form_start(form) }}
+	<div class="row">
+		<div class="col-md-6">
+			<div style="font-weight:bold;">
+				Attention, une entrée doit obligatoirement correspondre à un fichier
+			</div>
+			{{ form_widget(form.type_etablissement) }}
+		</div>
+	</div>
+	<fieldset>
+		<legend>Affichage</legend>
+		<div class="row">
+			<div class="col-md-6">
+				{{ form_row(form.etablissement_factures) }}
+				{{ form_row(form.etablissement_tva) }}
+				{{ form_row(form.etablissement_accueil) }}
+				{{ form_row(form.etablissement_siret) }}
+				{{ form_row(form.etablissement_ape) }}
+				{{ form_row(form.etablissement_ca) }}
+				{{ form_row(form.etablissement_nbrsalarie) }}
+				{{ form_row(form.etablissement_horaire) }}
+			</div>
+			<div class="col-md-6">
+				{{ form_row(form.etablissement_secteur) }}
+				{{ form_row(form.etablissement_position) }}
+				{{ form_row(form.etablissement_medialogo) }}
+				{{ form_row(form.etablissement_mediaimages) }}
+				{{ form_row(form.etablissement_mediaphotoeninterieur) }}
+				{{ form_row(form.etablissement_mediaphotoenexterieur) }}
+				{{ form_row(form.etablissement_mediaphotoequipe) }}
+			</div>
+		</div>
+	</fieldset>
+	{{ form_end(form) }}
+{% endblock %}

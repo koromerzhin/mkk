@@ -1,0 +1,46 @@
+{% from "MkkAdminBundle:Enseigne:macro.html.twig" import forminfoDescription %}
+<fieldset>
+	<legend>Entreprise</legend>
+	<input type="submit"/>
+	<div class="row">
+		<div class="col-md-6 col-sm-6">
+			{% if form['standard'].type is defined %}
+				{{ form_row(form['standard'].type) }}
+			{% endif %}
+			{{ form_row(form['standard'].prefix) }}
+			{{ form_row(form['standard'].nom) }}
+			{{ form_row(form['standard'].directeur) }}
+			{% if form['standard'].refetablissement is defined %}
+				{{ form_row(form['standard'].refetablissement) }}
+			{% endif %}
+			{% if form['standard'].nafsousclasse is defined %}
+				{{ form_row(form['standard'].nafsousclasse) }}
+				{{ form_row(form['standard'].activite) }}
+			{% endif %}
+		</div>
+		<div class="col-md-6 col-sm-6">
+			{% if form['standard'].nbsalarie is defined %}
+				{{ form_row(form['standard'].nbsalarie) }}
+			{% endif %}
+			{% if form['standard'].ca is defined %}
+				{{ form_row(form['standard'].ca) }}
+			{% endif %}
+			{% if form['standard'].tvaintra is defined %}
+				{{ form_row(form['standard'].tvaintra) }}
+			{% endif %}
+			{% if form['standard'].siret is defined %}
+				{{ form_row(form['standard'].siret) }}
+			{% endif %}
+			{% if form['standard'].ape is defined %}
+				{{ form_row(form['standard'].ape) }}
+			{% endif %}
+			{% if form['standard'].livrablelematin is defined %}
+				{{ form_row(form['standard'].livrablelematin) }}
+			{% endif %}
+		</div>
+	</div>
+</fieldset>
+<fieldset>
+	<legend>Description</legend>
+	{{ forminfoDescription(form, param) }}
+</fieldset>

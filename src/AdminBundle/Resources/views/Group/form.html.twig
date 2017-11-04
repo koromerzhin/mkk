@@ -1,0 +1,14 @@
+{% extends "MkkAdminBundle:Group:layout.html.twig" %}
+{% from "MkkSiteBundle:Templates:admin/macro.html.twig" import navbarform %}
+{% block body_content %}
+	{{ form_start(form['standard']) }}
+	{% set tabnav = [] %}
+	{% set tabnav = tabnav | merge([
+		{
+			'titre': 'Informations',
+			'html': 'MkkAdminBundle:Group:form/informations.html.twig'
+		}
+	]) %}
+	{{ navbarform(tabnav, form, param) }}
+	{{ form_end(form['standard']) }}
+{% endblock %}

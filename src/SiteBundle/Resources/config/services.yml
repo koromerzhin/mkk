@@ -1,0 +1,255 @@
+imports:
+    - { resource: "@MkkAdminBundle/Resources/config/services.yml" }
+    - { resource: "@MkkPublicBundle/Resources/config/services.yml" }
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: true
+    mkk.breadcrumb_service:
+        class: Mkk\SiteBundle\Service\BreadCrumbService
+    mkk.twig.extension:
+        class: Mkk\SiteBundle\Extension\TextExtension
+        tags:
+            - { name: twig.extension }
+    Mkk\SiteBundle\DatabaseListener\:
+        resource: "../../DatabaseListener/*"
+    Mkk\SiteBundle\Modal\:
+        resource: "../../Modal/*"
+    Mkk\SiteBundle\Handler\:
+        resource: "../../Handler/*"
+    Mkk\SiteBundle\Listener\:
+        resource: "../../Listener/*"
+    Mkk\SiteBundle\Service\:
+        resource: "../../Service/*"
+    bdd.adresse_manager:
+        class: Mkk\SiteBundle\Table\TableService
+        arguments:
+            $table: "Adresse"
+    bdd.action_manager:
+        class: Mkk\SiteBundle\Table\TableService
+        arguments:
+            $table: "Action"
+    bdd.blog_manager:
+        class: Mkk\SiteBundle\Table\TableService
+        arguments:
+            $table: "Blog"
+    bdd.bookmark_manager:
+        class: Mkk\SiteBundle\Table\TableService
+        arguments:
+            $table: "Bookmark"
+    bdd.categorie_manager:
+        class: Mkk\SiteBundle\Table\TableService
+        arguments:
+            $table: "Categorie"
+    bdd.config_manager:
+        class: Mkk\SiteBundle\Table\TableService
+        arguments:
+            $table: "Config"
+    bdd.date_manager:
+        class: Mkk\SiteBundle\Table\TableService
+        arguments:
+            $table: "Date"
+    bdd.diaporama_manager:
+        class: Mkk\SiteBundle\Table\TableService
+        arguments:
+            $table: "Diaporama"
+    bdd.edito_manager:
+        class: Mkk\SiteBundle\Table\TableService
+        arguments:
+            $table: "Edito"
+    bdd.email_manager:
+        class: Mkk\SiteBundle\Table\TableService
+        arguments:
+            $table: "Email"
+    bdd.emplacement_manager:
+        class: Mkk\SiteBundle\Table\TableService
+        arguments:
+            $table: "Emplacement"
+    bdd.etablissement_manager:
+        class: Mkk\SiteBundle\Table\TableService
+        arguments:
+            $table: "Etablissement"
+    bdd.evenement_manager:
+        class: Mkk\SiteBundle\Table\TableService
+        arguments:
+            $table: "Evenement"
+    bdd.group_manager:
+        class: Mkk\SiteBundle\Table\TableService
+        arguments:
+            $table: "Group"
+    bdd.horaire_manager:
+        class: Mkk\SiteBundle\Table\TableService
+        arguments:
+            $table: "Horaire"
+    bdd.lien_manager:
+        class: Mkk\SiteBundle\Table\TableService
+        arguments:
+            $table: "Lien"
+    bdd.mailer_manager:
+        class: Mkk\SiteBundle\Table\TableService
+        arguments:
+            $table: "Mailer"
+    bdd.menu_manager:
+        class: Mkk\SiteBundle\Table\TableService
+        arguments:
+            $table: "Menu"
+    bdd.metariane_manager:
+        class: Mkk\SiteBundle\Table\TableService
+        arguments:
+            $table: "Metariane"
+    bdd.naf_manager:
+        class: Mkk\SiteBundle\Table\TableService
+        arguments:
+            $table: "Naf"
+    bdd.nafclasse_manager:
+        class: Mkk\SiteBundle\Table\TableService
+        arguments:
+            $table: "NafClasse"
+    bdd.nafdivision_manager:
+        class: Mkk\SiteBundle\Table\TableService
+        arguments:
+            $table: "NafDivision"
+    bdd.nafgroupe_manager:
+        class: Mkk\SiteBundle\Table\TableService
+        arguments:
+            $table: "NafGroupe"
+    bdd.nafsection_manager:
+        class: Mkk\SiteBundle\Table\TableService
+        arguments:
+            $table: "NafSection"
+    bdd.nafsousclasse_manager:
+        class: Mkk\SiteBundle\Table\TableService
+        arguments:
+            $table: "NafSousClasse"
+    bdd.noteinterne_manager:
+        class: Mkk\SiteBundle\Table\TableService
+        arguments:
+            $table: "Noteinterne"
+    bdd.noteinernelecture_manager:
+        class: Mkk\SiteBundle\Table\TableService
+        arguments:
+            $table: "NoteinterneLecture"
+    bdd.page_manager:
+        class: Mkk\SiteBundle\Table\TableService
+        arguments:
+            $table: "Page"
+    bdd.param_manager:
+        class: Mkk\SiteBundle\Table\TableService
+        arguments:
+            $table: "Param"
+    bdd.partenaire_manager:
+        class: Mkk\SiteBundle\Table\TableService
+        arguments:
+            $table: "Partenaire"
+    bdd.prix_manager:
+        class: Mkk\SiteBundle\Table\TableService
+        arguments:
+            $table: "Prix"
+    bdd.revolutionslider_manager:
+        class: Mkk\SiteBundle\Table\TableService
+        arguments:
+            $table: "RevolutionSlider"
+    bdd.revolutionsliderslide_manager:
+        class: Mkk\SiteBundle\Table\TableService
+        arguments:
+            $table: "RevolutionSliderSlide"
+    bdd.slide_manager:
+        class: Mkk\SiteBundle\Table\TableService
+        arguments:
+            $table: "Slide"
+    bdd.tag_manager:
+        class: Mkk\SiteBundle\Table\TableService
+        arguments:
+            $table: "Tag"
+    bdd.telephone_manager:
+        class: Mkk\SiteBundle\Table\TableService
+        arguments:
+            $table: "Telephone"
+    bdd.templates_manager:
+        class: Mkk\SiteBundle\Table\TableService
+        arguments:
+            $table: "Templates"
+    bdd.user_manager:
+        class: Mkk\SiteBundle\Table\TableService
+        arguments:
+            $table: "User"
+    doctrine.event_listener:
+        class: Mkk\SiteBundle\Listener\DatabaseListener
+        tags:
+            - { name: doctrine.event_subscriber }
+    modiftwig:
+        class: Mkk\SiteBundle\Listener\ResponseListener
+        tags:
+        - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse}
+    mkk_site.listener.request:
+        class: Mkk\SiteBundle\Listener\RequestListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: redirectLoginRequest }
+            - { name: kernel.event_listener, event: kernel.request, method: disableRequest }
+    upload.subscriber:
+        class: Mkk\SiteBundle\Listener\UploadSubscriber
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+    extension.listener:
+        class: Mkk\SiteBundle\Listener\DoctrineExtensionListener
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+        tags:
+            # translatable sets locale after router processing
+            - { name: kernel.event_listener, event: kernel.request, method: onLateKernelRequest, priority: -10 }
+            # loggable hooks user username if one is in security context
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+            # translatable sets locale such as default application locale before command execute
+            - { name: kernel.event_listener, event: console.command, method: onConsoleCommand, priority: -10 }
+    gedmo.listener.blameable:
+      class: Gedmo\Blameable\BlameableListener
+      tags:
+        - { name: doctrine.event_subscriber, connection: default }
+      calls:
+        - [ setAnnotationReader, [ "@annotation_reader" ] ]
+        - [ setUserValue, [ "@security.token_storage" ] ]
+
+    gedmo.listener.tree:
+        class: Gedmo\Tree\TreeListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [ setAnnotationReader, [ "@annotation_reader" ] ]
+
+    gedmo.listener.translatable:
+        class: Gedmo\Translatable\TranslatableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [ setAnnotationReader, [ "@annotation_reader" ] ]
+            - [ setDefaultLocale, [ %locale% ] ]
+            - [ setTranslationFallback, [ false ] ]
+
+    gedmo.listener.timestampable:
+        class: Gedmo\Timestampable\TimestampableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [ setAnnotationReader, [ "@annotation_reader" ] ]
+
+    gedmo.listener.sluggable:
+        class: Gedmo\Sluggable\SluggableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [ setAnnotationReader, [ "@annotation_reader" ] ]
+
+    gedmo.listener.sortable:
+        class: Gedmo\Sortable\SortableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [ setAnnotationReader, [ "@annotation_reader" ] ]
+
+    gedmo.listener.loggable:
+        class: Gedmo\Loggable\LoggableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [ setAnnotationReader, [ "@annotation_reader" ] ]

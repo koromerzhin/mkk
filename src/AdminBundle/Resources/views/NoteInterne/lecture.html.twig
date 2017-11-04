@@ -1,0 +1,12 @@
+{% for entity in paginator %}
+    <tr>
+        <td>{{ entity.refuser.nom }}</td>
+        <td>
+            {% if entity.date|date('d/m/Y H:i') == "now"|date('d/m/Y H:i') %}
+                Non lu
+            {% else %}
+                {{ entity.date|date('d/m/Y H:i') }}
+            {% endif %}
+        </td>
+    </tr>
+{% endfor %}

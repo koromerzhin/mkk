@@ -1,0 +1,5 @@
+{% from "MkkAdminBundle:NoteInterne:macro.html.twig" import forminfo %}
+<p>Le lien que vous renseignerez ci-dessous sera ouvert dans une nouvelle fen&ecirc;tre quand le lecteur cliquera sur "en savoir plus". Vous pouvez cocher la case "non" du champ "Publier" si votre travail n'est pas fini et que vous souhaitez le
+	sauvegarder pour le reprendre plus tard.</p><br/>
+{{ form_row(form['standard'].publier) }}
+{{ forminfo(form,param) }}

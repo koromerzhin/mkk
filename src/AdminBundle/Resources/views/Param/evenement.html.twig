@@ -1,0 +1,8 @@
+{% extends "MkkAdminBundle:Param:layout.html.twig" %}
+{% block body_content %}
+	{{ form_start(form) }}
+	{% for input in form %}
+		{{ form_row(input) }}
+	{% endfor %}
+	{{ form_end(form) }}
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "MkkAdminBundle:Param:layout.html.twig" %}
+{% block body_content %}
+	{{ form_start(form) }}
+	<div class="row">
+		<div class="col-md-6">
+			<p>Groupes utilisateurs qui ont accès au FileManager</p>
+			{{ form_row(form.tinymce_filemanageracces) }}
+		</div>
+	</div>
+	{{ form_end(form) }}
+{% endblock %}
