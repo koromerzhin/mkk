@@ -1,0 +1,12 @@
+{
+    "name": "toutoul/mkk",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Le TOULLEC Martial",
+            "email": "letoullec.martial@gmail.com"
+        }
+    ],
+    "require": {}
+}
