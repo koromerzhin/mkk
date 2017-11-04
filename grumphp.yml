@@ -1,0 +1,38 @@
+parameters:
+    git_dir: .
+    bin_dir: bin
+    tasks:
+        file_size:
+        securitychecker:
+        # phpcsfixer2:
+        #   config: '.php_cs.dist'
+        #   diff: true
+        #   allow_risky: true
+        yamllint:
+            ignore_patterns:
+                - /^app\/(.*)/
+                - /^var\/(.*)/
+                - /^bin\/(.*)/
+                - /^web\/(.*)/
+        phplint: ~
+        phpcs:
+            standard: 'phpcs.xml'
+            whitelist_patterns:
+                - /^src\/(.*)/
+        phpunit: ~
+        phpmd:
+            exclude:
+                - app
+                - var
+                - bin
+                - web
+                - /^app\/(.*)/
+                - /^var\/(.*)/
+                - /^bin\/(.*)/
+                - /^web\/(.*)/
+            ruleset:
+                - 'phpmd.xml'
+        phpmnd:
+            directory: src
+        # phpstan:
+        #     autoload_file: 'vendor/blueimp/jquery-file-upload/server/php/UploadHandler.php'
