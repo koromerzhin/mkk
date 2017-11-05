@@ -9,8 +9,8 @@ $iterator = Finder::create()
     ->in($dir = 'src')
 ;
 return new Sami($iterator, array(
-    'title'                => 'Le TOULLEC Martial',
-    'build_dir'            => __DIR__.'/../doc/letoullec.fr/',
+    'title'                => 'Mkk',
+    'build_dir'            => __DIR__.'/../doc/mkk/',
     'cache_dir'            => __DIR__.'/../cache/%version%',
     // use a custom theme directory
     'default_opened_level' => 2,
