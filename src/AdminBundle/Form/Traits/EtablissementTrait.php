@@ -182,7 +182,7 @@ trait EtablissementTrait
      */
     private function addFilevuesEquipe(FormBuilderInterface $builder): void
     {
-        if (isset($this->params['etablissement_mediaphotoequipe']) && 1 === $this->params['etablissement_mediaphotoequipe']) {
+        if (isset($this->params['etablissement_mediaphotoequipe']) && 1 === (int) $this->params['etablissement_mediaphotoequipe']) {
             $builder->add(
                 'filevuesequipe',
                 Type\TextType::class,
@@ -206,7 +206,7 @@ trait EtablissementTrait
      */
     private function addFileVuesExterne(FormBuilderInterface $builder): void
     {
-        if (isset($this->params['etablissement_mediaphotoenexterieur']) && 1 === $this->params['etablissement_mediaphotoenexterieur']) {
+        if (isset($this->params['etablissement_mediaphotoenexterieur']) && 1 === (int) $this->params['etablissement_mediaphotoenexterieur']) {
             $builder->add(
                 'filevuesexterne',
                 Type\TextType::class,
@@ -230,7 +230,7 @@ trait EtablissementTrait
      */
     private function addFileVuesInterne(FormBuilderInterface $builder): void
     {
-        if (isset($this->params['etablissement_mediaphotoeninterieur']) && 1 === $this->params['etablissement_mediaphotoeninterieur']) {
+        if (isset($this->params['etablissement_mediaphotoeninterieur']) && 1 === (int) $this->params['etablissement_mediaphotoeninterieur']) {
             $builder->add(
                 'filevuesinterne',
                 Type\TextType::class,
@@ -254,7 +254,7 @@ trait EtablissementTrait
      */
     private function addGalerie(FormBuilderInterface $builder): void
     {
-        if (isset($this->params['etablissement_mediaimages']) && 1 === $this->params['etablissement_mediaimages']) {
+        if (isset($this->params['etablissement_mediaimages']) && 1 === (int) $this->params['etablissement_mediaimages']) {
             $builder->add(
                 'filegalerie',
                 Type\TextType::class,
@@ -278,7 +278,7 @@ trait EtablissementTrait
      */
     private function addVignette(FormBuilderInterface $builder): void
     {
-        if (isset($this->params['etablissement_medialogo']) && 1 === $this->params['etablissement_medialogo']) {
+        if (isset($this->params['etablissement_medialogo']) && 1 === (int) $this->params['etablissement_medialogo']) {
             $builder->add(
                 'filevignette',
                 Type\TextType::class,
@@ -302,7 +302,7 @@ trait EtablissementTrait
      */
     private function addPdf(FormBuilderInterface $builder): void
     {
-        if (isset($this->params['etablissement_factures']) && 1 === $this->params['etablissement_factures']) {
+        if (isset($this->params['etablissement_factures']) && 1 === (int) $this->params['etablissement_factures']) {
             $builder->add(
                 'filepdf',
                 Type\TextType::class,
@@ -326,7 +326,7 @@ trait EtablissementTrait
      */
     private function addCopyright(FormBuilderInterface $builder): void
     {
-        if (isset($this->params['etablissement_mediaimages']) and 1 === $this->params['etablissement_mediaimages']) {
+        if (isset($this->params['etablissement_mediaimages']) and 1 === (int) $this->params['etablissement_mediaimages']) {
             $builder->add(
                 'copyright',
                 WysiwygType::class,
@@ -347,7 +347,7 @@ trait EtablissementTrait
      */
     private function addSecteur(FormBuilderInterface $builder): void
     {
-        if (isset($this->params['etablissement_secteur']) and 1 === $this->params['etablissement_secteur']) {
+        if (isset($this->params['etablissement_secteur']) and 1 === (int) $this->params['etablissement_secteur']) {
             $builder->add(
                 'nafsousclasse',
                 Type\TextType::class,
@@ -383,7 +383,7 @@ trait EtablissementTrait
      */
     private function addNbSalarie(FormBuilderInterface $builder): void
     {
-        if (isset($this->params['etablissement_nbrsalarie']) and 1 === $this->params['etablissement_nbrsalarie']) {
+        if (isset($this->params['etablissement_nbrsalarie']) and 1 === (int) $this->params['etablissement_nbrsalarie']) {
             $builder->add(
                 'nbsalarie',
                 Type\IntegerType::class,
@@ -405,7 +405,7 @@ trait EtablissementTrait
      */
     private function addCa(FormBuilderInterface $builder): void
     {
-        if (isset($this->params['etablissement_ca']) and 1 === $this->params['etablissement_ca']) {
+        if (isset($this->params['etablissement_ca']) and 1 === (int) $this->params['etablissement_ca']) {
             $builder->add(
                 'ca',
                 Type\TextType::class,
@@ -426,7 +426,7 @@ trait EtablissementTrait
      */
     private function addSiret(FormBuilderInterface $builder): void
     {
-        if (isset($this->params['etablissement_siret']) and 1 === $this->params['etablissement_siret']) {
+        if (isset($this->params['etablissement_siret']) and 1 === (int) $this->params['etablissement_siret']) {
             $builder->add(
                 'siret',
                 Type\TextType::class,
@@ -447,7 +447,7 @@ trait EtablissementTrait
      */
     private function addApe(FormBuilderInterface $builder): void
     {
-        if (isset($this->params['etablissement_ape']) and 1 === $this->params['etablissement_ape']) {
+        if (isset($this->params['etablissement_ape']) and 1 === (int) $this->params['etablissement_ape']) {
             $builder->add(
                 'ape',
                 Type\TextType::class,
@@ -468,7 +468,7 @@ trait EtablissementTrait
      */
     private function addTvaIntra(FormBuilderInterface $builder): void
     {
-        if (isset($this->params['etablissement_tva']) and 1 === $this->params['etablissement_tva']) {
+        if (isset($this->params['etablissement_tva']) and 1 === (int) $this->params['etablissement_tva']) {
             $builder->add(
                 'tvaintra',
                 Type\TextType::class,

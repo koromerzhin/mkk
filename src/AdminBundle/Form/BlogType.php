@@ -42,7 +42,7 @@ class BlogType extends LibAbstractType
             Type\TextType::class,
             [
                 'required' => FALSE,
-                'label'    => 'Vignette',
+                'label'    => 'Galerie',
                 'attr'     => [
                     'data-upload' => 'admin.blog.upload.galerie',
                 ],

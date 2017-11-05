@@ -326,12 +326,13 @@ class EntityEtablissement implements Translatable
      */
     public function __construct()
     {
-        $this->actif      = 0;
-        $this->liens      = new ArrayCollection();
-        $this->emails     = new ArrayCollection();
-        $this->telephones = new ArrayCollection();
-        $this->horaires   = new ArrayCollection();
-        $this->users      = new ArrayCollection();
+        $this->actif       = 0;
+        $this->liens       = new ArrayCollection();
+        $this->emails      = new ArrayCollection();
+        $this->telephones  = new ArrayCollection();
+        $this->horaires    = new ArrayCollection();
+        $this->users       = new ArrayCollection();
+                $this->pdf = [];
     }
 
     /**
@@ -1626,7 +1627,7 @@ class EntityEtablissement implements Translatable
      */
     public function getPdf(): array
     {
-        return $this->pdf;
+        return (array) $this->pdf;
     }
 
     /**
