@@ -20,10 +20,28 @@ class RepositoryAdresse extends LibRepository
      */
     public function searchAdminList(): Query
     {
-        $entity = $this->getEntityName();
-        $dql    = "SELECT {$entity} FROM {$this->bundle}:Adresse {$entity}";
+        $code   = $this->getEntityName();
+        $entity = "{$this->bundle}:Adresse";
+        $dql    = "SELECT {$code} FROM {$entity} {$code}";
         $query  = $this->getQuery($dql);
 
         return $query;
+    }
+
+        /**
+         * Retour les lignes à modifier
+         *
+         * @param     string $field champs
+         * @return    array
+         */
+    public function commandFind($field): array
+    {
+        $code   = $this->getEntityName();
+        $entity = "{$this->bundle}:Adresse";
+        $em     = $this->getEntityManager();
+        $dql    = "SELECT {$code} FROM {$entity} {$code} LEFT JOIN {$code}.{$field} field WHERE field.id IS NOT NULL";
+        $result = $em->createQuery($dql)->getResult();
+
+        return $result;
     }
 }

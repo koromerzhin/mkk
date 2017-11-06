@@ -89,7 +89,7 @@
 									{#
 										<i class="fa fa-th"></i>
 									#}
-									<span>{{ menu.libelle }}</span>
+									<span>{{ menu.libelle|trans }}</span>
 								</a>
 							</li>
 						{% else %}
@@ -113,7 +113,7 @@
 												{% set url = path(sousmenu.url) %}
 												<a href="{{ url }}" {% if sousmenu.id is defined %} id="{{ sousmenu.id }}" {% endif %}>
 													<i class="fa fa-circle-o"></i>
-													{{ sousmenu.libelle }}
+													{{ sousmenu.libelle|trans }}
 												</a>
 											{% else %}
 												<a href="#">
@@ -133,7 +133,7 @@
 															{% endif %}
 															<a href="{{ url }}" {% if newsousmenu.id is defined %} id="{{ newsousmenu.id }}" {% endif %}>
 																<i class="fa fa-circle-o"></i>
-																{{ newsousmenu.libelle }}
+																{{ newsousmenu.libelle|trans }}
 															</a>
 														</li>
 													{% endfor %}

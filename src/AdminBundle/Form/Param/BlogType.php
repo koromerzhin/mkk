@@ -28,8 +28,8 @@ class BlogType extends LibParamType
             [
                 'label'   => 'Mettre en avant',
                 'choices' => [
-                    'Activé'     => 1,
-                    'Desactivé'  => 0,
+                    'Activé'    => 1,
+                    'Desactivé' => 0,
                 ],
             ]
         );
@@ -39,8 +39,8 @@ class BlogType extends LibParamType
             [
                 'label'   => 'Cacher par défaut le rédacteur',
                 'choices' => [
-                    'Activé'     => 1,
-                    'Desactivé'  => 0,
+                    'Activé'    => 1,
+                    'Desactivé' => 0,
                 ],
             ]
         );
@@ -50,8 +50,8 @@ class BlogType extends LibParamType
             [
                 'label'   => "Mettre à l'accueil",
                 'choices' => [
-                    'Activé'     => 1,
-                    'Desactivé'  => 0,
+                    'Activé'    => 1,
+                    'Desactivé' => 0,
                 ],
             ]
         );

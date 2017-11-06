@@ -35,6 +35,25 @@ class RepositoryGroup extends LibTranslatableRepository
         return $result;
     }
 
+        /**
+         * Récupere le nombre d'utilisateur
+         *
+         * @return    array
+         */
+    public function commandTotalUser(): array
+    {
+        $code   = $this->getEntityName();
+        $entity = "{$this->bundle}:Group";
+        $em     = $this->getEntityManager();
+        $sql    = "SELECT {$code}.id, count({$code}.id) as total FROM {$entity} {$code}";
+        $sql    = "{$sql}  LEFT JOIN {$code}.users users";
+        $sql    = "{$sql}  GROUP BY {$code}.id";
+        $query  = $em->createQuery($sql);
+        $data   = $query->getResult();
+
+        return $data;
+    }
+
     /**
      * requete pour la liste d'admin.
      *

@@ -10,6 +10,7 @@ use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Router;
 
 class LibController extends Controller
 {
@@ -44,17 +45,24 @@ class LibController extends Controller
     private $paramViews;
 
     /**
+     * @var Router
+     */
+    private $router;
+
+    /**
      * Init controller.
      *
      * @param ContainerInterface $container container
      */
     public function __construct(ContainerInterface $container)
     {
+        $this->paramViews        = [];
         $this->container         = $container;
         $this->breadcrumbService = $container->get(BreadCrumbService::class);
         $this->formFactory       = $container->get('form.factory');
         $this->requestStack      = $container->get('request_stack');
         $this->request           = $this->requestStack->getCurrentRequest();
+        $this->router            = $container->get('router');
     }
 
     /**
@@ -83,6 +91,7 @@ class LibController extends Controller
      */
     protected function addParamViewsSite(array $parameters): void
     {
+        $this->paramViews = array_merge($this->paramViews, $parameters);
         $this->addBreadcrumb();
         $this->addImageBackground();
         $this->addEnseigne();
@@ -90,7 +99,6 @@ class LibController extends Controller
         $this->addManifest();
         $this->addParams();
         $this->addParamsMetatags();
-        $this->paramViews = array_merge($this->paramViews, $parameters);
     }
 
     /**
@@ -148,7 +156,6 @@ class LibController extends Controller
             $this->paramViews['metatags']['og:site_name'] = $this->paramViews['meta_titre'];
         }
     }
-
     /**
      * Génére les métatags par défault.
      *
@@ -156,17 +163,65 @@ class LibController extends Controller
      */
     private function setDefaultMetatags(): void
     {
-        $params = $this->paramViews['param'];
-        if (isset($params['meta_description']) && '' !== $params['meta_description'] && $this->paramViews['metatags']['description'] === '') {
-            $this->paramViews['metatags']['description'] = $params['meta_description'];
-        }
+        $this->setMetaDescription();
+        $this->setMetaKeywords();
+        $this->setMetaOgTitre();
+        $this->setMetaUrl();
+    }
 
+    /**
+     * Set
+     *
+     * @return    void
+     */
+    private function setMetaUrl(): void
+    {
+        $params = $this->paramViews['param'];
+        if (isset($params['url'])) {
+            $url       = $params['url'];
+            $infoRoute = $this->request->attributes->all();
+            $url       = $url . $this->router->generate($infoRoute['_route'], $infoRoute['_route_params']);
+
+            $this->paramViews['metatags']['og:url'] = $url;
+        }
+    }
+
+    /**
+     * Set
+     *
+     * @return    void
+     */
+    private function setMetaOgTitre(): void
+    {
+        $params = $this->paramViews['param'];
+        if (isset($params['meta_titre']) && '' !== $params['meta_titre']) {
+            $this->paramViews['metatags']['og:title'] = $params['meta_titre'];
+        }
+    }
+
+    /**
+     * Set
+     *
+     * @return    void
+     */
+    private function setMetaKeywords(): void
+    {
+        $params = $this->paramViews['param'];
         if (isset($params['meta_keywords']) && '' !== $params['meta_keywords'] && $this->paramViews['metatags']['keywords'] === '') {
             $this->paramViews['metatags']['keywords'] = $params['meta_keywords'];
         }
+    }
 
-        if (isset($params['meta_titre']) && '' !== $params['meta_titre']) {
-            $this->paramViews['metatags']['og:title'] = $params['meta_titre'];
+    /**
+     * Set
+     *
+     * @return    void
+     */
+    private function setMetaDescription(): void
+    {
+        $params = $this->paramViews['param'];
+        if (isset($params['meta_description']) && '' !== $params['meta_description'] && $this->paramViews['metatags']['description'] === '') {
+            $this->paramViews['metatags']['description'] = $params['meta_description'];
         }
     }
 
@@ -249,13 +304,13 @@ class LibController extends Controller
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
         if (is_file('favicon.png')) {
             $favicon = [
-                'mime' => finfo_file($finfo, 'favicon.png'),
-                'url'  => 'favicon.png',
+            'mime' => finfo_file($finfo, 'favicon.png'),
+            'url'  => 'favicon.png',
             ];
         } elseif (is_file('favicon.ico')) {
             $favicon = [
-                'mime' => finfo_file($finfo, 'favicon.ico'),
-                'url'  => 'favicon.ico',
+            'mime' => finfo_file($finfo, 'favicon.ico'),
+            'url'  => 'favicon.ico',
             ];
         }
 

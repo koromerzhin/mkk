@@ -13,6 +13,7 @@ class AdminMenu extends LibMenu
      */
     protected function setMenu(): void
     {
+        $paramMenu    = $this->setParamMenu();
         $this->menu[] = [
               'libelle' => 'Accueil',
               'url'     => 'site.index',
@@ -70,70 +71,97 @@ class AdminMenu extends LibMenu
                 ],
                 [
                     'libelle'  => 'Param',
-                    'sousmenu' => [
-                        [
-                            'libelle' => 'Uploads',
-                            'url'     => 'admin.param.upload',
-                        ],
-                        [
-                            'libelle' => 'Api',
-                            'url'     => 'admin.param.api',
-                        ],
-                        [
-                            'libelle' => 'Blog',
-                            'url'     => 'admin.param.blog',
-                        ],
-                        [
-                            'libelle' => 'Evenement',
-                            'url'     => 'admin.param.evenement',
-                        ],
-                        [
-                            'libelle' => 'Interface',
-                            'url'     => 'admin.param.interface',
-                        ],
-                        [
-                            'libelle' => 'Listing',
-                            'url'     => 'admin.param.listing',
-                        ],
-                        [
-                            'libelle' => 'Base de données',
-                            'url'     => 'admin.param.bdd',
-                        ],
-                        [
-                            'libelle' => 'Login',
-                            'url'     => 'admin.param.login',
-                        ],
-                        [
-                            'libelle' => 'Média',
-                            'url'     => 'admin.param.media',
-                        ],
-                        [
-                            'libelle' => 'Robots.txt',
-                            'url'     => 'admin.param.robotstxt',
-                        ],
-                        [
-                            'libelle' => 'Site',
-                            'url'     => 'admin.param.site',
-                        ],
-                        [
-                            'libelle' => 'Tableau de bord',
-                            'url'     => 'admin.param.tableaubord',
-                        ],
-                        [
-                            'libelle' => 'Etablissements',
-                            'url'     => 'admin.param.etablissement',
-                        ],
-                        [
-                            'libelle' => 'Tags',
-                            'url'     => 'admin.param.tag',
-                        ],
-                        [
-                            'libelle' => 'TinyMCE',
-                            'url'     => 'admin.param.tinymce',
-                        ],
-                    ],
+                    'sousmenu' => $paramMenu,
                 ],
             ],
         ];
+    }
+
+        /**
+         * Génére les routes pour les paramètres
+         *
+         * @return    array
+         */
+    private function setParamMenu(): array
+    {
+        $paramMenu = [
+                [
+                        'libelle' => 'Uploads',
+                        'url'     => 'admin.param.upload',
+                ],
+                [
+                        'libelle' => 'Api',
+                        'url'     => 'admin.param.api',
+                ],
+                [
+                        'libelle' => 'Blog',
+                        'url'     => 'admin.param.blog',
+                ],
+                [
+                        'libelle' => 'Evenement',
+                        'url'     => 'admin.param.evenement',
+                ],
+                [
+                        'libelle' => 'Interface',
+                        'url'     => 'admin.param.interface',
+                ],
+                [
+                        'libelle' => 'Listing',
+                        'url'     => 'admin.param.listing',
+                ],
+                [
+                        'libelle' => 'Base de données',
+                        'url'     => 'admin.param.bdd',
+                ],
+                [
+                        'libelle' => 'Login',
+                        'url'     => 'admin.param.login',
+                ],
+                [
+                        'libelle' => 'Média',
+                        'url'     => 'admin.param.media',
+                ],
+                [
+                        'libelle' => 'Robots.txt',
+                        'url'     => 'admin.param.robotstxt',
+                ],
+                [
+                        'libelle' => 'Site',
+                        'url'     => 'admin.param.site',
+                ],
+                [
+                        'libelle' => 'Tableau de bord',
+                        'url'     => 'admin.param.tableaubord',
+                ],
+                [
+                        'libelle' => 'Etablissements',
+                        'url'     => 'admin.param.etablissement',
+                ],
+                [
+                        'libelle' => 'Tags',
+                        'url'     => 'admin.param.tag',
+                ],
+                [
+                        'libelle' => 'TinyMCE',
+                        'url'     => 'admin.param.tinymce',
+                ],
+        ];
+
+        $routes = $this->router->getRouteCollection()->all();
+        foreach ($routes as $route => $data) {
+            $defaults   = $data->getDefaults();
+            $controller = $defaults['_controller'];
+            $test1      = 0 !== substr_count($route, 'admin.param.');
+            $test2      = 0 === substr_count($controller, 'Mkk');
+            $test3      = 0 === substr_count($route, '.upload');
+            if ($test1 && $test2 && $test3) {
+                            $paramMenu[] = [
+                                'libelle' => "{$route}.libelle",
+                                'url' => $route
+                            ];
+            }
+        }
+
+        return $paramMenu;
     }
 }

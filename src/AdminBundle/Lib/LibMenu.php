@@ -2,6 +2,9 @@
 
 namespace Mkk\AdminBundle\Lib;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Routing\Router;
+
 abstract class LibMenu
 {
     /**
@@ -10,11 +13,20 @@ abstract class LibMenu
     protected $menu;
 
     /**
-     * Init.
+     * @var Router
      */
-    public function __construct()
+    protected $router;
+
+    /**
+     * Init controller.
+     *
+     * @param ContainerInterface $container container
+     */
+    public function __construct(ContainerInterface $container)
     {
-        $this->menu = [];
+        $this->menu      = [];
+        $this->container = $container;
+        $this->router    = $container->get('router');
         $this->setMenu();
     }
 

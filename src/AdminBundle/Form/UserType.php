@@ -103,8 +103,8 @@ class UserType extends LibAbstractType
             Type\ChoiceType::class,
             [
                 'choices' => [
-                    'Français'  => 'fr',
-                    'English'   => 'en',
+                    'Français' => 'fr',
+                    'English'  => 'en',
                 ],
                 'label' => 'Langue utilisée',
             ]
@@ -114,8 +114,8 @@ class UserType extends LibAbstractType
             Type\ChoiceType::class,
             [
                 'choices' => [
-                    'Français'  => 'fr',
-                    'English'   => 'en',
+                    'Français' => 'fr',
+                    'English'  => 'en',
                 ],
                 'label' => 'Langue du site',
             ]

@@ -20,7 +20,7 @@ use Mkk\AdminBundle\Form\Param\TagType;
 use Mkk\AdminBundle\Form\Param\TinymceType;
 use Mkk\AdminBundle\Form\Param\UploadType;
 use Mkk\AdminBundle\Lib\Crud;
-use Mkk\AdminBundle\Lib\LibController;
+use Mkk\AdminBundle\Lib\LibParamController;
 use Mkk\AdminBundle\Service\ActionService;
 use Mkk\SiteBundle\Service\ParamService;
 use Mkk\SiteBundle\Table\TableService;
@@ -34,7 +34,7 @@ use Symfony\Component\Routing\Router;
 /**
  * @Route("/param")
  */
-class ParamController extends LibController
+class ParamController extends LibParamController
 {
     use SearchTrait;
     use UploadTrait;
@@ -316,7 +316,7 @@ class ParamController extends LibController
      *
      * @return void
      */
-    public function setForm(string $identifiant, $service): void
+    protected function setForm(string $identifiant, $service): void
     {
         $this->form = [
             'id'   => $identifiant,
@@ -332,7 +332,7 @@ class ParamController extends LibController
      *
      * @return Response
      */
-    private function generate(string $libelle, string $twig): Response
+    protected function generate(string $libelle, string $twig): Response
     {
         $infoRoute  = $this->request->attributes->all();
         $breadcrumb = [
