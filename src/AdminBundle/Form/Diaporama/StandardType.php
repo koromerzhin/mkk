@@ -24,6 +24,11 @@ class StandardType extends LibAbstractType
             Type\SubmitType::class
         );
         $builder->add(
+            'nom',
+            Type\TextType::class,
+            ['label' => 'Nom', 'attr' => ['placeholder' => 'Nom']]
+        );
+        $builder->add(
             'fileimages',
             Type\TextType::class,
             [

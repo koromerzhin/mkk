@@ -38,7 +38,7 @@ class TelephoneCorrectionCommand extends ContainerAwareCommandLib
         $methods             = get_class_methods($telephone);
         $code                = 'getRef';
         foreach ($methods as $method) {
-            if (substr($method, 0, strlen($code)) == $code) {
+            if (substr($method, 0, strlen($code)) === $code) {
                 $tab[$method] = strtolower(str_replace($code, 'ref', $method));
             }
         }
@@ -46,7 +46,7 @@ class TelephoneCorrectionCommand extends ContainerAwareCommandLib
         $tabsupp = [];
         foreach ($tab as $method => $field) {
             $telephones = $telephoneRepository->commandFind($field);
-            if (count($telephones) != 0) {
+            if (0 !== count($telephones)) {
                 $supp    = $this->telephoneVerifDoublon($telephones, $method, $tabsupp);
                 $tabsupp = array_merge($tabsupp, $supp);
             }
@@ -62,11 +62,12 @@ class TelephoneCorrectionCommand extends ContainerAwareCommandLib
     }
 
     /**
-     * Verifie les doublons
+     * Verifie les doublons.
      *
-     * @param     array  $telephones tableau de téléphone
-     * @param     string $field      champs
-     * @return    array
+     * @param array  $telephones tableau de téléphone
+     * @param string $field      champs
+     *
+     * @return array
      */
     private function telephoneVerifDoublon($telephones, $field): array
     {
@@ -75,7 +76,7 @@ class TelephoneCorrectionCommand extends ContainerAwareCommandLib
         foreach ($telephones as $telephone) {
             $idfield = $telephone->$field()->getId();
             $data    = $telephone->getChiffre();
-            if (! isset($tab[$field][$idfield][$data])) {
+            if (!isset($tab[$field][$idfield][$data])) {
                 $tab[$field][$idfield][$data] = $telephone->getId();
             } else {
                 $supp[] = $telephone;

@@ -38,7 +38,7 @@ class LienCorrectionCommand extends ContainerAwareCommandLib
         $methods        = get_class_methods($lien);
         $code           = 'getRef';
         foreach ($methods as $method) {
-            if (substr($method, 0, strlen($code)) == $code) {
+            if (substr($method, 0, strlen($code)) === $code) {
                 $tab[$method] = strtolower(str_replace($code, 'ref', $method));
             }
         }
@@ -46,7 +46,7 @@ class LienCorrectionCommand extends ContainerAwareCommandLib
         $tabsupp = [];
         foreach ($tab as $method => $field) {
             $liens = $lienRepository->commandFind($field);
-            if (count($liens) != 0) {
+            if (0 !== count($liens)) {
                 $supp    = $this->lienVerifDoublon($liens, $method, $tabsupp);
                 $tabsupp = array_merge($tabsupp, $supp);
             }
@@ -62,11 +62,12 @@ class LienCorrectionCommand extends ContainerAwareCommandLib
     }
 
     /**
-     * Verifie les doublons
+     * Verifie les doublons.
      *
-     * @param     array $liens tableau de liens
-     * @param     field $field champs
-     * @return    array
+     * @param array $liens tableau de liens
+     * @param field $field champs
+     *
+     * @return array
      */
     private function lienVerifDoublon($liens, $field)
     {
@@ -75,7 +76,7 @@ class LienCorrectionCommand extends ContainerAwareCommandLib
         foreach ($liens as $lien) {
             $idfield = $lien->$field()->getId();
             $data    = $lien->getAdresse();
-            if (! isset($tab[$field][$idfield][$data])) {
+            if (!isset($tab[$field][$idfield][$data])) {
                 $tab[$field][$idfield][$data] = $lien->getId();
             } else {
                 $supp[] = $lien;

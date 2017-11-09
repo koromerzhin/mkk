@@ -114,7 +114,7 @@ class RequestListener
         $tokenStorage         = $this->container->get('security.token_storage')->getToken();
         $authorizationChecker = $this->container->get('security.authorization_checker');
         $isauthorized         = $authorizationChecker->isGranted('IS_AUTHENTICATED_REMEMBERED');
-        if (in_array($route, $tabroute, TRUE) || (NULL !== $tokenStorage && $isauthorized)) {
+        if (in_array($route, $tabroute) || (NULL !== $tokenStorage && $isauthorized)) {
             return;
         }
 

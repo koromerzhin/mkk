@@ -24,6 +24,38 @@ class StandardType extends LibAbstractType
             Type\SubmitType::class
         );
         $builder->add(
+            'alias',
+            Type\TextType::class,
+            [
+                'label'    => 'Alias',
+                'required' => FALSE,
+            ]
+        );
+        $builder->add(
+            'nom',
+            Type\TextType::class,
+            [
+                'label'    => 'Nom',
+                'required' => FALSE,
+            ]
+        );
+        $builder->add(
+            'meta_description',
+            Type\TextType::class,
+            [
+                'required' => FALSE,
+                'label'    => 'Description',
+            ]
+        );
+        $builder->add(
+            'meta_keywords',
+            Type\TextType::class,
+            [
+                'required' => FALSE,
+                'label'    => 'Mots clefs',
+            ]
+        );
+        $builder->add(
             'position',
             Type\HiddenType::class
         );

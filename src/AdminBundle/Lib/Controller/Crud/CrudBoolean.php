@@ -119,13 +119,13 @@ class CrudBoolean
 
         $methods = get_class_methods($entity);
         $champs  = ucfirst($champs);
-        if (!in_array("set{$champs}", $methods, TRUE)) {
+        if (!in_array("set{$champs}", $methods)) {
             $json = new JsonResponse($response);
 
             return $json;
         }
 
-        $params = (1 === $etat);
+        $params = (1 === (int) $etat);
         call_user_func([$entity, "set{$champs}"], $params);
         $this->manager->persistAndFlush($entity);
         $response['change'] = 1;

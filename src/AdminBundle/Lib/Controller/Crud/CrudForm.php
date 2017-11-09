@@ -317,7 +317,7 @@ class CrudForm
             $this->methods = get_class_methods($entity);
         } else {
             $this->methods = get_class_methods($entity);
-            if (in_array('setTranslatableLocale', $this->methods, TRUE)) {
+            if (in_array('setTranslatableLocale', $this->methods)) {
                 $entity->setTranslatableLocale($this->request->getLocale());
                 $this->manager->refresh($entity);
             }

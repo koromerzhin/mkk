@@ -1,139 +1,139 @@
 twig:
-    #exception_controller: Mkk\SiteBundle\Controller\ExceptionController::showAction
+    #exception_controller:          Mkk\SiteBundle\Controller\ExceptionController::showAction
     form_themes:
         - "MkkSiteBundle:Fields:index.html.twig"
 doctrine:
     orm:
         mappings:
             gedmo_translatable:
-                type: annotation
-                prefix: Gedmo\Translatable\Entity
-                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity"
-                alias: GedmoTranslatable # this one is optional and will default to the name set for the mapping
-                is_bundle: false
+                type:               annotation
+                prefix:             Gedmo\Translatable\Entity
+                dir:                "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity"
+                alias:              GedmoTranslatable # this one is optional and will default to the name set for the mapping
+                is_bundle:          false
             gedmo_translator:
-                type: annotation
-                prefix: Gedmo\Translator\Entity
-                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translator/Entity"
-                alias: GedmoTranslator # this one is optional and will default to the name set for the mapping
-                is_bundle: false
+                type:               annotation
+                prefix:             Gedmo\Translator\Entity
+                dir:                "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translator/Entity"
+                alias:              GedmoTranslator # this one is optional and will default to the name set for the mapping
+                is_bundle:          false
             gedmo_loggable:
-                type: annotation
-                prefix: Gedmo\Loggable\Entity
-                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Loggable/Entity"
-                alias: GedmoLoggable # this one is optional and will default to the name set for the mapping
-                is_bundle: false
+                type:               annotation
+                prefix:             Gedmo\Loggable\Entity
+                dir:                "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Loggable/Entity"
+                alias:              GedmoLoggable # this one is optional and will default to the name set for the mapping
+                is_bundle:          false
             gedmo_tree:
-                type: annotation
-                prefix: Gedmo\Tree\Entity
-                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Tree/Entity"
-                alias: GedmoTree # this one is optional and will default to the name set for the mapping
-                is_bundle: false
+                type:               annotation
+                prefix:             Gedmo\Tree\Entity
+                dir:                "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Tree/Entity"
+                alias:              GedmoTree # this one is optional and will default to the name set for the mapping
+                is_bundle:          false
         dql:
             numeric_functions:
-                geo: Mkk\SiteBundle\ORMfunction\Geo
-                complexgeo : Mkk\SiteBundle\ORMfunction\ComplexGeo
-                acos: DoctrineExtensions\Query\Mysql\Acos
-                asin: DoctrineExtensions\Query\Mysql\Asin
-                atan2: DoctrineExtensions\Query\Mysql\Atan2
-                atan: DoctrineExtensions\Query\Mysql\Atan
-                bit_count: DoctrineExtensions\Query\Mysql\BitCount
-                bit_xor: DoctrineExtensions\Query\Mysql\BitXor
-                ceil: DoctrineExtensions\Query\Mysql\Ceil
-                cos: DoctrineExtensions\Query\Mysql\Cos
-                cot: DoctrineExtensions\Query\Mysql\Cot
-                floor: DoctrineExtensions\Query\Mysql\Floor
-                log10: DoctrineExtensions\Query\Mysql\Log10
-                pi: DoctrineExtensions\Query\Mysql\Pi
-                power: DoctrineExtensions\Query\Mysql\Power
-                quarter: DoctrineExtensions\Query\Mysql\Quarter
-                rand: DoctrineExtensions\Query\Mysql\Rand
-                round: DoctrineExtensions\Query\Mysql\Round
-                stddev: DoctrineExtensions\Query\Mysql\StdDev
-                sin: DoctrineExtensions\Query\Mysql\Sin
-                std: DoctrineExtensions\Query\Mysql\Std
-                tan: DoctrineExtensions\Query\Mysql\Tan
+                geo:                Mkk\SiteBundle\ORMfunction\Geo
+                complexgeo :        Mkk\SiteBundle\ORMfunction\ComplexGeo
+                acos:               DoctrineExtensions\Query\Mysql\Acos
+                asin:               DoctrineExtensions\Query\Mysql\Asin
+                atan2:              DoctrineExtensions\Query\Mysql\Atan2
+                atan:               DoctrineExtensions\Query\Mysql\Atan
+                bit_count:          DoctrineExtensions\Query\Mysql\BitCount
+                bit_xor:            DoctrineExtensions\Query\Mysql\BitXor
+                ceil:               DoctrineExtensions\Query\Mysql\Ceil
+                cos:                DoctrineExtensions\Query\Mysql\Cos
+                cot:                DoctrineExtensions\Query\Mysql\Cot
+                floor:              DoctrineExtensions\Query\Mysql\Floor
+                log10:              DoctrineExtensions\Query\Mysql\Log10
+                pi:                 DoctrineExtensions\Query\Mysql\Pi
+                power:              DoctrineExtensions\Query\Mysql\Power
+                quarter:            DoctrineExtensions\Query\Mysql\Quarter
+                rand:               DoctrineExtensions\Query\Mysql\Rand
+                round:              DoctrineExtensions\Query\Mysql\Round
+                stddev:             DoctrineExtensions\Query\Mysql\StdDev
+                sin:                DoctrineExtensions\Query\Mysql\Sin
+                std:                DoctrineExtensions\Query\Mysql\Std
+                tan:                DoctrineExtensions\Query\Mysql\Tan
             string_functions:
-                password: Mkk\SiteBundle\ORMfunction\Password
-                old_password: Mkk\SiteBundle\ORMfunction\Oldpassword
-                ascii: DoctrineExtensions\Query\Mysql\Ascii
-                binary: DoctrineExtensions\Query\Mysql\Binary
-                char_length: DoctrineExtensions\Query\Mysql\CharLength
-                concat_ws: DoctrineExtensions\Query\Mysql\ConcatWs
-                countif: DoctrineExtensions\Query\Mysql\CountIf
-                crc32: DoctrineExtensions\Query\Mysql\Crc32
-                degrees: DoctrineExtensions\Query\Mysql\Degrees
-                field: DoctrineExtensions\Query\Mysql\Field
-                find_in_set: DoctrineExtensions\Query\Mysql\FindInSet
-                greatest: DoctrineExtensions\Query\Mysql\Greatest
-                group_concat: DoctrineExtensions\Query\Mysql\GroupConcat
-                ifelse: DoctrineExtensions\Query\Mysql\IfElse
-                ifnull: DoctrineExtensions\Query\Mysql\IfNull
-                least: DoctrineExtensions\Query\Mysql\Least
-                lpad: DoctrineExtensions\Query\Mysql\Lpad
-                match: DoctrineExtensions\Query\Mysql\MatchAgainst
-                md5: DoctrineExtensions\Query\Mysql\Md5
-                nullif: DoctrineExtensions\Query\Mysql\NullIf
-                radians: DoctrineExtensions\Query\Mysql\Radians
-                regexp: DoctrineExtensions\Query\Mysql\Regexp
-                replace: DoctrineExtensions\Query\Mysql\Replace
-                rpad: DoctrineExtensions\Query\Mysql\Rpad
-                sha1: DoctrineExtensions\Query\Mysql\Sha1
-                sha2: DoctrineExtensions\Query\Mysql\Sha2
-                soundex: DoctrineExtensions\Query\Mysql\Soundex
-                substring_index: DoctrineExtensions\Query\Mysql\SubstringIndex
-                uuid_short: DoctrineExtensions\Query\Mysql\UuidShort
-                hex: DoctrineExtensions\Query\Mysql\Hex
-                unhex: DoctrineExtensions\Query\Mysql\Unhex
+                password:           Mkk\SiteBundle\ORMfunction\Password
+                old_password:       Mkk\SiteBundle\ORMfunction\Oldpassword
+                ascii:              DoctrineExtensions\Query\Mysql\Ascii
+                binary:             DoctrineExtensions\Query\Mysql\Binary
+                char_length:        DoctrineExtensions\Query\Mysql\CharLength
+                concat_ws:          DoctrineExtensions\Query\Mysql\ConcatWs
+                countif:            DoctrineExtensions\Query\Mysql\CountIf
+                crc32:              DoctrineExtensions\Query\Mysql\Crc32
+                degrees:            DoctrineExtensions\Query\Mysql\Degrees
+                field:              DoctrineExtensions\Query\Mysql\Field
+                find_in_set:        DoctrineExtensions\Query\Mysql\FindInSet
+                greatest:           DoctrineExtensions\Query\Mysql\Greatest
+                group_concat:       DoctrineExtensions\Query\Mysql\GroupConcat
+                ifelse:             DoctrineExtensions\Query\Mysql\IfElse
+                ifnull:             DoctrineExtensions\Query\Mysql\IfNull
+                least:              DoctrineExtensions\Query\Mysql\Least
+                lpad:               DoctrineExtensions\Query\Mysql\Lpad
+                match:              DoctrineExtensions\Query\Mysql\MatchAgainst
+                md5:                DoctrineExtensions\Query\Mysql\Md5
+                nullif:             DoctrineExtensions\Query\Mysql\NullIf
+                radians:            DoctrineExtensions\Query\Mysql\Radians
+                regexp:             DoctrineExtensions\Query\Mysql\Regexp
+                replace:            DoctrineExtensions\Query\Mysql\Replace
+                rpad:               DoctrineExtensions\Query\Mysql\Rpad
+                sha1:               DoctrineExtensions\Query\Mysql\Sha1
+                sha2:               DoctrineExtensions\Query\Mysql\Sha2
+                soundex:            DoctrineExtensions\Query\Mysql\Soundex
+                substring_index:    DoctrineExtensions\Query\Mysql\SubstringIndex
+                uuid_short:         DoctrineExtensions\Query\Mysql\UuidShort
+                hex:                DoctrineExtensions\Query\Mysql\Hex
+                unhex:              DoctrineExtensions\Query\Mysql\Unhex
             datetime_functions:
-                convert_tz: DoctrineExtensions\Query\Mysql\ConvertTz
-                date: DoctrineExtensions\Query\Mysql\Date
-                date_format: DoctrineExtensions\Query\Mysql\DateFormat
-                dateadd: DoctrineExtensions\Query\Mysql\DateAdd
-                datesub: DoctrineExtensions\Query\Mysql\DateSub
-                datediff: DoctrineExtensions\Query\Mysql\DateDiff
-                day: DoctrineExtensions\Query\Mysql\Day
-                dayname: DoctrineExtensions\Query\Mysql\DayName
-                dayofweek: DoctrineExtensions\Query\Mysql\DayOfWeek
-                dayofyear: DoctrineExtensions\Query\Mysql\DayOfYear
-                div: DoctrineExtensions\Query\Mysql\Div
-                from_unixtime: DoctrineExtensions\Query\Mysql\FromUnixtime
-                hour: DoctrineExtensions\Query\Mysql\Hour
-                last_day: DoctrineExtensions\Query\Mysql\LastDay
-                minute: DoctrineExtensions\Query\Mysql\Minute
-                now: DoctrineExtensions\Query\Mysql\Now
-                month: DoctrineExtensions\Query\Mysql\Month
-                monthname: DoctrineExtensions\Query\Mysql\MonthName
-                second: DoctrineExtensions\Query\Mysql\Second
-                strtodate: DoctrineExtensions\Query\Mysql\StrToDate
-                time: DoctrineExtensions\Query\Mysql\Time
-                timediff: DoctrineExtensions\Query\Mysql\TimeDiff
-                timestampadd: DoctrineExtensions\Query\Mysql\TimestampAdd
-                timestampdiff: DoctrineExtensions\Query\Mysql\TimestampDiff
-                timetosec: DoctrineExtensions\Query\Mysql\TimeToSec
-                week: DoctrineExtensions\Query\Mysql\Week
-                weekday: DoctrineExtensions\Query\Mysql\WeekDay
-                year: DoctrineExtensions\Query\Mysql\Year
-                yearweek: DoctrineExtensions\Query\Mysql\YearWeek
-                unix_timestamp: DoctrineExtensions\Query\Mysql\UnixTimestamp
+                convert_tz:         DoctrineExtensions\Query\Mysql\ConvertTz
+                date:               DoctrineExtensions\Query\Mysql\Date
+                date_format:        DoctrineExtensions\Query\Mysql\DateFormat
+                dateadd:            DoctrineExtensions\Query\Mysql\DateAdd
+                datesub:            DoctrineExtensions\Query\Mysql\DateSub
+                datediff:           DoctrineExtensions\Query\Mysql\DateDiff
+                day:                DoctrineExtensions\Query\Mysql\Day
+                dayname:            DoctrineExtensions\Query\Mysql\DayName
+                dayofweek:          DoctrineExtensions\Query\Mysql\DayOfWeek
+                dayofyear:          DoctrineExtensions\Query\Mysql\DayOfYear
+                div:                DoctrineExtensions\Query\Mysql\Div
+                from_unixtime:      DoctrineExtensions\Query\Mysql\FromUnixtime
+                hour:               DoctrineExtensions\Query\Mysql\Hour
+                last_day:           DoctrineExtensions\Query\Mysql\LastDay
+                minute:             DoctrineExtensions\Query\Mysql\Minute
+                now:                DoctrineExtensions\Query\Mysql\Now
+                month:              DoctrineExtensions\Query\Mysql\Month
+                monthname:          DoctrineExtensions\Query\Mysql\MonthName
+                second:             DoctrineExtensions\Query\Mysql\Second
+                strtodate:          DoctrineExtensions\Query\Mysql\StrToDate
+                time:               DoctrineExtensions\Query\Mysql\Time
+                timediff:           DoctrineExtensions\Query\Mysql\TimeDiff
+                timestampadd:       DoctrineExtensions\Query\Mysql\TimestampAdd
+                timestampdiff:      DoctrineExtensions\Query\Mysql\TimestampDiff
+                timetosec:          DoctrineExtensions\Query\Mysql\TimeToSec
+                week:               DoctrineExtensions\Query\Mysql\Week
+                weekday:            DoctrineExtensions\Query\Mysql\WeekDay
+                year:               DoctrineExtensions\Query\Mysql\Year
+                yearweek:           DoctrineExtensions\Query\Mysql\YearWeek
+                unix_timestamp:     DoctrineExtensions\Query\Mysql\UnixTimestamp
 doctrine:
     orm:
         entity_managers:
             default:
                 filters:
                     softdeleteable:
-                        class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
-                        enabled: true
+                        class:      Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
+                        enabled:    true
 knp_paginator:
     page_range: 5                       # number of links showed in the pagination menu (e.g: you have 10 pages, a page_range of 3, on the 5th page you'll see links to page 4, 5, 6)
     default_options:
-        page_name: page                 # page query parameter name
-        sort_field_name: sort           # sort field query parameter name
-        sort_direction_name: direction  # sort direction query parameter name
-        distinct: true                  # ensure distinct results, useful when ORM queries are using GROUP BY statements
-        filter_field_name: filterField  # filter field query parameter name
-        filter_value_name: filterValue  # filter value query paameter name
+        page_name:                  page                 # page query parameter name
+        sort_field_name:            sort           # sort field query parameter name
+        sort_direction_name:        direction  # sort direction query parameter name
+        distinct:                   true                  # ensure distinct results, useful when ORM queries are using GROUP BY statements
+        filter_field_name:          filterField  # filter field query parameter name
+        filter_value_name:          filterValue  # filter value query paameter name
     template:
-        pagination: 'MkkSiteBundle:Templates:paginator.html.twig'     # sliding pagination controls template
-        sortable: 'MkkSiteBundle:Templates:sortable.html.twig'     # sort link template
-        filtration: 'KnpPaginatorBundle:Pagination:filtration.html.twig'  # filters template
+        pagination:                 'MkkSiteBundle:Templates:paginator.html.twig'     # sliding pagination controls template
+        sortable:                   'MkkSiteBundle:Templates:sortable.html.twig'     # sort link template
+        filtration:                 'KnpPaginatorBundle:Pagination:filtration.html.twig'  # filters template

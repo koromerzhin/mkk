@@ -43,7 +43,7 @@ class UserDatabaseListener extends LibDatabaseListener
         $uow     = $this->uow;
         $group   = $entity->getRefGroup();
         $methods = get_class_methods($group);
-        if (is_array($methods) && in_array('getUsers', $methods, TRUE)) {
+        if (is_array($methods) && in_array('getUsers', $methods)) {
             $users = $group->getUsers();
             $total = count($users) - 1;
             $group->setTotalnbuser($total);
@@ -77,7 +77,7 @@ class UserDatabaseListener extends LibDatabaseListener
             $entity->eraseCredentials();
         }
 
-        if (is_array($methods) && in_array('getUsers', $methods, TRUE)) {
+        if (is_array($methods) && in_array('getUsers', $methods)) {
             $users = $group->getUsers();
             $total = count($users);
             $group->setTotalnbuser($total);

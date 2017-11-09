@@ -129,19 +129,22 @@ export class ActifDesactif
 		let id = $(event.currentTarget).attr('data-id')
 		let url = $(event.currentTarget).attr('data-url')
 
-		if (etat === false)
+		if (url !== undefined)
 		{
-			popup = 'PopupActiver'
-			$('.BtnBoolTrueConfirm').attr('data-id', id)
-			$('.BtnBoolTrueConfirm').attr('href', url)
+			if (etat === false)
+			{
+				popup = 'PopupActiver'
+				$('.BtnBoolTrueConfirm').attr('data-id', id)
+				$('.BtnBoolTrueConfirm').attr('href', url)
+			}
+			else
+			{
+				popup = 'PopupDesactiver'
+				$('.BtnBoolFalseConfirm').attr('data-id', id)
+				$('.BtnBoolFalseConfirm').attr('href', url)
+			}
+			$('#' + popup).modal('toggle')
 		}
-		else
-		{
-			popup = 'PopupDesactiver'
-			$('.BtnBoolFalseConfirm').attr('data-id', id)
-			$('.BtnBoolFalseConfirm').attr('href', url)
-		}
-		$('#' + popup).modal('toggle')
 	}
 	constructor ()
 	{

@@ -24,6 +24,10 @@ class StandardType extends LibAbstractType
             Type\SubmitType::class
         );
         $builder->add(
+            'nom',
+            Type\TextType::class
+        );
+        $builder->add(
             'code',
             Type\TextType::class
         );

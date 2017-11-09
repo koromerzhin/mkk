@@ -26,9 +26,14 @@ class EntityGroup implements Translatable
     protected $id;
 
     /**
+     * @ORM\OneToMany(targetEntity="Action", mappedBy="refgroup", cascade={"all"})
+     */
+    protected $actions;
+
+    /**
      * @var string
      * @Gedmo\Translatable
-     * @ORM\Column(name="group_nom", type="string", length=255)
+     * @ORM\Column(name="group_nom", type="string", length=255, nullable=true)
      */
     protected $nom;
 
@@ -229,5 +234,43 @@ class EntityGroup implements Translatable
         ];
 
         return $tab;
+    }
+
+    /**
+     * Add actions.
+     *
+     * @param mixed $action entity
+     *
+     * @return self
+     */
+    public function addAction($action): self
+    {
+        $this->actions->add($action);
+
+        return $this;
+    }
+
+    /**
+     * Remove actions.
+     *
+     * @param mixed $actions Entity
+     *
+     * @return self
+     */
+    public function removeAction($actions): self
+    {
+        $this->actions->removeElement($actions);
+
+        return $this;
+    }
+
+    /**
+     * get telephones.
+     *
+     * @return mixed
+     */
+    public function getActions()
+    {
+        return $this->actions;
     }
 }

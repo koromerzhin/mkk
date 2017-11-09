@@ -26,6 +26,30 @@ trait EtablissementTrait
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add(
+            'descriptionactivite',
+            WysiwygType::class,
+            [
+                'label'    => 'Description',
+                'required' => FALSE,
+            ]
+        );
+        $builder->add(
+            'meta_description',
+            Type\TextType::class,
+            [
+                'required' => FALSE,
+                'label'    => 'Description',
+            ]
+        );
+        $builder->add(
+            'meta_keywords',
+            Type\TextType::class,
+            [
+                'required' => FALSE,
+                'label'    => 'Mots clefs',
+            ]
+        );
+        $builder->add(
             'adresses',
             Type\CollectionType::class,
             [

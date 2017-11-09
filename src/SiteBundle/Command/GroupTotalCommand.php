@@ -34,11 +34,11 @@ class GroupTotalCommand extends ContainerAwareCommandLib
         unset($input);
     }
 
-        /**
-         * indique le nombre d'utilisateur par groupe
-         *
-         * @return    void
-         */
+    /**
+     * indique le nombre d'utilisateur par groupe.
+     *
+     * @return void
+     */
     private function setTotalUser(): void
     {
         $groupManager    = $this->container->get('bdd.group_manager');
@@ -52,7 +52,7 @@ class GroupTotalCommand extends ContainerAwareCommandLib
             if ($group) {
                 $group->setTotalnbuser($total);
                 $groupManager->persist($group);
-                if (($i % $batchSize) == 0) {
+                if (0 === ($i % $batchSize)) {
                     $groupManager->flush();
                 }
             }

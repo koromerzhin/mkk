@@ -3,6 +3,7 @@
 namespace Mkk\AdminBundle\Form\Bookmark;
 
 use Mkk\SiteBundle\Lib\LibAbstractType;
+use Mkk\SiteBundle\Type\WysiwygType;
 use Symfony\Component\Form\Extension\Core\Type;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -22,6 +23,30 @@ class StandardType extends LibAbstractType
         $builder->add(
             'submit',
             Type\SubmitType::class
+        );
+        $builder->add(
+            'description',
+            WysiwygType::class,
+            [
+                'label'    => 'Description',
+                'required' => FALSE,
+            ]
+        );
+        $builder->add(
+            'meta_description',
+            Type\TextType::class,
+            [
+                'required' => FALSE,
+                'label'    => 'Description',
+            ]
+        );
+        $builder->add(
+            'meta_keywords',
+            Type\TextType::class,
+            [
+                'required' => FALSE,
+                'label'    => 'Mots clefs',
+            ]
         );
         $builder->add(
             'titre',

@@ -5,6 +5,7 @@ namespace Mkk\AdminBundle\Controller;
 use Mkk\AdminBundle\Lib\Controller\Crud\CrudList;
 use Mkk\AdminBundle\Lib\Crud;
 use Mkk\AdminBundle\Lib\LibController;
+use Mkk\SiteBundle\Service\DroitService;
 use Mkk\SiteBundle\Table\TableService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -34,6 +35,7 @@ class GroupController extends LibController
     public function __construct(ContainerInterface $container)
     {
         parent::__construct($container);
+        $this->gestionDroit();
         $groupManager = $container->get('bdd.group_manager');
         $breadcrumb   = [
             'libelle' => 'Utilisateur',
@@ -52,8 +54,27 @@ class GroupController extends LibController
         $this->crud         = $crud;
     }
 
+        /**
+         * Génére les droits pour les groupes
+         *
+         * @return    void
+         */
+    public function gestionDroit(): void
+    {
+        $this->droitService = $this->container->get(DroitService::class);
+        $this->droitService->supprimer();
+        $manager    = $this->container->get('bdd.group_manager');
+        $repository = $manager->getRepository();
+        $groups     = $repository->findAll();
+        foreach ($groups as $group) {
+            if ('superadmin' !== (string) $group->getCode()) {
+                $this->droitService->add($group);
+            }
+        }
+    }
+
     /**
-     * @Route("/delete", name="admin.group.delete")
+     * @Route("/delete", name="admin.user.group.delete")
      *
      * @return JsonResponse
      */
@@ -61,19 +82,6 @@ class GroupController extends LibController
     {
         $crudDelete = $this->crud->getDelete();
         $render     = $crudDelete->render();
-
-        return $render;
-    }
-
-    /**
-     * @Route("/vider", name="admin.group.vider")
-     *
-     * @return JsonResponse
-     */
-    public function vider(): JsonResponse
-    {
-        $crudEmpty = $this->crud->getEmpty();
-        $render    = $crudEmpty->render();
 
         return $render;
     }
@@ -89,7 +97,7 @@ class GroupController extends LibController
     {
         $crudList = $this->crud->getList();
 
-        $crudList->setDefaultSort('position');
+        $crudList->setDefaultSort('id');
         $render = $crudList->render();
 
         return $render;
@@ -125,7 +133,7 @@ class GroupController extends LibController
         $crud->addShow(
             'totalnbuser',
             [
-                'label' => 'Total Utilisateur',
+            'label' => 'Total Utilisateur',
             ]
         );
     }

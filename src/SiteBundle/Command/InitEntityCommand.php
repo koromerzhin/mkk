@@ -11,17 +11,18 @@ use Symfony\Component\Console\Output\OutputInterface;
 class InitEntityCommand extends ContainerAwareCommandLib
 {
     use NafTrait;
-            /**
-             * Commande qui l'identifie.
-             *
-             * @return void
-             */
+
+    /**
+     * Commande qui l'identifie.
+     *
+     * @return void
+     */
     protected function configure(): void
     {
         $this->setName('mkk:entity:init');
     }
 
-        /**
+    /**
      * Execution de la commande.
      *
      * @param InputInterface  $input  input
@@ -45,7 +46,7 @@ class InitEntityCommand extends ContainerAwareCommandLib
         $tab         = [];
         foreach ($namespaces as $namespace) {
             foreach ($namespace['commands'] as $command) {
-                if (substr_count($command, 'entity:init') != 0 && $command != $this->getName()) {
+                if (0 !== substr_count($command, 'entity:init') && $command !== $this->getName()) {
                     $tab[] = $command;
                 }
             }
@@ -57,9 +58,9 @@ class InitEntityCommand extends ContainerAwareCommandLib
     }
 
     /**
-     * Corrige le menu
+     * Corrige le menu.
      *
-     * @return    void
+     * @return void
      */
     private function correctionMenu(): void
     {
@@ -68,7 +69,7 @@ class InitEntityCommand extends ContainerAwareCommandLib
         $menus          = $menuRepository->findAll();
         foreach ($menus as $menu) {
             $parent = $menu->getParent();
-            if ($parent != NULL) {
+            if (NULL !== $parent) {
                 $menu->setRefMenu($parent);
                 $menu->setParent(NULL);
                 $menuManager->persistAndFlush($menu);
@@ -82,9 +83,9 @@ class InitEntityCommand extends ContainerAwareCommandLib
     }
 
     /**
-     * Corrige les parent
+     * Corrige les parent.
      *
-     * @return    void
+     * @return void
      */
     private function correctionEtablissement(): void
     {
@@ -93,7 +94,7 @@ class InitEntityCommand extends ContainerAwareCommandLib
         $etablissements       = $etablissementRepo->findBy(['refetablissement' => NULL]);
         foreach ($etablissements as $etablissement) {
             $parent = $etablissement->getParent();
-            if ($parent != NULL) {
+            if (NULL !== $parent) {
                 $etablissement->setRefEtablissement($parent);
                 $etablissementManager->persistAndFlush($etablissement);
             }
@@ -101,9 +102,9 @@ class InitEntityCommand extends ContainerAwareCommandLib
     }
 
     /**
-     * Corrige les parent
+     * Corrige les parent.
      *
-     * @return    void
+     * @return void
      */
     private function correctionCategorie(): void
     {
@@ -112,7 +113,7 @@ class InitEntityCommand extends ContainerAwareCommandLib
         $categories          = $categorieRepository->findBy(['refcategorie' => NULL]);
         foreach ($categories as $categorie) {
             $parent = $categorie->getParent();
-            if ($parent != NULL) {
+            if (NULL !== $parent) {
                 $categorie->setRefCategorie($parent);
                 $categorieManager->persistAndFlush($categorie);
             }
@@ -120,9 +121,9 @@ class InitEntityCommand extends ContainerAwareCommandLib
     }
 
     /**
-     * Corrige le total Blog pour les categories
+     * Corrige le total Blog pour les categories.
      *
-     * @return    void
+     * @return void
      */
     private function setCategorieBlog(): void
     {
@@ -139,8 +140,9 @@ class InitEntityCommand extends ContainerAwareCommandLib
     }
 
     /**
-     * Génére l'enseigne
-     * @return    void
+     * Génére l'enseigne.
+     *
+     * @return void
      */
     private function setEnseigne(): void
     {
@@ -148,7 +150,7 @@ class InitEntityCommand extends ContainerAwareCommandLib
         $etablissementEntity  = $etablissementManager->getTable();
         $etablissementRepo    = $etablissementManager->getRepository();
         $enseigne             = $etablissementRepo->findOneByType('enseigne');
-        if (! $enseigne) {
+        if (!$enseigne) {
             $enseigne = new $etablissementEntity();
             $enseigne->setType('enseigne');
             $etablissementManager->persistAndFlush($enseigne);
@@ -156,9 +158,9 @@ class InitEntityCommand extends ContainerAwareCommandLib
     }
 
     /**
-     * Génére les groupes par défault
+     * Génére les groupes par défault.
      *
-     * @return    void
+     * @return void
      */
     private function setGroup(): void
     {
@@ -166,7 +168,7 @@ class InitEntityCommand extends ContainerAwareCommandLib
         $groupRepository = $groupManager->getRepository();
         $groupEntity     = $groupManager->getTable();
         $visiteur        = $groupRepository->findOneByCode('visiteur');
-        if (! $visiteur) {
+        if (!$visiteur) {
             $group = new $groupEntity();
             $group->setCode('visiteur');
             $group->setNom('visiteur');
@@ -174,7 +176,7 @@ class InitEntityCommand extends ContainerAwareCommandLib
         }
 
         $superadmin = $groupRepository->findOneByCode('superadmin');
-        if (! $superadmin) {
+        if (!$superadmin) {
             $group = new $groupEntity();
             $group->setCode('superadmin');
             $group->setNom('superadmin');

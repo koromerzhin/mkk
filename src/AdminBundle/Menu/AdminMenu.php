@@ -30,58 +30,62 @@ class AdminMenu extends LibMenu
         $this->menu[] = [
             'libelle'  => 'Admin',
             'sousmenu' => [
-                [
-                    'libelle'  => 'Templates',
-                    'sousmenu' => [
-                        [
+                            [
+                            'libelle' => 'Droits',
+                            'url'     => 'admin.droit.index',
+                            ],
+                            [
+                            'libelle'  => 'Templates',
+                            'sousmenu' => [
+                            [
                             'libelle' => 'Liste',
                             'url'     => 'admin.templates.index',
-                        ],
-                        [
+                            ],
+                            [
                             'libelle' => 'Ajouter',
                             'url'     => 'admin.templates.form',
-                        ],
-                    ],
-                ],
-                [
-                    'libelle'  => 'Page',
-                    'sousmenu' => [
-                        [
+                            ],
+                            ],
+                            ],
+                            [
+                            'libelle'  => 'Page',
+                            'sousmenu' => [
+                            [
                             'libelle' => 'Liste',
                             'url'     => 'admin.page.index',
-                        ],
-                        [
+                            ],
+                            [
                             'libelle' => 'Ajouter',
                             'url'     => 'admin.page.form',
-                        ],
-                    ],
-                ],
-                [
-                    'libelle'  => 'Editorial',
-                    'sousmenu' => [
-                        [
+                            ],
+                            ],
+                            ],
+                            [
+                            'libelle'  => 'Editorial',
+                            'sousmenu' => [
+                            [
                             'libelle' => 'Liste',
                             'url'     => 'admin.edito.index',
-                        ],
-                        [
+                            ],
+                            [
                             'libelle' => 'Ajouter',
                             'url'     => 'admin.edito.form',
-                        ],
-                    ],
-                ],
-                [
-                    'libelle'  => 'Param',
-                    'sousmenu' => $paramMenu,
-                ],
+                            ],
+                            ],
+                            ],
+                            [
+                            'libelle'  => 'Param',
+                            'sousmenu' => $paramMenu,
+                            ],
             ],
         ];
     }
 
-        /**
-         * Génére les routes pour les paramètres
-         *
-         * @return    array
-         */
+    /**
+     * Génére les routes pour les paramètres.
+     *
+     * @return array
+     */
     private function setParamMenu(): array
     {
         $paramMenu = [
@@ -155,9 +159,9 @@ class AdminMenu extends LibMenu
             $test2      = 0 === substr_count($controller, 'Mkk');
             $test3      = 0 === substr_count($route, '.upload');
             if ($test1 && $test2 && $test3) {
-                            $paramMenu[] = [
+                $paramMenu[] = [
                                 'libelle' => "{$route}.libelle",
-                                'url' => $route
+                                'url'     => $route,
                             ];
             }
         }

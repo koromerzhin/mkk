@@ -2,7 +2,11 @@
 	<div class="tab-content">
 		{% for langue in param['languesite'] %}
 			<div role="tabpannel" class="tab-pane fade{% if langue==langueprincipal %} in active{% endif %}" id="{{ id }}-langue{{ langue }}">
-				{% set newform = setform['langue' ~ langue] %}
+				{% if langue==langueprincipal %}
+					{% set newform = setform['standard'] %}
+				{% else %}
+					{% set newform = setform['langue' ~ langue] %}
+				{% endif %}
 				{{- block(fonction) -}}
 			</div>
 		{% endfor %}
@@ -56,7 +60,7 @@
 			{{- block('languepartie') -}}
 		</div>
 	{% else %}
-		{% set newform = setform['langue' ~ langueprincipal] %}
+		{% set newform = setform['standard'] %}
 		{{- block(fonction) -}}
 	{% endif %}
 {% endblock %}

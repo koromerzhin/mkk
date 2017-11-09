@@ -33,9 +33,9 @@ class SeoCommand extends ContainerAwareCommandLib
         $data   = [];
         foreach ($routes as $name => $route) {
             $pattern = $route->getPath();
-            $test1   = 0 === substr_count($name, '_');
-            $test2   = 0 === substr_count($name, 'admin.');
-            $test3   = 0 === substr_count($name, 'scripts.');
+            $test1   = 0 === (int) substr_count($name, '_');
+            $test2   = 0 === (int) substr_count($name, 'admin.');
+            $test3   = 0 === (int) substr_count($name, 'scripts.');
             if ($test1 && $test2 && $test3) {
                 $data[$name] = $pattern;
             }

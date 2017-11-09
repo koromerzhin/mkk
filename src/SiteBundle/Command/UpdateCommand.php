@@ -10,6 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class UpdateCommand extends ContainerAwareCommandLib
 {
     const TOTALCOMMAND = 2;
+
     /**
      * Commande qui l'identifie.
      *
@@ -39,7 +40,7 @@ class UpdateCommand extends ContainerAwareCommandLib
             'mkk:entity:init',
             'mkk:correction:lien',
             'mkk:correction:telephone',
-            'mkk:correction:adresse'
+            'mkk:correction:adresse',
         ];
 
         $application = new ApplicationDescription($this->application);
@@ -47,9 +48,9 @@ class UpdateCommand extends ContainerAwareCommandLib
         foreach ($namespaces as $namespace) {
             foreach ($namespace['commands'] as $command) {
                 $tabcommand = explode(':', $command);
-                $test1      = count($tabcommand) === self::TOTALCOMMAND;
-                $test2      = $tabcommand[1] == 'update';
-                $test3      = ! in_array($command, [$this->getName(), 'translation:update']);
+                $test1      = self::TOTALCOMMAND === count($tabcommand);
+                $test2      = 'update' === $tabcommand[1];
+                $test3      = !in_array($command, [$this->getName(), 'translation:update']);
                 if ($test1 && $test2 && $test3) {
                     $tab[] = $command;
                 }

@@ -150,7 +150,7 @@ class SearchService
             if ($entity) {
                 $methods = get_class_methods($entity);
                 $this->manager->refresh($entity);
-                if (!in_array('getSearchData', $methods, TRUE)) {
+                if (!in_array('getSearchData', $methods)) {
                     $responsejson['error'] = 'Fonction getSearchData nom présent dans ' . get_class($entity);
                 } else {
                     $responsejson = $entity->getSearchData();
@@ -163,7 +163,7 @@ class SearchService
                 if ($entity) {
                     $methods = get_class_methods($entity);
                     $this->manager->refresh($entity);
-                    if (!in_array('getSearchData', $methods, TRUE)) {
+                    if (!in_array('getSearchData', $methods)) {
                         $responsejson['error'] = 'Fonction getSearchData nom présent dans ' . get_class($entity);
                     } else {
                         $responsejson[] = $entity->getSearchData();
@@ -194,7 +194,7 @@ class SearchService
         $methods                 = get_class_methods($this->repository);
         $responsejson['results'] = [];
         $responsejson['total']   = 0;
-        if (in_array($fonction, $methods, TRUE)) {
+        if (in_array($fonction, $methods)) {
             $query     = call_user_func_array([$this->repository, $fonction], $data);
             $paginator = $this->setPaginator($query);
             if (1 === $paginator->getPage() && 0 === $required) {
@@ -206,7 +206,7 @@ class SearchService
 
             foreach ($paginator as $entity) {
                 $methods = get_class_methods($entity);
-                if (!in_array('getSearchData', $methods, TRUE)) {
+                if (!in_array('getSearchData', $methods)) {
                     $responsejson['error'] = 'Fonction getSearchData nom présent dans ' . get_class($entity);
                     break;
                 }

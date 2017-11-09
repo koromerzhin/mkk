@@ -1,50 +1,50 @@
 services:
     _defaults:
-        autowire: true
-        autoconfigure: true
-        public: true
+        autowire:                        true
+        autoconfigure:                   true
+        public:                          true
     Mkk\AdminBundle\:
-        resource: "../../*"
+        resource:                        "../../*"
     mkk_admin.form.bookmark.langue:
-        class: Mkk\AdminBundle\Form\Bookmark\LangueType
+        class:                           Mkk\AdminBundle\Form\Bookmark\LangueType
     mkk_admin.form.bookmark.standard:
-        class: Mkk\AdminBundle\Form\Bookmark\StandardType
+        class:                           Mkk\AdminBundle\Form\Bookmark\StandardType
     mkk_admin.form.templates.langue:
-        class: Mkk\AdminBundle\Form\Templates\LangueType
+        class:                           Mkk\AdminBundle\Form\Templates\LangueType
     mkk_admin.form.templates.standard:
-        class: Mkk\AdminBundle\Form\Templates\StandardType
+        class:                           Mkk\AdminBundle\Form\Templates\StandardType
     mkk_admin.form.edito.langue:
-        class: Mkk\AdminBundle\Form\Edito\LangueType
+        class:                           Mkk\AdminBundle\Form\Edito\LangueType
     mkk_admin.form.edito.standard:
-        class: Mkk\AdminBundle\Form\Edito\StandardType
+        class:                           Mkk\AdminBundle\Form\Edito\StandardType
     mkk_admin.form.noteinterne.langue:
-        class: Mkk\AdminBundle\Form\Noteinterne\LangueType
+        class:                           Mkk\AdminBundle\Form\Noteinterne\LangueType
     mkk_admin.form.noteinterne.standard:
-        class: Mkk\AdminBundle\Form\Noteinterne\StandardType
+        class:                           Mkk\AdminBundle\Form\Noteinterne\StandardType
     mkk_admin.form.partenaire.langue:
-        class: Mkk\AdminBundle\Form\Partenaire\LangueType
+        class:                           Mkk\AdminBundle\Form\Partenaire\LangueType
     mkk_admin.form.partenaire.standard:
-        class: Mkk\AdminBundle\Form\Partenaire\StandardType
+        class:                           Mkk\AdminBundle\Form\Partenaire\StandardType
     mkk_admin.form.categorie.langue:
-        class: Mkk\AdminBundle\Form\Categorie\LangueType
+        class:                           Mkk\AdminBundle\Form\Categorie\LangueType
     mkk_admin.form.categorie.standard:
-        class: Mkk\AdminBundle\Form\Categorie\StandardType
+        class:                           Mkk\AdminBundle\Form\Categorie\StandardType
     mkk_admin.form.group.langue:
-        class: Mkk\AdminBundle\Form\Group\LangueType
+        class:                           Mkk\AdminBundle\Form\Group\LangueType
     mkk_admin.form.group.standard:
-        class: Mkk\AdminBundle\Form\Group\StandardType
+        class:                           Mkk\AdminBundle\Form\Group\StandardType
     mkk_admin.form.diaporama.langue:
-        class: Mkk\AdminBundle\Form\Diaporama\LangueType
+        class:                           Mkk\AdminBundle\Form\Diaporama\LangueType
     mkk_admin.form.diaporama.standard:
-        class: Mkk\AdminBundle\Form\Diaporama\StandardType
+        class:                           Mkk\AdminBundle\Form\Diaporama\StandardType
     mkk_admin.form.evenement.langue:
-        class: Mkk\AdminBundle\Form\Evenement\LangueType
+        class:                           Mkk\AdminBundle\Form\Evenement\LangueType
     mkk_admin.form.evenement.standard:
-        class: Mkk\AdminBundle\Form\Evenement\StandardType
+        class:                           Mkk\AdminBundle\Form\Evenement\StandardType
     mkk_admin.form.enseigne.langue:
-        class: Mkk\AdminBundle\Form\Enseigne\LangueType
+        class:                           Mkk\AdminBundle\Form\Enseigne\LangueType
     mkk_admin.form.enseigne.standard:
-        class: Mkk\AdminBundle\Form\Enseigne\StandardType
+        class:                           Mkk\AdminBundle\Form\Enseigne\StandardType
 #    mkk_admin.example:
-#        class: Mkk\AdminBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
+#        class:                          Mkk\AdminBundle\Example
+#        arguments:                      ["@service_id", "plain_value", "%parameter%"]

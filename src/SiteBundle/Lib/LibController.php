@@ -156,6 +156,7 @@ class LibController extends Controller
             $this->paramViews['metatags']['og:site_name'] = $this->paramViews['meta_titre'];
         }
     }
+
     /**
      * Génére les métatags par défault.
      *
@@ -170,9 +171,9 @@ class LibController extends Controller
     }
 
     /**
-     * Set
+     * Set.
      *
-     * @return    void
+     * @return void
      */
     private function setMetaUrl(): void
     {
@@ -187,9 +188,9 @@ class LibController extends Controller
     }
 
     /**
-     * Set
+     * Set.
      *
-     * @return    void
+     * @return void
      */
     private function setMetaOgTitre(): void
     {
@@ -200,9 +201,9 @@ class LibController extends Controller
     }
 
     /**
-     * Set
+     * Set.
      *
-     * @return    void
+     * @return void
      */
     private function setMetaKeywords(): void
     {
@@ -213,9 +214,9 @@ class LibController extends Controller
     }
 
     /**
-     * Set
+     * Set.
      *
-     * @return    void
+     * @return void
      */
     private function setMetaDescription(): void
     {
@@ -266,7 +267,7 @@ class LibController extends Controller
             return;
         }
 
-        if (!isset($params['seo_titre']) || 0 === $params['seo_titre']) {
+        if (!isset($params['seo_titre']) || 0 === (int) $params['seo_titre']) {
             if ('' !== $metaTitre) {
                 $metaTitre = "{$metaTitre} -";
             }

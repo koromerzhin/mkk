@@ -96,13 +96,10 @@ class CrudDelete
     public function render(): JsonResponse
     {
         $response = [];
-        $request  = $this->request;
         set_time_limit(0);
-        $post['id']        = $request->request->get('id');
-        $post['selection'] = $request->request->get('selection');
-        $response          = ['supprimer' => 0];
+        $response = ['supprimer' => 0];
         try {
-            $response = $this->tryDelete($post, $response);
+            $response = $this->tryDelete($response);
         } catch (\Exception $e) {
             $response['message'] = $e->getMessage();
 
@@ -130,7 +127,6 @@ class CrudDelete
     /**
      * Essaye de supprimer une ligne d'une table.
      *
-     * @param mixed $post         POST
      * @param mixed $responsejson Json
      *
      * @return array
@@ -138,15 +134,16 @@ class CrudDelete
      * @author
      * @copyright
      */
-    private function tryDelete($post, array $responsejson): array
+    private function tryDelete(array $responsejson): array
     {
+        $post            = $this->request->request->get('selection');
         $tableRepository = $this->manager->getRepository();
         set_time_limit(0);
         $batchSize = 5;
-        if ('' !== $post['id']) {
-            $selection = [$post['id']];
-        } elseif ('' !== $post['selection']) {
-            $selection = explode(',', $post['selection']);
+        if (0 !== substr_count(',', $post)) {
+            $selection = [$post];
+        } else {
+            $selection = explode(',', (string) $post);
         }
 
         $i = 0;

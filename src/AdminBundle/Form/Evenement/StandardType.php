@@ -32,6 +32,32 @@ class StandardType extends LibAbstractType
             Type\SubmitType::class
         );
         $builder->add(
+            'titre',
+            Type\TextType::class,
+            [
+                'label'    => 'Titre',
+                'attr'     => ['placeholder' => 'Titre'],
+                'required' => FALSE,
+            ]
+        );
+        $builder->add(
+            'description',
+            WysiwygType::class,
+            [
+                'label'    => 'Description',
+                'required' => FALSE,
+            ]
+        );
+        $builder->add(
+            'alias',
+            Type\TextType::class,
+            [
+                'label'    => 'Alias',
+                'attr'     => ['placeholder' => 'Alias'],
+                'required' => FALSE,
+            ]
+        );
+        $builder->add(
             'filevignette',
             Type\TextType::class,
             [
@@ -61,7 +87,7 @@ class StandardType extends LibAbstractType
                 'required' => FALSE,
             ]
         );
-        if (1 === $options['adresses']) {
+        if (1 === (int) $options['adresses']) {
             $builder->add(
                 'emplacementadresses',
                 Type\CollectionType::class,
@@ -88,7 +114,7 @@ class StandardType extends LibAbstractType
             );
         }
 
-        if (1 === $options['place']) {
+        if (1 === (int) $options['place']) {
             $builder->add(
                 'type',
                 Type\ChoiceType::class,

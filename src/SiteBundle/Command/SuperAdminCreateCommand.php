@@ -47,12 +47,12 @@ class SuperAdminCreateCommand extends ContainerAwareCommandLib
         $groupManager    = $this->container->get('bdd.group_manager');
         $groupRepository = $groupManager->getRepository();
         $superadmin      = $groupRepository->findoneby(['code' => 'superadmin']);
-        if (! $superadmin) {
+        if (!$superadmin) {
             return;
         }
 
         $user = $userRepository->findoneby(['username' => $username]);
-        if (! $user) {
+        if (!$user) {
             $user = new $userTable();
         }
 

@@ -133,7 +133,7 @@ class FormService
         if (NULL !== $entity) {
             $methods          = get_class_methods($entity);
             $uploadableFields = $this->annotationReader->getUploadableFields($entity);
-            if (!in_array('setUpdatedAt', $methods, TRUE) && 0 !== count($uploadableFields)) {
+            if (!in_array('setUpdatedAt', $methods) && 0 !== count($uploadableFields)) {
                 $message = 'Il manque un champs updatedAt dans ';
                 $message = $message . substr(get_class($entity), strpos(get_class($entity), 'Entity'));
                 $flashbag->add('warning', $message);
@@ -278,30 +278,36 @@ class FormService
                     $options
                 );
             } else {
-                $formService = $this->container->get($code);
+                $formService     = $this->container->get($code);
+                $langueprincipal = $this->params['langueprincipal'];
                 foreach ($this->params['languesite'] as $locale) {
-                    if ('modifier' === $this->etat && in_array('setTranslatableLocale', $methods, TRUE)) {
-                        $entity->setTranslatableLocale($locale);
-                        $this->manager->refresh($entity);
+                    $test1 = $langueprincipal !== $locale;
+                    $test2 = 'modifier' === $this->etat;
+                    $test3 = in_array('setTranslatableLocale', $methods);
+                    if ($test1 && $test2 && $test3) {
+                          $entity->setTranslatableLocale($locale);
+                          $this->manager->refresh($entity);
                     }
 
-                    $form = $this->formFactory->createNamedBuilder(
-                        'langue' . $locale,
-                        get_class($formService),
-                        $entity
-                    );
+                      $form = $this->formFactory->createNamedBuilder(
+                          'langue' . $locale,
+                          get_class($formService),
+                          $entity
+                      );
 
-                    $forms['langue' . $locale] = $form->getForm();
+                      $forms['langue' . $locale] = $form->getForm();
+                }
+
+                if ('modifier' === $this->etat) {
+                    $entity->setTranslatableLocale($this->container->get('translator')->getLocale());
+                    $this->manager->refresh($entity);
                 }
             }
         }
 
-        $newforms             = [];
-        $newforms['standard'] = $forms['standard'];
+        $newforms = [];
         foreach ($forms as $code => $form) {
-            if ('standard' !== $code) {
-                $newforms[$code] = $form;
-            }
+            $newforms[$code] = $form;
         }
 
         $this->forms = $newforms;

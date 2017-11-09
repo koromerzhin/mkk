@@ -1,0 +1,53 @@
+{% extends "MkkAdminBundle:Droit:layout.html.twig" %}
+{% block body_content %}
+	<div class="box box-solid">
+		<div class="box-body">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>
+							Route
+						</th>
+						<th>
+							Pattern
+						</th>
+						{% for group in groups %}
+							{% if group.code != "superadmin" %}
+								<th>
+									<a href="{{ path('admin.user.group.index',{'refgroup': group.id}) }}">{{ group }}</a>
+								</th>
+							{% endif %}
+						{% endfor %}
+					</tr>
+				</thead>
+				<tbody>
+					{% for route, routegroup in routes %}
+						<tr>
+							<td>
+								{{ route }}
+							</td>
+							<td>
+								{{ pattern[route] }}
+							</td>
+							{% for group in groups %}
+								{% if group.code != "superadmin" %}
+									<td>
+										{% if group.code == "visiteur" %}
+											{% if route | split("admin.") | length == 2 %}
+												{boolean}0{/boolean}
+											{% else %}
+												{boolean}{{ routegroup[group.code].etat }}|{{ path('admin.droit.actif') }}|{{ routegroup[group.code].id }}{/boolean}
+											{% endif %}
+										{% else %}
+											{boolean}{{ routegroup[group.code].etat }}|{{ path('admin.droit.actif') }}|{{ routegroup[group.code].id }}{/boolean}
+										{% endif %}
+									</td>
+								{% endif %}
+							{% endfor %}
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock %}

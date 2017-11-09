@@ -23,17 +23,6 @@ class ApiType extends LibParamType
             Type\SubmitType::class
         );
         $builder->add(
-            'filedelicious',
-            Type\TextType::class,
-            [
-                'required' => FALSE,
-                'label'    => 'Export files delicious',
-                'attr'     => [
-                    'data-upload' => 'admin.param.upload.delicious',
-                ],
-            ]
-        );
-        $builder->add(
             'disqus_url',
             Type\TextType::class,
             [
@@ -177,14 +166,6 @@ class ApiType extends LibParamType
             Type\TextType::class,
             [
                 'label'    => 'Code geonames',
-                'required' => FALSE,
-            ]
-        );
-        $builder->add(
-            'delicious_pseudo',
-            Type\TextType::class,
-            [
-                'label'    => 'pseudo',
                 'required' => FALSE,
             ]
         );

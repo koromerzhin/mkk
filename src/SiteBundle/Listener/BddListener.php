@@ -5,7 +5,7 @@ namespace Mkk\SiteBundle\Listener;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Mkk\SiteBundle\Lib\LibDatabaseListener;
 
-class DatabaseListener extends LibDatabaseListener
+class BddListener extends LibDatabaseListener
 {
     /**
      * Listener on flush.
@@ -18,7 +18,7 @@ class DatabaseListener extends LibDatabaseListener
     {
         $servicesID = $this->container->getServiceIds();
         foreach ($servicesID as $service) {
-            if (0 !== substr_count($service, "\DatabaseLister")) {
+            if (0 !== substr_count($service, "\DatabaseListener")) {
                 $listener = $this->container->get($service);
                 $listener->launch($args);
             }

@@ -4,6 +4,7 @@ namespace Mkk\AdminBundle\Form\Noteinterne;
 
 use Mkk\SiteBundle\Lib\LibAbstractType;
 use Mkk\SiteBundle\Type\OuiNonType;
+use Mkk\SiteBundle\Type\WysiwygType;
 use Symfony\Component\Form\Extension\Core\Type;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -23,6 +24,30 @@ class StandardType extends LibAbstractType
         $builder->add(
             'envoyer',
             Type\SubmitType::class
+        );
+        $builder->add(
+            'titre',
+            Type\TextType::class,
+            [
+                'required' => TRUE,
+                'label'    => 'Titre',
+            ]
+        );
+        $builder->add(
+            'lien',
+            Type\UrlType::class,
+            [
+                'required' => FALSE,
+                'label'    => 'Lien pour en savoir plus',
+            ]
+        );
+        $builder->add(
+            'contenu',
+            WysiwygType::class,
+            [
+                'label'    => 'Contenu',
+                'required' => FALSE,
+            ]
         );
         $builder->add(
             'publier',

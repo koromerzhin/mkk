@@ -12,9 +12,9 @@ use Mkk\SiteBundle\Annotation\UploadableField;
 
 class EntityUser implements UserInterface
 {
-    public const COUNTDATA13 = 13;
+    const COUNTDATA13 = 13;
 
-    public const COUNTDATA11 = 11;
+    const COUNTDATA11 = 11;
     /**
      * @var int
      *
@@ -475,7 +475,7 @@ class EntityUser implements UserInterface
      */
     public function hasRole($role): bool
     {
-        $return = in_array(strtoupper($role), $this->getRoles(), TRUE);
+        $return = in_array(strtoupper($role), $this->getRoles());
 
         return $return;
     }

@@ -175,9 +175,9 @@ class TextExtension extends LibTextExtension
         $methods = get_class_methods($row);
         $id      = ucfirst($id);
         $return  = "get{$id}";
-        if (in_array("get{$id}", $methods, TRUE)) {
+        if (in_array("get{$id}", $methods)) {
             $return = call_user_func([$row, "get{$id}"]);
-        } elseif (in_array("is{$id}", $methods, TRUE)) {
+        } elseif (in_array("is{$id}", $methods)) {
             $return = call_user_func([$row, "is{$id}"]);
         }
 

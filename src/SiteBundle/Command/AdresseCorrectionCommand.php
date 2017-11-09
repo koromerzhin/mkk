@@ -38,7 +38,7 @@ class AdresseCorrectionCommand extends ContainerAwareCommandLib
         $methods           = get_class_methods($adresse);
         $code              = 'getRef';
         foreach ($methods as $method) {
-            if (substr($method, 0, strlen($code)) == $code) {
+            if (substr($method, 0, strlen($code)) === $code) {
                 $tab[$method] = strtolower(str_replace($code, 'ref', $method));
             }
         }
@@ -46,7 +46,7 @@ class AdresseCorrectionCommand extends ContainerAwareCommandLib
         $tabsupp = [];
         foreach ($tab as $method => $field) {
             $adresses = $adresseRepository->commandFind($field);
-            if (count($adresses) != 0) {
+            if (0 !== count($adresses)) {
                 $supp    = $this->adresseVerifDoublon($adresses, $method, $tabsupp);
                 $tabsupp = array_merge($tabsupp, $supp);
             }
@@ -61,13 +61,14 @@ class AdresseCorrectionCommand extends ContainerAwareCommandLib
         unset($input);
     }
 
-        /**
-         * vérifie les doublones
-         *
-         * @param     array  $adresses adresses
-         * @param     string $field    champs
-         * @return    array
-         */
+    /**
+     * vérifie les doublones.
+     *
+     * @param array  $adresses adresses
+     * @param string $field    champs
+     *
+     * @return array
+     */
     private function adresseVerifDoublon($adresses, $field): array
     {
         $tab  = [];
@@ -78,7 +79,7 @@ class AdresseCorrectionCommand extends ContainerAwareCommandLib
             $cp      = $adresse->getCp();
             $ville   = $adresse->getVille();
             $data    = $info . ' ' . $cp . ' ' . $ville;
-            if (! isset($tab[$field][$idfield][$data])) {
+            if (!isset($tab[$field][$idfield][$data])) {
                 $tab[$field][$idfield][$data] = $adresse->getId();
             } else {
                 $supp[] = $adresse;

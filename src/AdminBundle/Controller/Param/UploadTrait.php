@@ -9,24 +9,6 @@ use Symfony\Component\HttpFoundation\Response;
 trait UploadTrait
 {
     /**
-     * @Route("/param/upload/delicious/{md5}", name="admin.param.upload.delicious")
-     *
-     * @return Response
-     */
-    public function paramDeliciousAction(): Response
-    {
-        $options = [
-            'max_number_of_files' => 1,
-            'accept_file_types'   => 'html',
-        ];
-
-        $retour   = $this->get(UploadService::class)->ajax($options);
-        $response = new Response($retour);
-
-        return $response;
-    }
-
-    /**
      * @Route("/param/upload/login/{md5}", name="admin.param.upload.login")
      *
      * @return Response

@@ -3,6 +3,7 @@
 namespace Mkk\AdminBundle\Form\Templates;
 
 use Mkk\SiteBundle\Lib\LibAbstractType;
+use Mkk\SiteBundle\Type\WysiwygType;
 use Symfony\Component\Form\Extension\Core\Type;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -38,6 +39,19 @@ class StandardType extends LibAbstractType
                     'sms'   => 'sms',
                 ],
                 'label' => 'Type',
+            ]
+        );
+        $builder->add(
+            'nom',
+            Type\TextType::class,
+            ['label' => 'Nom']
+        );
+        $builder->add(
+            'content',
+            WysiwygType::class,
+            [
+                'label'    => 'Contenu',
+                'required' => FALSE,
             ]
         );
         unset($options);

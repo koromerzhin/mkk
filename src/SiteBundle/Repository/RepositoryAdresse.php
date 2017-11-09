@@ -28,12 +28,13 @@ class RepositoryAdresse extends LibRepository
         return $query;
     }
 
-        /**
-         * Retour les lignes à modifier
-         *
-         * @param     string $field champs
-         * @return    array
-         */
+    /**
+     * Retour les lignes à modifier.
+     *
+     * @param string $field champs
+     *
+     * @return array
+     */
     public function commandFind($field): array
     {
         $code   = $this->getEntityName();

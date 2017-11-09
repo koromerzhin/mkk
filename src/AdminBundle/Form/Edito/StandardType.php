@@ -4,6 +4,7 @@ namespace Mkk\AdminBundle\Form\Edito;
 
 use Mkk\SiteBundle\Lib\LibAbstractType;
 use Mkk\SiteBundle\Type\DatePickerType;
+use Mkk\SiteBundle\Type\WysiwygType;
 use Symfony\Component\Form\Extension\Core\Type;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -23,6 +24,22 @@ class StandardType extends LibAbstractType
         $builder->add(
             'submit',
             Type\SubmitType::class
+        );
+        $builder->add(
+            'titre',
+            Type\TextType::class,
+            [
+                'label' => 'Titre',
+                'attr'  => ['placeholder' => 'Titre'],
+            ]
+        );
+        $builder->add(
+            'contenu',
+            WysiwygType::class,
+            [
+                'label'    => 'Contenu',
+                'required' => FALSE,
+            ]
         );
         $builder->add(
             'datedebut',

@@ -3,6 +3,7 @@
 namespace Mkk\AdminBundle\Form\Partenaire;
 
 use Mkk\SiteBundle\Lib\LibAbstractType;
+use Mkk\SiteBundle\Type\WysiwygType;
 use Symfony\Component\Form\Extension\Core\Type;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -22,6 +23,14 @@ class StandardType extends LibAbstractType
         $builder->add(
             'envoyer',
             Type\SubmitType::class
+        );
+        $builder->add(
+            'description',
+            WysiwygType::class,
+            [
+                'label'    => 'Description',
+                'required' => FALSE,
+            ]
         );
         $builder->add(
             'fileimage',

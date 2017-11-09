@@ -143,7 +143,11 @@ class CrudList
         $query                   = call_user_func_array([$this->repository, 'searchAdminList'], [$params]);
         $paginator               = $this->setPaginator($query);
         $translations            = $this->manager->getTranslations();
-        $this->controller->listCrud($this);
+        $methods                 = get_class_methods($this->controller);
+        if (in_array('listCrud', $methods)) {
+            $this->controller->listCrud($this);
+        }
+
         $urlNew = str_replace(['index', 'page'], 'form', $infoRoute['_route']);
         if ($this->hasRoutes($urlNew) && !$this->disableform) {
             $this->actionService->addBtnNew($urlNew);
@@ -355,11 +359,11 @@ class CrudList
         $param = $this->paramService->listing();
         $route = $this->request->get('_route');
         $limit = 50;
-        if (0 !== substr_count($route, 'admin.') && isset($param['longueurliste']) && 0 !== $param['longueurliste']) {
+        if (0 !== (int) substr_count($route, 'admin.') && isset($param['longueurliste']) && 0 !== $param['longueurliste']) {
             $limit = $param['longueurliste'];
         }
 
-        if (0 === substr_count($route, 'admin.') && isset($param['publicliste']) && 0 !== $param['publicliste']) {
+        if (0 === (int) substr_count($route, 'admin.') && isset($param['publicliste']) && 0 !== $param['publicliste']) {
             $limit = $param['publicliste'];
         }
 

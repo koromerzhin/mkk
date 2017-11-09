@@ -34,7 +34,7 @@ trait PostTrait
                     $data      = $entity->$method();
                     $code      = str_replace('get', '', $method);
                     $fonctions = get_class_methods($data);
-                    if (in_array('contains', $fonctions, TRUE)) {
+                    if (in_array('contains', $fonctions)) {
                         $originals[$code] = new ArrayCollection();
                         foreach ($entity->$method() as $data) {
                             $originals[$code]->add($data);
@@ -162,7 +162,7 @@ trait PostTrait
     {
         foreach ($entity->$methodGet() as $row) {
             $id = $row->getId();
-            if (!in_array($id, $list, TRUE)) {
+            if (!in_array($id, $list)) {
                 $entity->$methodRemove($row);
                 $row->$referenceRemove($entity);
                 $this->manager->persist($row);
@@ -231,16 +231,23 @@ trait PostTrait
     private function setPersist(Form $form): void
     {
         $entityManager = $this->container->get('bdd.menu_manager');
+        $translations  = $entityManager->getTranslations();
         $entity        = $this->entity;
         $name          = $form->getName();
         if (0 !== substr_count($name, 'langue')) {
+            $post   = $this->request->request->get($name);
             $locale = str_replace('langue', '', $name);
-            if ($locale !== $this->params['langueprincipal']) {
-                $entity->setTranslatableLocale($locale);
+            foreach ($post as $name => $val) {
+                $translations->translate($entity, $name, $locale, $val);
             }
-        }
 
-        $entityManager->persistAndFlush($entity);
+            $entity->setTranslatableLocale($this->params['langueprincipal']);
+            $entityManager->refresh($entity);
+            $entityManager->persistAndFlush($entity);
+        } else {
+            $entity->setTranslatableLocale($this->params['langueprincipal']);
+            $entityManager->persistAndFlush($entity);
+        }
     }
 
     /**
@@ -263,15 +270,18 @@ trait PostTrait
                     $flashBag->add('success', 'Sauvegarde des données');
                 }
 
-                if (in_array('setUpdatedAt', $methods, TRUE)) {
+                if (in_array('setUpdatedAt', $methods)) {
                     $this->entity->setUpdatedAt(new \DateTime());
                 }
 
                 $this->setPersist($form);
-                $this->delReference();
-                $this->setRef($form->getName());
-                if ('ajouter' === $etat) {
-                    $this->new = TRUE;
+                $name = $form->getName();
+                if (0 === substr_count($name, 'langue')) {
+                    $this->delReference();
+                    $this->setRef($form->getName());
+                    if ('ajouter' === $etat) {
+                        $this->new = TRUE;
+                    }
                 }
 
                 $this->identifier = $this->entity->getId();

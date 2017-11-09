@@ -6,15 +6,15 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 trait NafTrait
 {
-
-        /**
-         * récupére les données du fichier excel
-         *
-         * @param     OutputInterface $output  ouput
-         * @param     string          $fichier fichier
-         * @param     integer         $ligne   numero de la ligne
-         * @return    array
-         */
+    /**
+     * récupére les données du fichier excel.
+     *
+     * @param OutputInterface $output  ouput
+     * @param string          $fichier fichier
+     * @param int             $ligne   numero de la ligne
+     *
+     * @return array
+     */
     public function recuperDataXls(OutputInterface $output, $fichier, $ligne): array
     {
         $container = $this->getContainer();
@@ -41,13 +41,13 @@ trait NafTrait
         return $data;
     }
 
-
-        /**
-         * set
-         *
-         * @param     OutputInterface $output ouput
-         * @return    void
-         */
+    /**
+     * set.
+     *
+     * @param OutputInterface $output ouput
+     *
+     * @return void
+     */
     private function setInitNaf(OutputInterface $output): void
     {
         $this->setNafSection($output);
@@ -58,24 +58,25 @@ trait NafTrait
         $this->setNaf($output);
     }
 
-        /**
-         * Rempli les données
-         *
-         * @param     array  $data data
-         * @param string $nom  nom
-         * @return    void
-         */
+    /**
+     * Rempli les données.
+     *
+     * @param array  $data data
+     * @param string $nom  nom
+     *
+     * @return void
+     */
     private function remplirNafDefault($data, $nom): void
     {
         $container  = $this->getContainer();
         $manager    = $container->get('bdd.' . $nom . '_manager');
         $repository = $manager->getRepository();
         $all        = $repository->findAll();
-        if (count($all) != count($data)) {
+        if (count($all) !== count($data)) {
             foreach ($data as $row) {
-                if ($row[0] != '') {
+                if ('' !== $row[0]) {
                     $entity = $repository->findOneBy(['code' => $row[0]]);
-                    if (! $entity) {
+                    if (!$entity) {
                         $table  = $manager->getTable();
                         $entity = new $table();
                         $entity->setCode($row[0]);
@@ -87,12 +88,13 @@ trait NafTrait
         }
     }
 
-        /**
-         * set
-         *
-         * @param     OutputInterface $output ouput
-         * @return    void
-         */
+    /**
+     * set.
+     *
+     * @param OutputInterface $output ouput
+     *
+     * @return void
+     */
     private function setNafSection(OutputInterface $output): void
     {
         $fichier = 'naf2008_liste_n1';
@@ -100,12 +102,13 @@ trait NafTrait
         $this->remplirNafDefault($data, 'nafsection');
     }
 
-        /**
-         * set
-         *
-         * @param     OutputInterface $output ouput
-         * @return    void
-         */
+    /**
+     * set.
+     *
+     * @param OutputInterface $output ouput
+     *
+     * @return void
+     */
     private function setNafDivision(OutputInterface $output): void
     {
         $fichier = 'naf2008_liste_n2';
@@ -113,12 +116,13 @@ trait NafTrait
         $this->remplirNafDefault($data, 'nafdivision');
     }
 
-        /**
-         * set
-         *
-         * @param     OutputInterface $output ouput
-         * @return    void
-         */
+    /**
+     * set.
+     *
+     * @param OutputInterface $output ouput
+     *
+     * @return void
+     */
     private function setNafGroupe(OutputInterface $output): void
     {
         $fichier = 'naf2008_liste_n3';
@@ -126,12 +130,13 @@ trait NafTrait
         $this->remplirNafDefault($data, 'nafgroupe');
     }
 
-        /**
-         * set
-         *
-         * @param     OutputInterface $output ouput
-         * @return    void
-         */
+    /**
+     * set.
+     *
+     * @param OutputInterface $output ouput
+     *
+     * @return void
+     */
     private function setNafClasse(OutputInterface $output): void
     {
         $fichier = 'naf2008_liste_n4';
@@ -139,12 +144,13 @@ trait NafTrait
         $this->remplirNafDefault($data, 'nafclasse');
     }
 
-        /**
-         * set
-         *
-         * @param     OutputInterface $output ouput
-         * @return    void
-         */
+    /**
+     * set.
+     *
+     * @param OutputInterface $output ouput
+     *
+     * @return void
+     */
     private function setNafSousClasse(OutputInterface $output): void
     {
         $fichier = 'naf2008_liste_n5';
@@ -152,16 +158,17 @@ trait NafTrait
         $this->remplirNafDefault($data, 'nafsousclasse');
     }
 
-        /**
-         * set (WIP)
-         *
-         * @param     OutputInterface $output ouput
-         * @return    void
-         */
+    /**
+     * set (WIP).
+     *
+     * @param OutputInterface $output ouput
+     *
+     * @return void
+     */
     private function setNaf(OutputInterface $output): void
     {
         $fichier = 'naf2008_5_niveaux';
         $data    = $this->recuperDataXls($output, $fichier, 1);
-                unset($data);
+        unset($data);
     }
 }

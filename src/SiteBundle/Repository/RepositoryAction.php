@@ -2,6 +2,7 @@
 
 namespace Mkk\SiteBundle\Repository;
 
+use Doctrine\ORM\Query;
 use Mkk\SiteBundle\Lib\LibRepository;
 
 /**
@@ -12,4 +13,34 @@ use Mkk\SiteBundle\Lib\LibRepository;
  */
 class RepositoryAction extends LibRepository
 {
+    /**
+     * requete pour la liste d'admin.
+     *
+     * @return array
+     */
+    public function findAllRoute(): array
+    {
+        $code   = $this->getEntityName();
+        $entity = "{$this->bundle}:Action";
+        $dql    = "SELECT {$code}.route FROM {$entity} {$code} GROUP BY {$code}.route";
+        $query  = $this->getQuery($dql);
+        $result = $query->getResult();
+
+        return $result;
+    }
+
+    /**
+     * requete pour la liste d'admin.
+     *
+     * @return Query
+     */
+    public function searchAdminList(): Query
+    {
+        $code   = $this->getEntityName();
+        $entity = "{$this->bundle}:Action";
+        $dql    = "SELECT {$code} FROM {$entity} {$code}";
+        $query  = $this->getQuery($dql);
+
+        return $query;
+    }
 }

@@ -12,7 +12,7 @@ class PostService
 {
     use PostTrait;
 
-    public const RECAPTCHA_ACCESS = 3;
+    const RECAPTCHA_ACCESS = 3;
     /**
      * @var RequestStack
      */

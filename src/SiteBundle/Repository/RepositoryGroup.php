@@ -35,11 +35,11 @@ class RepositoryGroup extends LibTranslatableRepository
         return $result;
     }
 
-        /**
-         * Récupere le nombre d'utilisateur
-         *
-         * @return    array
-         */
+    /**
+     * Récupere le nombre d'utilisateur.
+     *
+     * @return array
+     */
     public function commandTotalUser(): array
     {
         $code   = $this->getEntityName();
