@@ -229,6 +229,11 @@ class CrudForm
         }
 
         if ($postService->isNew()) {
+            $methods = get_class_methods($this->controller);
+            if (in_array('addForm', $methods)) {
+                $this->controller->addForm($this->entity);
+            }
+
             $url = $this->router->generate(
                 $infoRoute['_route'],
                 [

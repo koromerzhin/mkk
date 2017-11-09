@@ -268,11 +268,12 @@ class FormService
      */
     private function creationForms($data, $options, $service, $methods, $entity, $forms): void
     {
+        $newforms = [];
         foreach ($data as $code) {
             $type = str_replace($service . '.', '', $code);
             if ('standard' === $type) {
-                $formService  = $this->container->get($code);
-                $forms[$type] = $this->formFactory->create(
+                $formService     = $this->container->get($code);
+                $newforms[$type] = $this->formFactory->create(
                     get_class($formService),
                     $entity,
                     $options
@@ -305,7 +306,6 @@ class FormService
             }
         }
 
-        $newforms = [];
         foreach ($forms as $code => $form) {
             $newforms[$code] = $form;
         }

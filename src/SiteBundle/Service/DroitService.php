@@ -110,17 +110,16 @@ class DroitService
         $this->manager->flush();
     }
 
-        /**
-         * Ajoute les droits pour le groupe
-         *
-         * @param     entity $group group
-         * @return    void
-         */
-    public function add($group): void
+    /**
+     * Avoir les nouvelles actions
+     *
+     * @param     entity $group group
+     * @return    array
+     */
+    public function newRoute($group): array
     {
-        $entityGroup = $this->manager->getTable();
-        $routes      = $this->getRoute();
-        $add         = [];
+        $routes = $this->getRoute();
+        $add    = [];
         foreach (array_keys($routes) as $route) {
             $continuer = 0;
             if ('visiteur' === $group->getCode()) {
@@ -144,7 +143,20 @@ class DroitService
             }
         }
 
-        $batchSize = 5;
+        return $add;
+    }
+
+    /**
+     * Ajoute les droits pour le groupe
+     *
+     * @param     entity $group group
+     * @return    void
+     */
+    public function add($group): void
+    {
+        $entityGroup = $this->manager->getTable();
+        $add         = $this->newRoute($group);
+        $batchSize   = 5;
         foreach ($add as $i => $row) {
             $entity = new $entityGroup();
             $entity->setRefgroup($row['refgroup']);

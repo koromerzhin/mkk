@@ -35,7 +35,6 @@ class GroupController extends LibController
     public function __construct(ContainerInterface $container)
     {
         parent::__construct($container);
-        $this->gestionDroit();
         $groupManager = $container->get('bdd.group_manager');
         $breadcrumb   = [
             'libelle' => 'Utilisateur',
@@ -52,25 +51,6 @@ class GroupController extends LibController
         $crud->setManager($groupManager);
         $this->groupManager = $groupManager;
         $this->crud         = $crud;
-    }
-
-        /**
-         * Génére les droits pour les groupes
-         *
-         * @return    void
-         */
-    public function gestionDroit(): void
-    {
-        $this->droitService = $this->container->get(DroitService::class);
-        $this->droitService->supprimer();
-        $manager    = $this->container->get('bdd.group_manager');
-        $repository = $manager->getRepository();
-        $groups     = $repository->findAll();
-        foreach ($groups as $group) {
-            if ('superadmin' !== (string) $group->getCode()) {
-                $this->droitService->add($group);
-            }
-        }
     }
 
     /**
@@ -117,6 +97,18 @@ class GroupController extends LibController
         $render = $crudForm->render();
 
         return $render;
+    }
+
+    /**
+     * Fonction à lancer quand c'est une nouvelle entité
+     *
+     * @param     entity $entity Entité
+     * @return    void
+     */
+    public function addForm($entity): void
+    {
+        $this->droitService = $this->container->get(DroitService::class);
+        $this->droitService->add($entity);
     }
 
     /**
