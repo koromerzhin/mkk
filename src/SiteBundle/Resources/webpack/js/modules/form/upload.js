@@ -68,7 +68,7 @@ export class Upload
 								{
 									let visible = $(this).is(':visible')
 
-									if (visible && $(this).attr('data-visible') === 0 && $(this).attr('data-url') !== undefined)
+									if (visible && $(this).attr('data-visible') === '0' && $(this).attr('data-url') !== undefined)
 									{
 										$(this).attr('data-visible', 1)
 										parent.uploadFile($(this).attr('id'))

@@ -19,21 +19,21 @@ trait RequestTrait
     private function aclReturn(int $error, getResponseEvent $event): void
     {
         $viderVerif = $this->verifUrlVider($event);
-        if (self::ERROR_HTTP_401 === $error && $event->getRequest()->isXmlHttpRequest()) {
-            throw new HttpException(self::ERROR_HTTP_401, 'Une authentification est nécessaire pour accéder à la ressource');
+        if ($this->isError401($error) && $event->getRequest()->isXmlHttpRequest()) {
+            throw new HttpException(401, 'Une authentification est nécessaire pour accéder à la ressource');
         }
 
-        if (self::ERROR_HTTP_401 === $error) {
+        if ($this->isError401($error)) {
             throw new AccessDeniedException('no acces');
         }
 
-        if (self::ERROR_HTTP_403 === $error || $viderVerif) {
+        if ($this->isError403($error) || $viderVerif) {
             $text = "Le serveur a compris la requête, mais refuse de l'exécuter.";
             $text = "{$text} Contrairement à l'erreur 401, s'authentifier ne fera aucune différence.";
             $text = "{$text} Sur les serveurs où l'authentification est requise,";
             $text = "{$text} cela signifie généralement que l'authentification a été acceptée mais";
             $text = "{$text} que les droits d'accès ne permettent pas au client d'accéder à la ressource";
-            throw new HttpException(self::ERROR_HTTP_403, $text);
+            throw new HttpException(403, $text);
         }
     }
 
@@ -83,7 +83,7 @@ trait RequestTrait
         }
 
         if ($group->getCode() === $superadmin->getCode()) {
-            return self::ERROR_HTTP_200;
+            return (int) 200;
         }
 
         $route         = $event->getRequest()->attributes->get('_route');
@@ -98,15 +98,15 @@ trait RequestTrait
         $action = $repository->findoneBy($search);
         if (!$action) {
             if (NULL !== $tokenStorage && $authorizationChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-                $error = ERROR_HTTP_403;
+                $error = (int) 403;
             } else {
-                $error = ERROR_HTTP_401;
+                $error = (int) 401;
             }
 
             return $error;
         }
 
-        return self::ERROR_HTTP_200;
+        return (int) 200;
     }
 
     /**

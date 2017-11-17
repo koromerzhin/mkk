@@ -129,12 +129,13 @@ trait ResponseTrait
             ];
 
             $folder = '../';
-            $file   = $folder . 'src/Mkk/SiteBundle/Resources/views/Tmpl/upload.tmpl';
+            $file   = $folder . 'vendor/koromerzhin/mkk/src/SiteBundle/Resources/views/Tmpl/upload.tmpl';
+
             if (is_file($file)) {
                 $twiguploadtmpl['upload'] = str_replace(["\n", "\t"], '', file_get_contents($file));
             }
 
-            $file = $folder . 'src/Mkk/SiteBundle/Resources/views/Tmpl/download.tmpl';
+            $file = $folder . 'vendor/koromerzhin/mkk/src/SiteBundle/Resources/views/Tmpl/download.tmpl';
             if (is_file($file)) {
                 $twiguploadtmpl['download'] = str_replace(["\n", "\t"], '', file_get_contents($file));
             }

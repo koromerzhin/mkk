@@ -32,7 +32,7 @@ export class SearchInput
 				{
 					let id = $(this).attr('id')
 
-					if (id !== idinput && !$(this).hasClass('select2-focusser') && !$(this).hasClass('select2-input'))
+					if (id !== 'user__token' && id !== idinput && !$(this).hasClass('select2-focusser') && !$(this).hasClass('select2-input') && $(this).attr('data-upload') === undefined)
 					{
 						let val = $(this).val()
 

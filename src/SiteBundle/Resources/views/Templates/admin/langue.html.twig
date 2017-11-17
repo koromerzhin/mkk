@@ -2,7 +2,7 @@
 	<div class="tab-content">
 		{% for langue in param['languesite'] %}
 			<div role="tabpannel" class="tab-pane fade{% if langue==langueprincipal %} in active{% endif %}" id="{{ id }}-langue{{ langue }}">
-				{% if langue==langueprincipal %}
+				{% if langue == langueprincipal %}
 					{% set newform = setform['standard'] %}
 				{% else %}
 					{% set newform = setform['langue' ~ langue] %}
@@ -23,10 +23,15 @@
 				<span class="NavSelect">{{ langueprincipal|language }}</span>
 			</a>
 		</li>
+		<li class="active">
+			<a class="NavLang" href="#{{ id }}-langue{{ langueprincipal }}" aria-controls="{{ id }}-langue{{ langueprincipal }}" role="tab" data-toggle="tab">{{ langueprincipal|language }}</a>
+		</li>
 		{% for langue in param['languesite'] %}
-			<li{% if langue==langueprincipal %} class="active" {% endif %}>
-				<a class="NavLang" href="#{{ id }}-langue{{ langue }}" aria-controls="{{ id }}-langue{{ langue }}" role="tab" data-toggle="tab">{{ langue|language }}</a>
-			</li>
+			{% if langue != langueprincipal %}
+				<li>
+					<a class="NavLang" href="#{{ id }}-langue{{ langue }}" aria-controls="{{ id }}-langue{{ langue }}" role="tab" data-toggle="tab">{{ langue|language }}</a>
+				</li>
+			{% endif %}
 		{% endfor %}
 	{% else %}
 		<li role="presentation" class="dropdown active">

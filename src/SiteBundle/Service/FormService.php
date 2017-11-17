@@ -255,6 +255,67 @@ class FormService
     }
 
     /**
+     * Création formulaire standard
+     *
+     * @param     array  $newforms liste des formulaire
+     * @param     string $code     nom du service
+     * @param     entity $entity   entité
+     * @param     array  $options  options pour le formulaire
+     * @return    array
+     */
+    private function createFormStandard($newforms, $code, $entity, $options): array
+    {
+        $formService          = $this->container->get($code);
+        $newforms['standard'] = $this->formFactory->create(
+            get_class($formService),
+            $entity,
+            $options
+        );
+
+        return $newforms;
+    }
+
+    /**
+     * Création formulaire langue
+     *
+     * @param     array  $forms   formulaires
+     * @param     string $code    nom du service
+     * @param     array  $methods methods de
+     *                            l'entité
+     * @param     entity $entity  entité
+     * @return    array
+     */
+    private function createFormLangue($forms, $code, $methods,$entity): array
+    {
+        $formService     = $this->container->get($code);
+        $langueprincipal = $this->params['langueprincipal'];
+        foreach ($this->params['languesite'] as $locale) {
+            $test1 = $langueprincipal !== $locale;
+            $test2 = 'modifier' === $this->etat;
+            $test3 = in_array('setTranslatableLocale', $methods);
+            if ($test1 && $test2 && $test3) {
+                $entity->setTranslatableLocale($locale);
+                $this->manager->refresh($entity);
+            }
+
+            $form = $this->formFactory->createNamedBuilder(
+                'langue' . $locale,
+                get_class($formService),
+                $entity
+            );
+
+            $forms['langue' . $locale] = $form->getForm();
+        }
+
+        if ('modifier' === $this->etat && in_array('setTranslatableLocale', $methods)) {
+            $entity->setTranslatableLocale($this->container->get('translator')->getLocale());
+            $this->manager->refresh($entity);
+        }
+
+        return $forms;
+    }
+
+    /**
      * Partie de création des formulaires.
      *
      * @param array  $data    data
@@ -269,40 +330,13 @@ class FormService
     private function creationForms($data, $options, $service, $methods, $entity, $forms): void
     {
         $newforms = [];
+        $forms    = [];
         foreach ($data as $code) {
             $type = str_replace($service . '.', '', $code);
             if ('standard' === $type) {
-                $formService     = $this->container->get($code);
-                $newforms[$type] = $this->formFactory->create(
-                    get_class($formService),
-                    $entity,
-                    $options
-                );
+                $newforms = $this->createFormStandard($newforms, $code, $entity, $options);
             } else {
-                $formService     = $this->container->get($code);
-                $langueprincipal = $this->params['langueprincipal'];
-                foreach ($this->params['languesite'] as $locale) {
-                    $test1 = $langueprincipal !== $locale;
-                    $test2 = 'modifier' === $this->etat;
-                    $test3 = in_array('setTranslatableLocale', $methods);
-                    if ($test1 && $test2 && $test3) {
-                          $entity->setTranslatableLocale($locale);
-                          $this->manager->refresh($entity);
-                    }
-
-                      $form = $this->formFactory->createNamedBuilder(
-                          'langue' . $locale,
-                          get_class($formService),
-                          $entity
-                      );
-
-                      $forms['langue' . $locale] = $form->getForm();
-                }
-
-                if ('modifier' === $this->etat) {
-                    $entity->setTranslatableLocale($this->container->get('translator')->getLocale());
-                    $this->manager->refresh($entity);
-                }
+                $forms = $this->createFormLangue($forms, $code, $methods, $entity);
             }
         }
 

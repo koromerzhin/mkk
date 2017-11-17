@@ -22,17 +22,102 @@ class RepositoryCategorie extends LibTranslatableRepository
      */
     public function searchAdminList($data = []): Query
     {
-        $entity = $this->getEntityName();
+        $entity = "{$this->bundle}:Categorie";
+        $code   = $this->getEntityName();
         $params = [];
-        $dql    = "SELECT {$entity} FROM {$this->bundle}:Categorie {$entity}";
+        $dql    = "SELECT {$code} FROM {$entity} {$code}";
         if (isset($data['type'])) {
             $type           = $data['type'];
-            $dql            = "{$dql} WHERE {$entity}.type=:type";
+            $dql            = "{$dql} WHERE {$code}.type=:type";
             $params['type'] = $type;
         }
 
         $query = $this->getQuery($dql)->setParameters($params);
 
         return $query;
+    }
+
+    /**
+     * Donne la liste des categorie blog
+     *
+     * @param     array $data data
+     * @return    Query
+     */
+    public function searchCategorieBlog($data): Query
+    {
+        $entity        = "{$this->bundle}:Categorie";
+        $code          = $this->getEntityName();
+        $dql           = "SELECT {$code} FROM {$entity} {$code}";
+        $search        = [];
+        $param         = [];
+        $search[]      = "{$code}.type=:type";
+        $param['type'] = 'blog';
+        if (isset($data['lettre'])) {
+            $lettre   = $data['lettre'];
+            $search[] = "{$code}.nom LIKE '%{$lettre}%'";
+        }
+
+        $dql    = $this->searchImplode($search, $dql);
+        $dql    = trim($dql);
+        $dql    = "{$dql} ORDER BY {$code}.nom ASC";
+        $result = $this->setSearchResult($dql, $param);
+
+        return $result;
+    }
+
+    /**
+     * Donne la liste des categorie evenement
+     *
+     * @param     array $data data
+     * @return    Query
+     */
+    public function searchCategorieEvenement($data): Query
+    {
+        $entity        = "{$this->bundle}:Categorie";
+        $code          = $this->getEntityName();
+        $dql           = "SELECT {$code} FROM {$entity} {$code}";
+        $search        = [];
+        $param         = [];
+        $search[]      = "{$code}.type=:type";
+        $param['type'] = 'evenement';
+        if (isset($data['lettre'])) {
+            $lettre   = $data['lettre'];
+            $search[] = "{$code}.nom LIKE '%{$lettre}%'";
+        }
+
+        $dql    = $this->searchImplode($search, $dql);
+        $dql    = trim($dql);
+        $dql    = "{$dql} ORDER BY {$code}.nom ASC";
+        $result = $this->setSearchResult($dql, $param);
+
+        return $result;
+    }
+
+    /**
+     * Donne la liste des categorie partenaire
+     *
+     * @param     array $data data
+     * @return    Query
+     */
+    public function searchCategoriePartenaire($data): Query
+    {
+        $entity        = "{$this->bundle}:Categorie";
+        $code          = $this->getEntityName();
+        $dql           = "SELECT {$code} FROM {$entity} {$code}";
+        $search        = [];
+        $param         = [];
+        $search[]      = "{$code}.type=:type";
+        $param['type'] = 'partenaire';
+        if (isset($data['lettre'])) {
+            $lettre   = $data['lettre'];
+            $search[] = "{$code}.nom LIKE '%{$lettre}%'";
+        }
+
+        $dql    = $this->searchImplode($search, $dql);
+        $dql    = trim($dql);
+        $dql    = "{$dql} ORDER BY {$code}.nom ASC";
+        $result = $this->setSearchResult($dql, $param);
+
+        return $result;
     }
 }

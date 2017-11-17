@@ -100,10 +100,11 @@ class GroupController extends LibController
     }
 
     /**
-     * Fonction à lancer quand c'est une nouvelle entité
+     * Fonction à lancer quand c'est une nouvelle entité.
      *
-     * @param     entity $entity Entité
-     * @return    void
+     * @param entity $entity Entité
+     *
+     * @return void
      */
     public function addForm($entity): void
     {

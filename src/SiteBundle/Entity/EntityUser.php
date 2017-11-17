@@ -808,6 +808,7 @@ class EntityUser implements UserInterface
     public function setRefGroup($refgroup): self
     {
         $this->refgroup = $refgroup;
+        return $this;
     }
 
     /**
@@ -840,6 +841,7 @@ class EntityUser implements UserInterface
     public function setEnabled($enabled): self
     {
         $this->enabled = $enabled;
+        return $this;
     }
 
     /**

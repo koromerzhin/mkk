@@ -234,6 +234,7 @@ trait PostTrait
         $translations  = $entityManager->getTranslations();
         $entity        = $this->entity;
         $name          = $form->getName();
+        $methods       = get_class_methods($entity);
         if (0 !== substr_count($name, 'langue')) {
             $post   = $this->request->request->get($name);
             $locale = str_replace('langue', '', $name);
@@ -241,11 +242,18 @@ trait PostTrait
                 $translations->translate($entity, $name, $locale, $val);
             }
 
-            $entity->setTranslatableLocale($this->params['langueprincipal']);
-            $entityManager->refresh($entity);
+            if (in_array('setTranslatableLocale', $methods)) {
+                $entity->setTranslatableLocale($this->params['langueprincipal']);
+                $entityManager->refresh($entity);
+            }
+
             $entityManager->persistAndFlush($entity);
         } else {
-            $entity->setTranslatableLocale($this->params['langueprincipal']);
+            if (in_array('setTranslatableLocale', $methods)) {
+                $entity->setTranslatableLocale($this->params['langueprincipal']);
+                $entityManager->refresh($entity);
+            }
+
             $entityManager->persistAndFlush($entity);
         }
     }

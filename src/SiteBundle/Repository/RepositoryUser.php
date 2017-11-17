@@ -51,7 +51,8 @@ class RepositoryUser extends LibTranslatableRepository implements UserLoaderInte
         if (isset($data['params_config']['group_connect'])) {
             $tabgroups = $data['params_config']['group_connect'];
             if (is_array($tabgroups) && count($tabgroups) >= 1) {
-                $search[] = "g.id IN ('" . implode("','", $tabgroups) . "')";
+                $tabgroups = implode("','", $tabgroups);
+                $search[]  = "g.id IN ('{$tabgroups}')";
             }
         }
 
@@ -108,8 +109,8 @@ class RepositoryUser extends LibTranslatableRepository implements UserLoaderInte
             return $result;
         }
 
-        $tabgroup = implode(',', $datagroup);
-        $search[] = "grp.id IN ({$tabgroup})";
+        $tabgroup = implode("','", $datagroup);
+        $search[] = "grp.id IN ('{$tabgroup}')";
         $dql      = $this->searchImplode($search, $dql);
         $query    = $this->getQuery($dql);
 

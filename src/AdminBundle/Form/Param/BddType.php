@@ -33,9 +33,11 @@ class BddType extends LibParamType
         $groupRepository = $groupManager->getRepository();
         $data            = $groupRepository->findall();
         foreach ($data as $group) {
-            $id       = $group->getId();
+            $id  = $group->getId();
+            $nom = $group->getNom();
+
             $groups[] = [
-                $id => $group->getNom(),
+                $nom => $id
             ];
         }
 

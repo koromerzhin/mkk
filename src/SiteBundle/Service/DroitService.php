@@ -46,11 +46,11 @@ class DroitService
         $this->repository   = $this->manager->getRepository();
     }
 
-        /**
-         * Donne les routes à utiliser pour les droits
-         *
-         * @return    array
-         */
+    /**
+     * Donne les routes à utiliser pour les droits.
+     *
+     * @return array
+     */
     public function getRoute(): array
     {
         $routes            = $this->router->getRouteCollection()->all();
@@ -111,10 +111,11 @@ class DroitService
     }
 
     /**
-     * Avoir les nouvelles actions
+     * Avoir les nouvelles actions.
      *
-     * @param     entity $group group
-     * @return    array
+     * @param entity $group group
+     *
+     * @return array
      */
     public function newRoute($group): array
     {
@@ -147,10 +148,11 @@ class DroitService
     }
 
     /**
-     * Ajoute les droits pour le groupe
+     * Ajoute les droits pour le groupe.
      *
-     * @param     entity $group group
-     * @return    void
+     * @param entity $group group
+     *
+     * @return void
      */
     public function add($group): void
     {

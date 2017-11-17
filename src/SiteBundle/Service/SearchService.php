@@ -126,7 +126,7 @@ class SearchService
         $token                 = $container->get('security.token_storage')->getToken();
         $data['user']          = $token->getUser();
         $data['params_config'] = $this->params;
-        if ('' !== $id) {
+        if ('' !== (string) $id) {
             $responsejson = $this->getResponseId($id);
         } else {
             $responsejson = $this->getResponseAll($fonction, $data);
@@ -244,11 +244,11 @@ class SearchService
             }
         }
 
-        if ('' !== $this->request->query->get('limit')) {
-            $limit = $this->request->query->get('limit');
+        if (0 !== (int) $this->request->query->get('limit')) {
+            $limit = (int) $this->request->query->get('limit');
         }
 
-        $page = $this->request->get('page');
+        $page = (int) $this->request->get('page');
         if ($page <= 0) {
             $page = 1;
         }

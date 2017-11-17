@@ -12,6 +12,8 @@ use Twig_Environment;
 
 class RequestListener
 {
+    const ERROR_HTTP_401 = 401;
+    const ERROR_HTTP_403 = 403;
     use RequestTrait;
     /**
      * @var ContainerInterface
@@ -44,6 +46,30 @@ class RequestListener
         $this->twig      = $container->get('twig');
         $this->params    = $container->get(ParamService::class);
         $this->router    = $container->get('router');
+    }
+
+    /**
+     * Verifie l'erreur
+     *
+     * @param     mixed $error error
+     * @return    bool
+     */
+    public function isError401($error): bool
+    {
+        $return = self::ERROR_HTTP_401 === $error;
+        return $return;
+    }
+
+    /**
+     * Verifie l'erreur
+     *
+     * @param     mixed $error error
+     * @return    bool
+     */
+    public function isError403($error): bool
+    {
+        $return = self::ERROR_HTTP_403 === $error;
+        return $return;
     }
 
     /**

@@ -61,10 +61,77 @@ class RepositoryGroup extends LibTranslatableRepository
      */
     public function searchAdminList(): Query
     {
-        $entity = $this->getEntityName();
-        $dql    = "SELECT {$entity} FROM {$this->bundle}:Group {$entity}";
+        $code   = $this->getEntityName();
+        $entity = "{$this->bundle}:Group";
+        $dql    = "SELECT {$code} FROM {$entity} {$code}";
         $query  = $this->getQuery($dql);
 
         return $query;
+    }
+
+    /**
+     * Donne la liste des groupes qui sont des contacts
+     *
+     * @param     array $data data
+     * @return    Query
+     */
+    public function searchGroupContact($data): Query
+    {
+        $code   = $this->getEntityName();
+        $entity = "{$this->bundle}:Group";
+        $dql    = "SELECT {$code} FROM {$entity} {$code}";
+        $search = [];
+        if (isset($data['lettre'])) {
+            $lettre   = $data['lettre'];
+            $search[] = "{$code}.nom LIKE '%{$lettre}%'";
+        }
+
+        if (isset($data['params_config']['group_contacts'])) {
+            $tabgroups = $data['params_config']['group_contacts'];
+            if (is_array($tabgroups) && count($tabgroups) >= 1) {
+                $tabgroups = implode("', '", $tabgroups);
+                $search[]  = "{$code}.id IN('{$$tabgroups}')";
+            }
+        }
+
+        $dql    = $this->searchImplode($search, $dql);
+        $dql    = trim($dql);
+        $dql    = "{$dql} ORDER BY {$code}.nom ASC";
+        $result = $this->setSearchResult($dql);
+
+        return $result;
+    }
+
+    /**
+     * Donne la liste des groupes qui peuvent se connecter
+     *
+     * @param     array $data data
+     * @return    Query
+     */
+    public function searchGroupConnect($data): Query
+    {
+        $code   = $this->getEntityName();
+        $entity = "{$this->bundle}:Group";
+        $dql    = "SELECT {$code} FROM {$entity} {$code}";
+        $search = [];
+        if (isset($data['lettre'])) {
+            $lettre   = $data['lettre'];
+            $search[] = "{$code}.nom LIKE '%{$lettre}%'";
+        }
+
+        if (isset($data['params_config']['group_connect'])) {
+            $tabgroups = $data['params_config']['group_connect'];
+            if (is_array($tabgroups) && count($tabgroups) >= 1) {
+                $tabgroups = implode("','", $tabgroups);
+                $search[]  = "{$code}.id IN ('{$tabgroups}')";
+            }
+        }
+
+        $dql    = $this->searchImplode($search, $dql);
+        $dql    = trim($dql);
+        $dql    = "{$dql} ORDER BY {$code}.nom ASC";
+        $result = $this->setSearchResult($dql);
+
+        return $result;
     }
 }

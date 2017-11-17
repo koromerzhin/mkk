@@ -187,6 +187,7 @@ services:
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: redirectLoginRequest }
             - { name: kernel.event_listener, event: kernel.request, method: disableRequest }
+            - { name: kernel.event_listener, event: kernel.request, method: aclRequest }
     upload.subscriber:
         class:                         Mkk\SiteBundle\Listener\UploadSubscriber
         tags:
