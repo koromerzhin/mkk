@@ -41,6 +41,7 @@ class UpdateCommand extends ContainerAwareCommandLib
             'mkk:correction:lien',
             'mkk:correction:telephone',
             'mkk:correction:adresse',
+            'mkk:droit:config',
         ];
 
         $application = new ApplicationDescription($this->application);
@@ -49,7 +50,7 @@ class UpdateCommand extends ContainerAwareCommandLib
             foreach ($namespace['commands'] as $command) {
                 $tabcommand = explode(':', $command);
                 $test1      = self::TOTALCOMMAND === count($tabcommand);
-                $test2      = 'update' === $tabcommand[1];
+                $test2      = isset($tabcommand[1]) && 'update' === (string) $tabcommand[1];
                 $test3      = !in_array($command, [$this->getName(), 'translation:update']);
                 if ($test1 && $test2 && $test3) {
                     $tab[] = $command;
@@ -58,6 +59,7 @@ class UpdateCommand extends ContainerAwareCommandLib
         }
 
         foreach ($tab as $code) {
+            $output->writeln("bin/console ${code}");
             $this->executeCommand($code, $input, $output);
         }
 
