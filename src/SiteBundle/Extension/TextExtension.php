@@ -16,6 +16,7 @@ class TextExtension extends LibTextExtension
     {
         $return = [
             new Twig_SimpleFilter('isCurrentRoute', [$this, 'isCurrentRoute']),
+            new Twig_SimpleFilter('isDateTime', [$this, 'isDateTime']),
             new Twig_SimpleFilter('language', [$this, 'language']),
             new Twig_SimpleFilter('isObject', [$this, 'isObject']),
             new Twig_SimpleFilter('isArray', [$this, 'isArray']),
@@ -76,6 +77,20 @@ class TextExtension extends LibTextExtension
         }
 
         return $text;
+    }
+
+    /**
+     * Verifie le type du champs.
+     *
+     * @param mixed $var Champs
+     *
+     * @return bool
+     */
+    public function isDateTime($var): bool
+    {
+        $return = $var instanceof \DateTime;
+
+        return $return;
     }
 
     /**

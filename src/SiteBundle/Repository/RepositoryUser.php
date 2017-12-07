@@ -84,7 +84,8 @@ class RepositoryUser extends LibTranslatableRepository implements UserLoaderInte
             return [];
         }
 
-        $type = $data['type'];
+        $type      = $data['type'];
+        $datagroup = [];
         if ('contact' === $type) {
             if (!isset($data['params_config']['group_contacts'])) {
                 $result = [];
