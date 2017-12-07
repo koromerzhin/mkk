@@ -51,8 +51,8 @@ class RequestListener
     /**
      * Verifie l'erreur
      *
-     * @param     mixed $error error
-     * @return    bool
+     * @param  mixed $error error
+     * @return bool
      */
     public function isError401($error): bool
     {
@@ -63,8 +63,8 @@ class RequestListener
     /**
      * Verifie l'erreur
      *
-     * @param     mixed $error error
-     * @return    bool
+     * @param  mixed $error error
+     * @return bool
      */
     public function isError403($error): bool
     {
@@ -75,7 +75,6 @@ class RequestListener
     /**
      * Verifie les droits utilisateurs.
      *
-     *
      * @param GetResponseEvent $event getResponseEvent
      *
      * @return void
@@ -83,6 +82,10 @@ class RequestListener
     public function aclRequest(getResponseEvent $event): void
     {
         $route          = $event->getRequest()->attributes->get('_route');
+        if ('' === (string) $route) {
+            return;
+        }
+
         $jsonVerif      = $this->verifUrlJson($event);
         $searchVerif    = $this->verifUrlSearch($event);
         $uploadVerif    = $this->verifUrlUpload($event);
@@ -112,7 +115,7 @@ class RequestListener
         $tokenStorage         = $this->container->get('security.token_storage')->getToken();
         $authorizationChecker = $this->container->get('security.authorization_checker');
         $isAuthenticated      = $authorizationChecker->isGranted('IS_AUTHENTICATED_REMEMBERED');
-        if (NULL !== $tokenStorage && $isAuthenticated && 'scripts.login' === $route) {
+        if (null !== $tokenStorage && $isAuthenticated && 'scripts.login' === $route) {
             $url = $this->router->generate('site.index');
             $event->setResponse(new RedirectResponse($url));
         }
@@ -140,12 +143,11 @@ class RequestListener
         $tokenStorage         = $this->container->get('security.token_storage')->getToken();
         $authorizationChecker = $this->container->get('security.authorization_checker');
         $isauthorized         = $authorizationChecker->isGranted('IS_AUTHENTICATED_REMEMBERED');
-        if (in_array($route, $tabroute) || (NULL !== $tokenStorage && $isauthorized)) {
+        if (in_array($route, $tabroute) || (null !== $tokenStorage && $isauthorized)) {
             return;
         }
 
         $url = (string) $this->setUrlDisableRequest($route, $disable);
-
         if ('' !== $url) {
             $redirect = new RedirectResponse($url);
             $event->setResponse($redirect);

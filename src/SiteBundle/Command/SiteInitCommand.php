@@ -55,7 +55,7 @@ class SiteInitCommand extends ContainerAwareCommandLib
         if (!$robots) {
             $robots = new $paramEntity();
             $robots->setCode('robotstxt');
-            $valeur = file_get_contents('src/Mkk/SiteBundle/Data/robots.txt');
+            $valeur = file_get_contents('vendor/koromerzhin/mkk/src/SiteBundle/Data/robots.txt');
             $robots->setValeur($valeur);
             $paramManager->persistAndFlush($robots);
         } else {

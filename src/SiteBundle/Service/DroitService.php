@@ -20,6 +20,11 @@ class DroitService
     protected $container;
 
     /**
+     * @var ParamService
+     */
+    protected $params;
+
+    /**
      * @var Router
      */
     private $router;
@@ -39,6 +44,7 @@ class DroitService
     public function __construct(ContainerInterface $container)
     {
         $this->container    = $container;
+        $this->params       = $container->get(ParamService::class);
         $this->router       = $container->get('router');
         $this->requestStack = $container->get('request_stack');
         $this->request      = $this->requestStack->getCurrentRequest();
@@ -155,6 +161,76 @@ class DroitService
      * @return void
      */
     public function add($group): void
+    {
+        $this->addAction($group);
+        $this->addWidget($group);
+    }
+
+    /**
+     * Ajoute les droits widget pour le groupe.
+     *
+     * @param entity $group group
+     *
+     * @return void
+     */
+    private function addWidget($group): void
+    {
+        $listing = $this->params->listing();
+        $widgets = $this->getWidgets();
+        $data    = [];
+        if (isset($listing['widget_show'])) {
+            $widget = $listing['widget_show'];
+        }
+
+        $groupId = $group->getId();
+        foreach ($widgets as $widget) {
+            $trouver = 0;
+            foreach ($data as $row) {
+                if ($row['group'] === $groupId && $row['widget'] === $widget) {
+                    $trouver = 1;
+                    break;
+                }
+            }
+
+            if (0 === (int) $trouver) {
+                $data[] = [
+                  'group'  => $groupId,
+                  'nom'    => '',
+                  'widget' => $widget,
+                  'etat'   => 0,
+                ];
+            }
+        }
+
+        $this->params->save('widget_show', $data);
+    }
+
+    /**
+     * Récupére la liste des widgets.
+     *
+     * @return array
+     */
+    private function getWidgets(): array
+    {
+        $tab        = [];
+        $servicesID = $this->container->getServiceIds();
+        foreach ($servicesID as $service) {
+            if (0 !== substr_count($service, "AdminBundle\Widget")) {
+                $tab[] = $service;
+            }
+        }
+
+        return $tab;
+    }
+
+    /**
+     * Ajoute les droits actions pour le groupe.
+     *
+     * @param entity $group group
+     *
+     * @return void
+     */
+    private function addAction($group): void
     {
         $entityGroup = $this->manager->getTable();
         $add         = $this->newRoute($group);

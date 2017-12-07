@@ -37,7 +37,7 @@ class BddType extends LibParamType
             $nom = $group->getNom();
 
             $groups[] = [
-                $nom => $id
+                $nom => $id,
             ];
         }
 

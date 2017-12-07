@@ -149,6 +149,10 @@ class AdminMenu extends LibMenu
                         'libelle' => 'TinyMCE',
                         'url'     => 'admin.param.tinymce',
                 ],
+                [
+                        'libelle' => 'Widget',
+                        'url'     => 'admin.param.widget',
+                ],
         ];
 
         $routes = $this->router->getRouteCollection()->all();

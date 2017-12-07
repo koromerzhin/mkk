@@ -20,7 +20,7 @@ trait NafTrait
         $container = $this->getContainer();
         $phpexcel  = $container->get('phpexcel');
         $data      = [];
-        $fichier   = 'src/Mkk/SiteBundle/Data/naf/' . $fichier . '.xls';
+        $fichier   = 'vendor/koromerzhin/mkk/src/SiteBundle/Data/naf/' . $fichier . '.xls';
         if (is_file($fichier)) {
             $phpExcelObject = $phpexcel->createPHPExcelObject($fichier);
             $sheet          = $phpExcelObject->getActiveSheet();
@@ -74,7 +74,7 @@ trait NafTrait
         $all        = $repository->findAll();
         if (count($all) !== count($data)) {
             foreach ($data as $row) {
-                if ('' !== $row[0]) {
+                if ('' !== (string) $row[0]) {
                     $entity = $repository->findOneBy(['code' => $row[0]]);
                     if (!$entity) {
                         $table  = $manager->getTable();

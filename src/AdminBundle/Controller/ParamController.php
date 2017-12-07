@@ -19,6 +19,7 @@ use Mkk\AdminBundle\Form\Param\TableaubordType;
 use Mkk\AdminBundle\Form\Param\TagType;
 use Mkk\AdminBundle\Form\Param\TinymceType;
 use Mkk\AdminBundle\Form\Param\UploadType;
+use Mkk\AdminBundle\Form\Param\WidgetType;
 use Mkk\AdminBundle\Lib\Crud;
 use Mkk\AdminBundle\Lib\LibParamController;
 use Mkk\AdminBundle\Service\ActionService;
@@ -262,6 +263,20 @@ class ParamController extends LibParamController
     {
         $this->setForm('FormParamTag', TagType::class);
         $render = $this->generate('Tag', 'MkkAdminBundle:Param:tag.html.twig');
+
+        return $render;
+    }
+
+    /**
+     * @Route("/widget", name="admin.param.widget")
+     * Action du formulaire
+     *
+     * @return Response
+     */
+    public function widget(): Response
+    {
+        $this->setForm('FormParamWidget', WidgetType::class);
+        $render = $this->generate('Widget', 'MkkAdminBundle:Param:widget.html.twig');
 
         return $render;
     }
