@@ -7,14 +7,14 @@
 			</h3>
 			<p>
 				<ul class="list-inline row">
-					{% if url['list']is defined %}
+					{% if url['list'] is defined %}
 						<li class="col-md-6 text-center">
 							<a href="{{ path(url['list']) }}" class="btn btn-tool">
 								Liste
 							</a>
 						</li>
 					{% endif %}
-					{% if url['new']is defined %}
+					{% if url['new'] is defined %}
 						<li class="col-md-6 text-center">
 							<a href="{{ path(url['new']) }}" class="btn btn-tool">
 								Ajouter
@@ -25,14 +25,14 @@
 			</p>
 		</div>
 		<div class="box-body">
-			<h4>Dernière enregistrement :</h4>
+			<h4>Dernier enregistrement :</h4>
 			<table class="table table-striped">
 				<tbody>
 					{% for row in search %}
 						<tr>
 							<td>
 								{% set href = "#" %}
-								{% if url['show']is defined %}
+								{% if url['show'] is defined %}
 									{% set href = path(url['show'], {'id': row.id}) %}
 								{% endif %}
 								<a href="{{ href }}">

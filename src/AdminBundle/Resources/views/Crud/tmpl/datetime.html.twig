@@ -1,1 +1,4 @@
-{{ val|date('U') }}
+{% set data = val | date('U') %}
+{% if data != "-62169984561" %}
+	{{ data|date('d/m/Y') }}
+{% endif %}

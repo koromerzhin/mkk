@@ -74,7 +74,7 @@ class LibController extends Controller
      *
      * @return Response
      */
-    public function render($view, array $parameters = [], ?Response $response = null): Response
+    public function render($view, array $parameters = [], ?Response $response = NULL): Response
     {
         $this->addParamViewsSite($parameters);
         $render = parent::render($view, $this->paramViews, $response);
@@ -330,7 +330,7 @@ class LibController extends Controller
         $file     = 'assets/manifest.json';
         $manifest = [];
         if (is_file($file)) {
-            $manifest = json_decode(file_get_contents($file), true);
+            $manifest = json_decode(file_get_contents($file), TRUE);
         }
 
         $this->paramViews['manifest'] = $manifest;
@@ -370,13 +370,13 @@ class LibController extends Controller
     private function addImageBackground(): void
     {
         $this->paramViews['imgaccueil'] = '';
-        $dossier = 'fichiers/login';
+        $dossier                        = 'fichiers/login';
         if (!is_dir($dossier)) {
             return;
         }
 
         $tabfichiers = glob("{$dossier}/*.*");
-        if (false !== $tabfichiers) {
+        if (FALSE !== $tabfichiers) {
             $id                             = array_rand($tabfichiers, 1);
             $imgaccueil                     = $this->generateUrl('site.index') . $tabfichiers[$id];
             $this->paramViews['imgaccueil'] = $imgaccueil;

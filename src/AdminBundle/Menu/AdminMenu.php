@@ -30,53 +30,53 @@ class AdminMenu extends LibMenu
         $this->menu[] = [
             'libelle'  => 'Admin',
             'sousmenu' => [
-                            [
-                            'libelle' => 'Droits',
-                            'url'     => 'admin.droit.index',
-                            ],
-                            [
-                            'libelle'  => 'Templates',
-                            'sousmenu' => [
-                            [
-                            'libelle' => 'Liste',
-                            'url'     => 'admin.templates.index',
-                            ],
-                            [
-                            'libelle' => 'Ajouter',
-                            'url'     => 'admin.templates.form',
-                            ],
-                            ],
-                            ],
-                            [
-                            'libelle'  => 'Page',
-                            'sousmenu' => [
-                            [
-                            'libelle' => 'Liste',
-                            'url'     => 'admin.page.index',
-                            ],
-                            [
-                            'libelle' => 'Ajouter',
-                            'url'     => 'admin.page.form',
-                            ],
-                            ],
-                            ],
-                            [
-                            'libelle'  => 'Editorial',
-                            'sousmenu' => [
-                            [
-                            'libelle' => 'Liste',
-                            'url'     => 'admin.edito.index',
-                            ],
-                            [
-                            'libelle' => 'Ajouter',
-                            'url'     => 'admin.edito.form',
-                            ],
-                            ],
-                            ],
-                            [
-                            'libelle'  => 'Param',
-                            'sousmenu' => $paramMenu,
-                            ],
+              [
+                'libelle' => 'Droits',
+                'url'     => 'admin.droit.index',
+              ],
+              [
+                'libelle'  => 'Templates',
+                'sousmenu' => [
+                  [
+                    'libelle' => 'Liste',
+                    'url'     => 'admin.templates.index',
+                  ],
+                  [
+                    'libelle' => 'Ajouter',
+                    'url'     => 'admin.templates.form',
+                  ],
+                ],
+              ],
+              [
+                'libelle'  => 'Page',
+                'sousmenu' => [
+                  [
+                  'libelle' => 'Liste',
+                  'url'     => 'admin.page.index',
+                  ],
+                  [
+                    'libelle' => 'Ajouter',
+                    'url'     => 'admin.page.form',
+                  ],
+                ],
+              ],
+              [
+                'libelle'  => 'Editorial',
+                'sousmenu' => [
+                  [
+                    'libelle' => 'Liste',
+                    'url'     => 'admin.edito.index',
+                  ],
+                  [
+                    'libelle' => 'Ajouter',
+                    'url'     => 'admin.edito.form',
+                  ],
+                ],
+              ],
+              [
+                'libelle'  => 'Param',
+                'sousmenu' => $paramMenu,
+              ],
             ],
         ];
     }

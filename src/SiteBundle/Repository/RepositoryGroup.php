@@ -70,10 +70,11 @@ class RepositoryGroup extends LibTranslatableRepository
     }
 
     /**
-     * Donne la liste des groupes qui sont des contacts
+     * Donne la liste des groupes qui sont des contacts.
      *
-     * @param     array $data data
-     * @return    Query
+     * @param array $data data
+     *
+     * @return Query
      */
     public function searchGroupContact($data): Query
     {
@@ -103,10 +104,11 @@ class RepositoryGroup extends LibTranslatableRepository
     }
 
     /**
-     * Donne la liste des groupes qui peuvent se connecter
+     * Donne la liste des groupes qui peuvent se connecter.
      *
-     * @param     array $data data
-     * @return    Query
+     * @param array $data data
+     *
+     * @return Query
      */
     public function searchGroupConnect($data): Query
     {

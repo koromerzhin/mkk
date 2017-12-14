@@ -255,13 +255,14 @@ class FormService
     }
 
     /**
-     * Création formulaire standard
+     * Création formulaire standard.
      *
-     * @param     array  $newforms liste des formulaire
-     * @param     string $code     nom du service
-     * @param     entity $entity   entité
-     * @param     array  $options  options pour le formulaire
-     * @return    array
+     * @param array  $newforms liste des formulaire
+     * @param string $code     nom du service
+     * @param entity $entity   entité
+     * @param array  $options  options pour le formulaire
+     *
+     * @return array
      */
     private function createFormStandard($newforms, $code, $entity, $options): array
     {
@@ -276,16 +277,17 @@ class FormService
     }
 
     /**
-     * Création formulaire langue
+     * Création formulaire langue.
      *
-     * @param     array  $forms   formulaires
-     * @param     string $code    nom du service
-     * @param     array  $methods methods de
-     *                            l'entité
-     * @param     entity $entity  entité
-     * @return    array
+     * @param array  $forms   formulaires
+     * @param string $code    nom du service
+     * @param array  $methods methods de
+     *                        l'entité
+     * @param entity $entity  entité
+     *
+     * @return array
      */
-    private function createFormLangue($forms, $code, $methods,$entity): array
+    private function createFormLangue($forms, $code, $methods, $entity): array
     {
         $formService     = $this->container->get($code);
         $langueprincipal = $this->params['langueprincipal'];

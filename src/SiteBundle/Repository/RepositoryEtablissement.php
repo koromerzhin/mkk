@@ -62,10 +62,11 @@ class RepositoryEtablissement extends LibTranslatableRepository
     }
 
     /**
-     * Donne la liste des etablissements sauf enseigne
+     * Donne la liste des etablissements sauf enseigne.
      *
-     * @param     array $data data
-     * @return    Query
+     * @param array $data data
+     *
+     * @return Query
      */
     public function searchEtablissementSaufEnseigne($data): Query
     {
@@ -77,7 +78,7 @@ class RepositoryEtablissement extends LibTranslatableRepository
         $param         = [];
         $search[]      = "{$code}.type!=:type";
         $param['type'] = 'enseigne';
-        if (isset($data['lettre']) && $data['lettre'] != '') {
+        if (isset($data['lettre']) && '' !== $data['lettre']) {
             $lettre   = $data['lettre'];
             $search[] = "{$code}.nom LIKE '%{$lettre}%'";
         }
@@ -101,10 +102,11 @@ class RepositoryEtablissement extends LibTranslatableRepository
     }
 
     /**
-     * Donne la liste des etablissements
+     * Donne la liste des etablissements.
      *
-     * @param     array $data data
-     * @return    Query
+     * @param array $data data
+     *
+     * @return Query
      */
     public function searchEtablissement($data): Query
     {
@@ -114,7 +116,7 @@ class RepositoryEtablissement extends LibTranslatableRepository
         $dql    = "{$dql} LEFT JOIN {$code}.refnafsousclasse n";
         $search = [];
         $param  = [];
-        if (isset($data['lettre']) && $data['lettre'] != '') {
+        if (isset($data['lettre']) && '' !== $data['lettre']) {
             $search[] = "{$code}.nom LIKE '%" . $data['lettre'] . "%'";
         }
 

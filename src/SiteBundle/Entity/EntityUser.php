@@ -13,7 +13,6 @@ use Mkk\SiteBundle\Annotation\UploadableField;
 class EntityUser implements UserInterface
 {
     const COUNTDATA13 = 13;
-
     const COUNTDATA11 = 11;
     /**
      * @var int
@@ -808,6 +807,7 @@ class EntityUser implements UserInterface
     public function setRefGroup($refgroup): self
     {
         $this->refgroup = $refgroup;
+
         return $this;
     }
 
@@ -841,6 +841,7 @@ class EntityUser implements UserInterface
     public function setEnabled($enabled): self
     {
         $this->enabled = $enabled;
+
         return $this;
     }
 
@@ -1137,7 +1138,7 @@ class EntityUser implements UserInterface
      */
     public function isContactsms(): bool
     {
-        return $this->contactsms;
+        return (bool) $this->contactsms;
     }
 
     /**
@@ -1161,7 +1162,7 @@ class EntityUser implements UserInterface
      */
     public function isContactemail(): bool
     {
-        return $this->contactemail;
+        return (bool) $this->contactemail;
     }
 
     /**

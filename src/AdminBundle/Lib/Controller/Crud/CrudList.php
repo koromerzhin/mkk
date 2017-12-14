@@ -148,26 +148,7 @@ class CrudList
             $this->controller->listCrud($this);
         }
 
-        $urlNew = str_replace(['index', 'page'], 'form', $infoRoute['_route']);
-        if ($this->hasRoutes($urlNew) && !$this->disableform) {
-            $this->actionService->addBtnNew($urlNew);
-        }
-
-        $urlDelete = str_replace(['index', 'page'], 'delete', $infoRoute['_route']);
-        if ($this->hasRoutes($urlDelete)) {
-            $this->actionService->addBtnDelete($urlDelete);
-        }
-
-        $urlVider = str_replace(['index', 'page'], 'vider', $infoRoute['_route']);
-        if ($this->hasRoutes($urlVider)) {
-            $this->actionService->addBtnVider($urlVider);
-        }
-
-        $urlPosition = str_replace(['index', 'page'], 'position', $infoRoute['_route']);
-        if ($this->hasRoutes($urlPosition)) {
-            $this->actionService->addBtnPosition($urlPosition);
-        }
-
+        $this->addRoute($infoRoute);
         $render = $this->controller->render(
             'MkkAdminBundle:Crud:list.html.twig',
             [
@@ -178,6 +159,76 @@ class CrudList
         );
 
         return $render;
+    }
+
+    /**
+     * Ajoute les routes pour le crud
+     *
+     * @param     array $infoRoute array
+     * @return    void
+     */
+    private function addRoute(array $infoRoute): void
+    {
+        $this->addRouteNew($infoRoute);
+        $this->addRouteDelete($infoRoute);
+        $this->addRouteVider($infoRoute);
+        $this->addRoutePosition($infoRoute);
+    }
+
+    /**
+     * Ajoute la route new
+     *
+     * @param     array $infoRoute array
+     * @return    void
+     */
+    private function addRouteNew($infoRoute): void
+    {
+        $urlNew = str_replace(['index', 'page'], 'form', $infoRoute['_route']);
+        if ($this->hasRoutes($urlNew) && !$this->disableform && 0 !== substr_count($urlNew, 'form')) {
+            $this->actionService->addBtnNew($urlNew);
+        }
+    }
+
+    /**
+     * Ajoute la route delete
+     *
+     * @param     array $infoRoute array
+     * @return    void
+     */
+    private function addRouteDelete($infoRoute): void
+    {
+        $urlDelete = str_replace(['index', 'page'], 'delete', $infoRoute['_route']);
+        if ($this->hasRoutes($urlDelete) && 0 !== substr_count($urlDelete, 'delete')) {
+            $this->actionService->addBtnDelete($urlDelete);
+        }
+    }
+
+    /**
+     * Ajoute la route vider
+     *
+     * @param     array $infoRoute array
+     * @return    void
+     */
+    private function addRouteVider($infoRoute): void
+    {
+        $urlVider = str_replace(['index', 'page'], 'vider', $infoRoute['_route']);
+        if ($this->hasRoutes($urlVider) && 0 !== substr_count($urlVider, 'vider')) {
+            $this->actionService->addBtnVider($urlVider);
+        }
+    }
+
+    /**
+     * Ajoute la route position
+     *
+     * @param     array $infoRoute array
+     * @return    void
+     */
+    private function addRoutePosition($infoRoute): void
+    {
+        $urlPosition = str_replace(['index', 'page'], 'position', $infoRoute['_route']);
+        if ($this->hasRoutes($urlPosition) && 0 !== substr_count($urlPosition, 'position')) {
+            $this->actionService->addBtnPosition($urlPosition);
+        }
     }
 
     /**

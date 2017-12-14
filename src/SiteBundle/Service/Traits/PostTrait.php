@@ -125,26 +125,43 @@ trait PostTrait
         }
 
         $this->manager = $this->container->get('bdd.' . $newEntity . '_manager');
-        $repository    = $this->manager->getRepository();
         $val           = $post[$champs];
         $list          = explode(',', $val);
-        if (0 === count($val)) {
+        if (!isset($post[$champs]) || !is_array($post[$champs]) || 0 === count($post[$champs])) {
             $this->supprimer($entity, $methodGet, $methodRemove);
         } else {
-            foreach ($list as $id) {
-                $data = $repository->find($id);
-                if ($data && !$entity->$methodGet()->contains($data)) {
-                    $entity->$methodAdd($data);
-                    $data->$referenceAdd($entity);
-                    $this->manager->persist($data);
-                    $this->manager->persist($entity);
-                }
-            }
+            $this->addReference($list, $entity, $methodGet, $methodAdd, $referenceAdd);
         }
 
         $this->supprimerNonPresent($entity, $methodGet, $methodRemove, $referenceRemove, $list);
 
         $this->manager->flush();
+    }
+
+    /**
+     * Ajoute une reference
+     *
+     * @param     array  $list         array
+     * @param mixed  $entity       Classe de la table a modifier
+     * @param string $methodGet    method get
+     * @param string $methodAdd    method get
+     * @param string $referenceAdd method add
+     * @return    void
+     * @author
+     * @copyright
+     */
+    private function addReference($list, $entity, $methodGet, $methodAdd, $referenceAdd): void
+    {
+        $repository = $this->manager->getRepository();
+        foreach ($list as $id) {
+            $data = $repository->find($id);
+            if ($data && !$entity->$methodGet()->contains($data)) {
+                $entity->$methodAdd($data);
+                $data->$referenceAdd($entity);
+                $this->manager->persist($data);
+                $this->manager->persist($entity);
+            }
+        }
     }
 
     /**

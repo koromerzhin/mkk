@@ -48,9 +48,9 @@ trait RequestTrait
     private function setUrlDisableRequest(string $route, bool $disable): string
     {
         $url = '';
-        if ('scripts.disable' !== $route && true === $disable) {
+        if ('scripts.disable' !== $route && TRUE === $disable) {
             $url = $this->router->generate('scripts.disable');
-        } elseif ('scripts.disable' === $route && false === $disable) {
+        } elseif ('scripts.disable' === $route && FALSE === $disable) {
             $url = $this->router->generate('site.index');
         }
 
@@ -77,7 +77,7 @@ trait RequestTrait
         $visiteur             = $visiteurEntity;
         $group                = $visiteur;
         $isauthorized         = $authorizationChecker->isGranted('IS_AUTHENTICATED_REMEMBERED');
-        if (null !== $tokenStorage && $isauthorized) {
+        if (NULL !== $tokenStorage && $isauthorized) {
             $user  = $tokenStorage->getUser();
             $group = $user->getRefGroup();
         }
@@ -97,7 +97,7 @@ trait RequestTrait
 
         $action = $repository->findoneBy($search);
         if (!$action) {
-            if (null !== $tokenStorage && $authorizationChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            if (NULL !== $tokenStorage && $authorizationChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
                 $error = (int) 403;
             } else {
                 $error = (int) 401;
@@ -119,14 +119,14 @@ trait RequestTrait
     private function verifUrlNonDroit(getResponseEvent $event): bool
     {
         $route  = $event->getRequest()->attributes->get('_route');
-        $retour = false;
+        $retour = FALSE;
         $url    = (0 !== substr_count($route, 'fos_') || 0 !== substr_count($route, 'scripts.'));
         $url    = ($url || 0 !== substr_count($route, 'scripts.'));
         $url    = ($url || 0 !== substr_count($route, '_profiler'));
         $url    = ($url || 0 !== substr_count($route, '_twig_'));
         $url    = ($url || 0 !== substr_count($route, '_wdt'));
         if ($url) {
-            $retour = true;
+            $retour = TRUE;
         }
 
         return $retour;
@@ -142,9 +142,9 @@ trait RequestTrait
     private function verifUrlJson(getResponseEvent $event): bool
     {
         $route  = $event->getRequest()->attributes->get('_route');
-        $retour = false;
+        $retour = FALSE;
         if (1 === substr_count($route, '.json.')) {
-            $retour = true;
+            $retour = TRUE;
         }
 
         return $retour;
@@ -161,18 +161,18 @@ trait RequestTrait
     {
         $container            = $this->container;
         $route                = $event->getRequest()->attributes->get('_route');
-        $retour               = false;
+        $retour               = FALSE;
         $tokenStorage         = $container->get('security.token_storage')->getToken();
         $authorizationChecker = $container->get('security.authorization_checker');
         $isAuthenticated      = $authorizationChecker->isGranted('IS_AUTHENTICATED_REMEMBERED');
-        if (substr_count($route, '.vider') && null !== $tokenStorage && $isAuthenticated) {
+        if (substr_count($route, '.vider') && NULL !== $tokenStorage && $isAuthenticated) {
             $groupManager    = $container->get('bdd.group_manager');
             $groupRepository = $groupManager->getRepository();
             $superadmin      = $groupRepository->findOneByCode('superadmin');
             $user            = $tokenStorage->getUser();
             $group           = $user->getRefGroup()->getId();
             if ($group !== $superadmin->getId()) {
-                $retour = true;
+                $retour = TRUE;
             }
         }
 
@@ -193,16 +193,16 @@ trait RequestTrait
         $groupManager         = $container->get('bdd.group_manager');
         $groupRepository      = $groupManager->getRepository();
         $visiteur             = $groupRepository->findOneByCode('visiteur');
-        $retour               = false;
+        $retour               = FALSE;
         $urlsearch            = substr_count($route, '.search.');
         $tokenStorage         = $container->get('security.token_storage')->getToken();
         $authorizationChecker = $container->get('security.authorization_checker');
         $isAuthenticated      = $authorizationChecker->isGranted('IS_AUTHENTICATED_REMEMBERED');
-        if (1 === $urlsearch && null !== $tokenStorage && $isAuthenticated) {
+        if (1 === $urlsearch && NULL !== $tokenStorage && $isAuthenticated) {
             $user  = $tokenStorage->getUser();
             $group = $user->getRefGroup()->getId();
             if ($group !== $visiteur->getId()) {
-                $retour = true;
+                $retour = TRUE;
             }
         }
 
@@ -223,15 +223,15 @@ trait RequestTrait
         $groupManager         = $container->get('bdd.group_manager');
         $groupRepository      = $groupManager->getRepository();
         $visiteur             = $groupRepository->findOneByCode('visiteur');
-        $retour               = false;
+        $retour               = FALSE;
         $urlupload            = substr_count($route, '.upload.');
         $tokenStorage         = $container->get('security.token_storage')->getToken();
         $authorizationChecker = $container->get('security.authorization_checker');
         $isAuthenticated      = $authorizationChecker->isGranted('IS_AUTHENTICATED_REMEMBERED');
-        if (1 === $urlupload && null !== $tokenStorage && $isAuthenticated) {
+        if (1 === $urlupload && NULL !== $tokenStorage && $isAuthenticated) {
             $user = $tokenStorage->getUser();
             if ($user->getRefGroup()->getId() !== $visiteur->getId()) {
-                $retour = true;
+                $retour = TRUE;
             }
         }
 

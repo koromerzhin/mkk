@@ -10,6 +10,10 @@
 			{boolean}{{ val }}{/boolean}
 		{% endif %}
 	{% else %}
-		{{ val }}
+		{% if val == "" %}
+			ERREUR DE REMPLISSAGE
+		{% else %}
+			{{ val }}
+		{% endif %}
 	{% endif %}
 </a>

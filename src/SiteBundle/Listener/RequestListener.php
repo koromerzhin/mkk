@@ -12,9 +12,9 @@ use Twig_Environment;
 
 class RequestListener
 {
+    use RequestTrait;
     const ERROR_HTTP_401 = 401;
     const ERROR_HTTP_403 = 403;
-    use RequestTrait;
     /**
      * @var ContainerInterface
      */
@@ -49,26 +49,30 @@ class RequestListener
     }
 
     /**
-     * Verifie l'erreur
+     * Verifie l'erreur.
      *
-     * @param  mixed $error error
+     * @param mixed $error error
+     *
      * @return bool
      */
     public function isError401($error): bool
     {
         $return = self::ERROR_HTTP_401 === $error;
+
         return $return;
     }
 
     /**
-     * Verifie l'erreur
+     * Verifie l'erreur.
      *
-     * @param  mixed $error error
+     * @param mixed $error error
+     *
      * @return bool
      */
     public function isError403($error): bool
     {
         $return = self::ERROR_HTTP_403 === $error;
+
         return $return;
     }
 
@@ -81,7 +85,7 @@ class RequestListener
      */
     public function aclRequest(getResponseEvent $event): void
     {
-        $route          = $event->getRequest()->attributes->get('_route');
+        $route = $event->getRequest()->attributes->get('_route');
         if ('' === (string) $route) {
             return;
         }
@@ -115,7 +119,7 @@ class RequestListener
         $tokenStorage         = $this->container->get('security.token_storage')->getToken();
         $authorizationChecker = $this->container->get('security.authorization_checker');
         $isAuthenticated      = $authorizationChecker->isGranted('IS_AUTHENTICATED_REMEMBERED');
-        if (null !== $tokenStorage && $isAuthenticated && 'scripts.login' === $route) {
+        if (NULL !== $tokenStorage && $isAuthenticated && 'scripts.login' === $route) {
             $url = $this->router->generate('site.index');
             $event->setResponse(new RedirectResponse($url));
         }
@@ -143,7 +147,7 @@ class RequestListener
         $tokenStorage         = $this->container->get('security.token_storage')->getToken();
         $authorizationChecker = $this->container->get('security.authorization_checker');
         $isauthorized         = $authorizationChecker->isGranted('IS_AUTHENTICATED_REMEMBERED');
-        if (in_array($route, $tabroute) || (null !== $tokenStorage && $isauthorized)) {
+        if (in_array($route, $tabroute) || (NULL !== $tokenStorage && $isauthorized)) {
             return;
         }
 

@@ -38,10 +38,11 @@ class RepositoryCategorie extends LibTranslatableRepository
     }
 
     /**
-     * Donne la liste des categorie blog
+     * Donne la liste des categorie blog.
      *
-     * @param     array $data data
-     * @return    Query
+     * @param array $data data
+     *
+     * @return Query
      */
     public function searchCategorieBlog($data): Query
     {
@@ -66,10 +67,11 @@ class RepositoryCategorie extends LibTranslatableRepository
     }
 
     /**
-     * Donne la liste des categorie evenement
+     * Donne la liste des categorie evenement.
      *
-     * @param     array $data data
-     * @return    Query
+     * @param array $data data
+     *
+     * @return Query
      */
     public function searchCategorieEvenement($data): Query
     {
@@ -94,10 +96,11 @@ class RepositoryCategorie extends LibTranslatableRepository
     }
 
     /**
-     * Donne la liste des categorie partenaire
+     * Donne la liste des categorie partenaire.
      *
-     * @param     array $data data
-     * @return    Query
+     * @param array $data data
+     *
+     * @return Query
      */
     public function searchCategoriePartenaire($data): Query
     {
