@@ -37,7 +37,7 @@
 	{% set datatmpl = {
 		'id': id,
 		'size': 'modal-lg',
-		'data-autoclose': false
+		'data-autoclose': 'false'
 	} %}
 	{% set datatmpl = datatmpl | merge(data) %}
 	{% set footer = block('footerboutonOk') %}
@@ -47,7 +47,7 @@
 	{% set datatmpl = {
 		'id': id,
 		'size': 'modal-lg',
-		'data-autoclose': false
+		'data-autoclose': 'false'
 	} %}
 	{% set datatmpl = datatmpl | merge(data) %}
 	{% set header = block('headerenregistrer') %}
@@ -57,7 +57,7 @@
 {% macro modalOuiNontmpl(id, header, body, data = {}) %}
 	{% set datatmpl = {
 		'id': id,
-		'data-autoclose': false
+		'data-autoclose': 'false'
 	} %}
 	{% set datatmpl = datatmpl | merge(data) %}
 	{% set footer = block('footerboutonOuiNon') %}
@@ -67,7 +67,7 @@
 	{% set datatmpl = {
 		'id': id,
 		'size': 'modal-lg',
-		'data-autoclose': false
+		'data-autoclose': 'false'
 	} %}
 	{% set datatmpl = datatmpl | merge(data) %}
 	{% include "MkkSiteBundle:Templates:modal.html.twig" with datatmpl %}
@@ -76,7 +76,7 @@
 	{% set datatmpl = {
 		'id': id,
 		'size': 'modal-lg',
-		'data-autoclose': false
+		'data-autoclose': 'false'
 	} %}
 	{% set datatmpl = datatmpl | merge(data) %}
 	{% set footer = block('footerboutonFermer') %}
