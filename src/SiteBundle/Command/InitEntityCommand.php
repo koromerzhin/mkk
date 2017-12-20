@@ -34,6 +34,7 @@ class InitEntityCommand extends ContainerAwareCommandLib
     {
         $this->initCommand();
         $output->writeln('Initialisation des entités');
+        $this->output = $output;
         $this->setInitNaf($output);
         $this->setGroup();
         $this->setEnseigne();
@@ -64,6 +65,7 @@ class InitEntityCommand extends ContainerAwareCommandLib
      */
     private function correctionMenu(): void
     {
+        $this->output->writeln('Correction du menu');
         $menuManager    = $this->container->get('bdd.menu_manager');
         $menuRepository = $menuManager->getRepository();
         $menus          = $menuRepository->findAll();
@@ -89,6 +91,7 @@ class InitEntityCommand extends ContainerAwareCommandLib
      */
     private function correctionEtablissement(): void
     {
+        $this->output->writeln('Correction des établissements');
         $etablissementManager = $this->container->get('bdd.etablissement_manager');
         $etablissementRepo    = $etablissementManager->getRepository();
         $etablissements       = $etablissementRepo->findBy(['refetablissement' => NULL]);
@@ -108,6 +111,7 @@ class InitEntityCommand extends ContainerAwareCommandLib
      */
     private function correctionCategorie(): void
     {
+        $this->output->writeln('correction des catégories');
         $categorieManager    = $this->container->get('bdd.categorie_manager');
         $categorieRepository = $categorieManager->getRepository();
         $categories          = $categorieRepository->findBy(['refcategorie' => NULL]);
@@ -127,6 +131,7 @@ class InitEntityCommand extends ContainerAwareCommandLib
      */
     private function setCategorieBlog(): void
     {
+        $this->output->writeln('Initialisation des catégories Blog');
         $categorieManager    = $this->container->get('bdd.categorie_manager');
         $categorieRepository = $categorieManager->getRepository();
         $categories          = $categorieRepository->findBy(['totalnbblog' => 0]);
@@ -146,10 +151,15 @@ class InitEntityCommand extends ContainerAwareCommandLib
      */
     private function setEnseigne(): void
     {
+        $this->output->writeln("Initialisation de l'enseigne");
         $etablissementManager = $this->container->get('bdd.etablissement_manager');
         $etablissementEntity  = $etablissementManager->getTable();
         $etablissementRepo    = $etablissementManager->getRepository();
-        $enseigne             = $etablissementRepo->findOneByType('enseigne');
+        $search               = [
+          'type' => 'enseigne',
+        ];
+
+        $enseigne = $etablissementRepo->findoneBy($search);
         if (!$enseigne) {
             $enseigne = new $etablissementEntity();
             $enseigne->setType('enseigne');
@@ -164,6 +174,7 @@ class InitEntityCommand extends ContainerAwareCommandLib
      */
     private function setGroup(): void
     {
+        $this->output->writeln('Initialisation des groupes');
         $groupManager    = $this->container->get('bdd.group_manager');
         $groupRepository = $groupManager->getRepository();
         $groupEntity     = $groupManager->getTable();

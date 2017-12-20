@@ -376,7 +376,7 @@ class LibController extends Controller
         }
 
         $tabfichiers = glob("{$dossier}/*.*");
-        if (FALSE !== $tabfichiers) {
+        if (FALSE !== (bool) $tabfichiers && is_array($tabfichiers)) {
             $id                             = array_rand($tabfichiers, 1);
             $imgaccueil                     = $this->generateUrl('site.index') . $tabfichiers[$id];
             $this->paramViews['imgaccueil'] = $imgaccueil;

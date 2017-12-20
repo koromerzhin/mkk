@@ -139,14 +139,16 @@ trait PostTrait
     }
 
     /**
-     * Ajoute une reference
+     * Ajoute une reference.
      *
-     * @param     array  $list         array
+     * @param array  $list         array
      * @param mixed  $entity       Classe de la table a modifier
      * @param string $methodGet    method get
      * @param string $methodAdd    method get
      * @param string $referenceAdd method add
-     * @return    void
+     *
+     * @return void
+     *
      * @author
      * @copyright
      */

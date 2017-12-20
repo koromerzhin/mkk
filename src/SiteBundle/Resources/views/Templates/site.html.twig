@@ -59,6 +59,7 @@
 		{% if manifest[tmplwebpack ~ '.css']is defined %}
 			<link type="text/css" rel="stylesheet" href="{{ asset('assets/'~manifest[tmplwebpack~'.css']) }}" media="all" />
 		{% endif %}
+		{% block stylesheets %}{% endblock %}
 		{% set tmplJs = [] %}
 		{% if tmplwebpack!="admin" and param['google_analytic'] is defined and param['google_analytic'] !="" and app.getEnvironment != "dev" %}
 			<script type="application/javascript" async src="https://www.googletagmanager.com/gtag/js?id={{ param['google_analytic'] }}"></script>

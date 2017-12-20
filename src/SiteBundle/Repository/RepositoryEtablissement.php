@@ -53,7 +53,7 @@ class RepositoryEtablissement extends LibTranslatableRepository
     {
         $code   = $this->getEntityName();
         $entity = "{$this->bundle}:Etablissement";
-        $dql    = "SELECT {$code} FROM {$entity} {$code} WHERE {$code}.type!='enseigne' ORDER BY {$code}.id desc";
+        $dql    = "SELECT {$code}.id,{$code}.nom AS libelle FROM {$entity} {$code} WHERE {$code}.type!='enseigne' ORDER BY {$code}.id desc";
         $query  = $this->getQuery($dql);
         $query->setMaxResults(5);
         $result = $query->getResult();

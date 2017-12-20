@@ -46,10 +46,11 @@ abstract class LibMenu
     }
 
     /**
-     * Verifie les droits pour le menu
+     * Verifie les droits pour le menu.
      *
-     * @param     array $menus data
-     * @return    array
+     * @param array $menus data
+     *
+     * @return array
      */
     private function verifDroit(array $menus): array
     {
@@ -73,10 +74,11 @@ abstract class LibMenu
     }
 
     /**
-     * Verifie le droit de la route
+     * Verifie le droit de la route.
      *
-     * @param     string $url route
-     * @return    bool
+     * @param string $url route
+     *
+     * @return bool
      */
     private function isDroit(string $url): bool
     {
