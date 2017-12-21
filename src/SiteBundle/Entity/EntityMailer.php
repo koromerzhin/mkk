@@ -55,7 +55,7 @@ class EntityMailer
     /**
      * @var string
      *
-     * @ORM\Column(name="mailer_body", type="string", length=255)
+     * @ORM\Column(name="mailer_body", type="text", nullable=true)
      */
     protected $body;
 
