@@ -286,7 +286,7 @@ class CrudList
      */
     private function addRouteNew($infoRoute): void
     {
-        $urlNew = str_replace(['index', 'page'], 'form', $infoRoute['_route']);
+        $urlNew = str_replace('index', 'form', $infoRoute['_route']);
         if ($this->hasRoutes($urlNew) && !$this->disableform && 0 !== substr_count($urlNew, 'form')) {
             $this->actionService->addBtnNew($urlNew);
         }
@@ -301,7 +301,7 @@ class CrudList
      */
     private function addRouteDelete($infoRoute): void
     {
-        $urlDelete = str_replace(['index', 'page'], 'delete', $infoRoute['_route']);
+        $urlDelete = str_replace('index', 'delete', $infoRoute['_route']);
         if ($this->hasRoutes($urlDelete) && 0 !== substr_count($urlDelete, 'delete')) {
             $this->actionService->addBtnDelete($urlDelete);
         }
@@ -316,7 +316,7 @@ class CrudList
      */
     private function addRouteVider($infoRoute): void
     {
-        $urlVider = str_replace(['index', 'page'], 'vider', $infoRoute['_route']);
+        $urlVider = str_replace('index', 'vider', $infoRoute['_route']);
         if ($this->hasRoutes($urlVider) && 0 !== substr_count($urlVider, 'vider')) {
             $this->actionService->addBtnVider($urlVider);
         }
@@ -331,7 +331,7 @@ class CrudList
      */
     private function addRoutePosition($infoRoute): void
     {
-        $urlPosition = str_replace(['index', 'page'], 'position', $infoRoute['_route']);
+        $urlPosition = str_replace('index', 'position', $infoRoute['_route']);
         if ($this->hasRoutes($urlPosition) && 0 !== substr_count($urlPosition, 'position')) {
             $this->actionService->addBtnPosition($urlPosition);
         }

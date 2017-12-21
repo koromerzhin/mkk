@@ -1,4 +1,4 @@
-{% set url = app.request.attributes.get('_route') | replace({"index": "form", "page": "form"}) %}
+{% set url = app.request.attributes.get('_route') | replace({"index": "form"}) %}
 {% if a.url is defined %}
 	{% set url = a.url %}
 {% endif %}

@@ -118,8 +118,7 @@ class PageController extends LibController
      */
     public function listCrud(CrudList $crud): void
     {
-        $crud->addShowIdentifier('nom');
-        $crud->addShow('type');
-        $crud->addShow('code');
+        $crud->addShowIdentifier('titre');
+        $crud->addShow('url');
     }
 }

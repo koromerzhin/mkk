@@ -15,6 +15,7 @@ class TextExtension extends LibTextExtension
     public function getFilters(): array
     {
         $return = [
+            new Twig_SimpleFilter('findTranslations', [$this, 'findTranslations']),
             new Twig_SimpleFilter('isCurrentRoute', [$this, 'isCurrentRoute']),
             new Twig_SimpleFilter('isDateTime', [$this, 'isDateTime']),
             new Twig_SimpleFilter('language', [$this, 'language']),
@@ -32,6 +33,20 @@ class TextExtension extends LibTextExtension
         ];
 
         return $return;
+    }
+
+    /**
+     * Récupére les traductions de l'entité
+     *
+     * @param     mixed $entity       entité
+     * @param     midex $translations translations
+     * @return    mixed
+     */
+    public function findTranslations($entity, $translations)
+    {
+        $tab = $translations->findTranslations($entity);
+
+        return $tab;
     }
 
     /**
