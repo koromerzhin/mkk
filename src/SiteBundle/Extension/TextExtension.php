@@ -36,11 +36,12 @@ class TextExtension extends LibTextExtension
     }
 
     /**
-     * Récupére les traductions de l'entité
+     * Récupére les traductions de l'entité.
      *
-     * @param     mixed $entity       entité
-     * @param     midex $translations translations
-     * @return    mixed
+     * @param mixed $entity       entité
+     * @param midex $translations translations
+     *
+     * @return mixed
      */
     public function findTranslations($entity, $translations)
     {

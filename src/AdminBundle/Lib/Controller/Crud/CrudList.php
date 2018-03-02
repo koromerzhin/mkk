@@ -273,6 +273,7 @@ class CrudList
     {
         $this->addRouteNew($infoRoute);
         $this->addRouteDelete($infoRoute);
+        $this->addRouteExport($infoRoute);
         $this->addRouteVider($infoRoute);
         $this->addRoutePosition($infoRoute);
     }
@@ -304,6 +305,21 @@ class CrudList
         $urlDelete = str_replace('index', 'delete', $infoRoute['_route']);
         if ($this->hasRoutes($urlDelete) && 0 !== substr_count($urlDelete, 'delete')) {
             $this->actionService->addBtnDelete($urlDelete);
+        }
+    }
+
+    /**
+     * Ajoute la route export.
+     *
+     * @param array $infoRoute array
+     *
+     * @return void
+     */
+    private function addRouteExport($infoRoute): void
+    {
+        $urlExport = str_replace('index', 'export', $infoRoute['_route']);
+        if ($this->hasRoutes($urlExport) && 0 !== substr_count($urlExport, 'export')) {
+            $this->actionService->addBtnExport($urlExport);
         }
     }
 

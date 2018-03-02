@@ -101,24 +101,19 @@ class CrudEmpty
     public function render(): JsonResponse
     {
         $response  = [];
-        $container = $this->container;
         $entity    = $this->table;
-        if ($container->has("bdd.{$entity}_manager")) {
-            $tableManager    = $container->get("bdd.{$entity}_manager");
-            $tableRepository = $tableManager->getRepository();
-            $batchSize       = 25;
-            $response        = ['vider' => 1];
-            set_time_limit(0);
-            $entities = $tableRepository->findall();
-            foreach ($entities as $i => $entity) {
-                $tableManager->remove($entity);
-                if (0 === ($i % $batchSize)) {
-                    $tableManager->flush();
-                }
+        $batchSize = 25;
+        $response  = ['vider' => 1];
+        set_time_limit(0);
+        $entities = $this->repository->findall();
+        foreach ($entities as $i => $entity) {
+            $tableManager->remove($entity);
+            if (0 === ($i % $batchSize)) {
+                $tableManager->flush();
             }
-
-            $tableManager->flush();
         }
+
+        $tableManager->flush();
 
         $json = new JsonResponse($response);
 

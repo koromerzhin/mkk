@@ -193,6 +193,24 @@ class ActionService
     }
 
     /**
+     * Génère le bouton Export.
+     *
+     * @param string $url url
+     *
+     * @return void
+     */
+    public function addBtnExport(string $url): void
+    {
+        $actions = [
+            'id'   => 'BoutonExport',
+            'text' => 'Export',
+            'img'  => 'glyphicon-share',
+            'url'  => $url,
+        ];
+        $this->add($actions);
+    }
+
+    /**
      * Génère le bouton Supprimer.
      *
      * @param string $url url

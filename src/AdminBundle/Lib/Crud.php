@@ -5,6 +5,7 @@ namespace Mkk\AdminBundle\Lib;
 use Mkk\AdminBundle\Lib\Controller\Crud\CrudBoolean;
 use Mkk\AdminBundle\Lib\Controller\Crud\CrudDelete;
 use Mkk\AdminBundle\Lib\Controller\Crud\CrudEmpty;
+use Mkk\AdminBundle\Lib\Controller\Crud\CrudExport;
 use Mkk\AdminBundle\Lib\Controller\Crud\CrudForm;
 use Mkk\AdminBundle\Lib\Controller\Crud\CrudList;
 use Mkk\AdminBundle\Lib\Controller\Crud\CrudPosition;
@@ -52,6 +53,11 @@ class Crud
     private $list;
 
     /**
+     * @var CrudExport
+     */
+    private $export;
+
+    /**
      * @var CrudPosition
      */
     private $position;
@@ -75,6 +81,7 @@ class Crud
         $this->form      = $container->get(CrudForm::class);
         $this->show      = $container->get(CrudShow::class);
         $this->list      = $container->get(CrudList::class);
+        $this->export    = $container->get(CrudExport::class);
         $this->position  = $container->get(CrudPosition::class);
     }
 
@@ -134,6 +141,18 @@ class Crud
     public function getForm(): CrudForm
     {
         $return = $this->initReturn($this->form);
+
+        return $return;
+    }
+
+    /**
+     * getList.
+     *
+     * @return CrudExport
+     */
+    public function getExport(): CrudExport
+    {
+        $return = $this->initReturn($this->export);
 
         return $return;
     }
