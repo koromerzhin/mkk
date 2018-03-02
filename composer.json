@@ -19,6 +19,7 @@
         "sort-packages": true
     },
     "require": {
+        "phpoffice/phpspreadsheet": "^1.1",
         "phpro/grumphp": "^0.12.0"
     },
     "require-dev": {
