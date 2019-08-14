@@ -27,7 +27,7 @@
         "jakub-onderka/php-parallel-lint": "1.0.0",
         "phpmd/phpmd": "2.7.0",
         "phpstan/phpstan": "0.11.13",
-        "phpunit/phpunit": "6.5.14",
+        "phpunit/phpunit": "8.3.4",
         "povils/phpmnd": "1.1.1",
         "sebastian/phpcpd": "3.0.1",
         "sebastian/phpdcd": "1.0.2",
