@@ -28,7 +28,7 @@
         "phpmd/phpmd": "2.7.0",
         "phpstan/phpstan": "0.11.13",
         "phpunit/phpunit": "6.5.14",
-        "povils/phpmnd": "1.1.1",
+        "povils/phpmnd": "2.1.0",
         "sebastian/phpcpd": "3.0.1",
         "sebastian/phpdcd": "1.0.2",
         "sensiolabs/security-checker": "4.1.8",
