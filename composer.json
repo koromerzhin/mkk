@@ -23,15 +23,15 @@
         "phpro/grumphp": "^0.15.0"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^2.8",
-        "jakub-onderka/php-parallel-lint": "^0.9.2",
-        "phpmd/phpmd": "^2.6",
-        "phpstan/phpstan": "^0.8.5",
-        "phpunit/phpunit": "^6.4",
-        "povils/phpmnd": "^1.1",
-        "sebastian/phpcpd": "^3.0",
-        "sebastian/phpdcd": "^1.0",
-        "sensiolabs/security-checker": "^4.1",
+        "friendsofphp/php-cs-fixer": "2.15.1",
+        "jakub-onderka/php-parallel-lint": "0.9.2",
+        "phpmd/phpmd": "2.7.0",
+        "phpstan/phpstan": "0.8.5",
+        "phpunit/phpunit": "6.5.14",
+        "povils/phpmnd": "1.1.1",
+        "sebastian/phpcpd": "3.0.1",
+        "sebastian/phpdcd": "1.0.2",
+        "sensiolabs/security-checker": "4.1.8",
         "squizlabs/PHP_CodeSniffer": "^3.1"
     }
 }
