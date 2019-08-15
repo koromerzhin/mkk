@@ -31,7 +31,7 @@
         "povils/phpmnd": "2.1.0",
         "sebastian/phpcpd": "3.0.1",
         "sebastian/phpdcd": "1.0.2",
-        "sensiolabs/security-checker": "4.1.8",
+        "sensiolabs/security-checker": "6.0.2",
         "squizlabs/PHP_CodeSniffer": "^3.1"
     }
 }
